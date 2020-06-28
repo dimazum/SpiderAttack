@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,10 +12,12 @@ public enum CharState
     IdleBlink
 }
 
+
 public class MoveManager : MonoBehaviour
 {
     public Text text;
 
+    
 
 
     private Rigidbody2D rb;
@@ -174,13 +177,14 @@ public class MoveManager : MonoBehaviour
         {
             BlockGroundDefault blockGroundDefault = currentblock.GetComponent<BlockGroundDefault>();
             blockGroundDefault?.Hit();
-            count1++;
-            if (count1 % 4 == 0)
+
+            if (blockGroundDefault != null)
             {
-                count++;
-                text.text = count.ToString();
+                blockGroundDefault.Notify += message => { count++; };
             }
-            
+            count1 = count/3;
+            text.text = count1.ToString();
+
         }
     }
 

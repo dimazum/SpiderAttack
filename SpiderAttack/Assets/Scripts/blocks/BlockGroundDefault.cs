@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class BlockGroundDefault : MonoBehaviour
 {
+
+    public delegate void AccountHandler(string message);
+    public event AccountHandler Notify;
+
+
     public byte crackCount;
     private Sprite[] sprites;
     private Sprite downSpike;
@@ -36,9 +41,12 @@ public class BlockGroundDefault : MonoBehaviour
 
     private void SetDeadState()
     {
+        Notify?.Invoke("hi");
+
         gameObject.layer = deadLayer;
         gameObject.GetComponent<SpriteRenderer>().sprite = SpriteData.Instance.blockBackground[0];//set background instead of ground
         transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = null;//remove cracks
+
     }
 
     //SetSpikesToBlock();
