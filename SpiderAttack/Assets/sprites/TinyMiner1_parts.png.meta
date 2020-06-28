@@ -1,0 +1,939 @@
+fileFormatVersion: 2
+guid: f65a7ae3aeb4b5f42a01b64c72d5f49b
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: TinyMiner1_parts_0
+    21300002: TinyMiner1_parts_1
+    21300004: TinyMiner1_parts_2
+    21300006: TinyMiner1_parts_3
+    21300008: TinyMiner1_parts_4
+    21300010: TinyMiner1_parts_5
+    21300012: TinyMiner1_parts_6
+    21300014: TinyMiner1_parts_7
+    21300016: TinyMiner1_parts_8
+    21300018: TinyMiner1_parts_9
+    21300020: TinyMiner1_parts_10
+    21300022: TinyMiner1_parts_11
+    21300024: TinyMiner1_parts_12
+    21300026: TinyMiner1_parts_13
+    21300028: TinyMiner1_parts_14
+    21300030: TinyMiner1_parts_15
+    21300032: TinyMiner1_parts_16
+    21300034: TinyMiner1_parts_17
+    21300036: TinyMiner1_parts_18
+    21300038: TinyMiner1_parts_19
+    21300040: TinyMiner1_parts_20
+    21300042: TinyMiner1_parts_21
+    21300044: TinyMiner1_parts_22
+    21300046: TinyMiner1_parts_23
+    21300048: TinyMiner1_parts_24
+    21300050: TinyMiner1_parts_25
+    21300052: TinyMiner1_parts_26
+    21300054: TinyMiner1_parts_27
+    21300056: TinyMiner1_parts_28
+    21300058: TinyMiner1_parts_29
+    21300060: TinyMiner1_parts_30
+    21300062: TinyMiner1_parts_31
+    21300064: TinyMiner1_parts_32
+    21300066: TinyMiner1_parts_33
+    21300068: TinyMiner1_parts_34
+    21300070: TinyMiner1_parts_35
+    21300072: TinyMiner1_parts_36
+    21300074: TinyMiner1_parts_37
+    21300076: TinyMiner1_parts_38
+    21300078: TinyMiner1_parts_39
+  externalObjects: {}
+  serializedVersion: 9
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 9
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: TinyMiner1_parts_0
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 443
+        width: 73
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 291469050f7fee54aad5a10e18787f28
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_1
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 483
+        width: 33
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e70ea113ffbb8b43a431a4d187d8372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_2
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 441
+        width: 85
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 574d00d89cf2365419bc9881313bd66b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_3
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 435
+        width: 71
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad4a432cb51b45c42ae707816c79990e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_4
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 435
+        width: 69
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00debb188ee696b4386808b031f1e6a3
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_5
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 224
+        width: 78
+        height: 216
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16c35fc85c015ed488a036414b3648ef
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_6
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 373
+        width: 133
+        height: 107
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c930911315a6d0c46a34a1a6b7d1cbc0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_7
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 307
+        width: 106
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3875a20bfa63a1c44a776b0db3564f01
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_8
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 307
+        width: 75
+        height: 137
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa96a9c17ddb0f542ac398f6d83ff2c6
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_9
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 361
+        width: 76
+        height: 70
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a9f8a60e13c8614aad3d0ba5e7ad958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_10
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 367
+        width: 48
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 801c142252bdc1742976f94aa845566b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_11
+      rect:
+        serializedVersion: 2
+        x: 547
+        y: 364
+        width: 32
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc3cfdabc81481745a2969ef0863248b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_12
+      rect:
+        serializedVersion: 2
+        x: 590
+        y: 360
+        width: 50
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce933fb0090dd634caa1ac562bb5d0bd
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_13
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 225
+        width: 121
+        height: 144
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37d7d3d302615894785e0ee2f37cdec0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_14
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 251
+        width: 126
+        height: 106
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86bf94494f327684facb3a54f2e55094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_15
+      rect:
+        serializedVersion: 2
+        x: 571
+        y: 251
+        width: 123
+        height: 106
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f753a03f0741e9545bcfef6b7e39aa5c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_16
+      rect:
+        serializedVersion: 2
+        x: 698
+        y: 251
+        width: 86
+        height: 93
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 722e8a239ff7a12479ee996fce3772ec
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_17
+      rect:
+        serializedVersion: 2
+        x: 788
+        y: 331
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a782b45c9d08b94699f0e6ad222f136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_18
+      rect:
+        serializedVersion: 2
+        x: 895
+        y: 259
+        width: 105
+        height: 76
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dce87f8892145a9428efd601eacea484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_19
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 183
+        width: 144
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b53774774abf984ea21695d38bef098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_20
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 272
+        width: 33
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 160f08c9c3b1e104a9c774dbcaf82abc
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_21
+      rect:
+        serializedVersion: 2
+        x: 788
+        y: 251
+        width: 104
+        height: 76
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5e649e8a52d02b468159f8d92337234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_22
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 3
+        width: 92
+        height: 218
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0e00c30d78d53b4d9b8b66d7ad59a9a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_23
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 216
+        width: 11
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a118a2d38db9d64c9d209a6074698bf
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_24
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 216
+        width: 10
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31191ea0faea6d445be6e73818e0b1af
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_25
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 183
+        width: 50
+        height: 85
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1128960e196f1b846a221dad9b3508fc
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_26
+      rect:
+        serializedVersion: 2
+        x: 453
+        y: 127
+        width: 144
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 547b7f4d8ade79c449b2210c5c128c93
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_27
+      rect:
+        serializedVersion: 2
+        x: 601
+        y: 127
+        width: 144
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f55807fe578964b44b6961e42d3aab66
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_28
+      rect:
+        serializedVersion: 2
+        x: 749
+        y: 127
+        width: 144
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93067e81581e31540abc6f53213b9446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_29
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 127
+        width: 106
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86f9edfaae51c2c41a2ae675b8bf4796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_30
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 3
+        width: 71
+        height: 212
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3ff1393cf9e1584783b707cdc8f44dd
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_31
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 3
+        width: 65
+        height: 209
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0396e9271988c6f48a33c96e2f94ffed
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_32
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 183
+        width: 6
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94a79e4570d480d4b886c7126f432137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_33
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 127
+        width: 208
+        height: 52
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e4989d6f66e5784494597531d02af03
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_34
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 3
+        width: 148
+        height: 121
+      alignment: 9
+      pivot: {x: 0.46746, y: 0.4800995}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0bbf5cc9609112b4682be03e4907fc26
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_35
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 3
+        width: 144
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fb99eded257b2d45842c65d505ac4a8
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_36
+      rect:
+        serializedVersion: 2
+        x: 541
+        y: 3
+        width: 144
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b825714b9ba8c04d895da1dad486284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_37
+      rect:
+        serializedVersion: 2
+        x: 689
+        y: 3
+        width: 144
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce558564624d31f41b2360a4c749ebf3
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_38
+      rect:
+        serializedVersion: 2
+        x: 837
+        y: 3
+        width: 144
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: deb0cfb419d6e404d809d76c069f7c6a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TinyMiner1_parts_39
+      rect:
+        serializedVersion: 2
+        x: 985
+        y: 3
+        width: 35
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88bad41e8b6476644a938b92bcc94887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: fa4501b7cab51fe4f9e4fb370a272dc0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
