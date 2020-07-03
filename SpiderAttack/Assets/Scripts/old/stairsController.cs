@@ -17,7 +17,7 @@ public class stairsController : MonoBehaviour, IMoveDown
 
         if (coll is CircleCollider2D && coll.tag == "player")
         {
-            coll.gameObject.GetComponent<Rigidbody2D>().gravityScale = 4f;
+           // coll.gameObject.GetComponent<Rigidbody2D>().gravityScale = 4f;
 
             //coll.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
         }
@@ -29,7 +29,7 @@ public class stairsController : MonoBehaviour, IMoveDown
 
         if (coll is CircleCollider2D && coll.tag == "player")
         {
-            coll.gameObject.GetComponent<Rigidbody2D>().gravityScale = 2f;
+            //coll.gameObject.GetComponent<Rigidbody2D>().gravityScale = 2f;
             //coll.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         }
     }

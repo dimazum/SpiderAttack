@@ -65,7 +65,9 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\ArrayGUI.cs" />
     <Compile Include="Assets\Scripts\blocks\BlockGroundDefault.cs" />
-    <Compile Include="Assets\Scripts\MoveManager.cs" />
+    <Compile Include="Assets\Scripts\enums\Layer.cs" />
+    <Compile Include="Assets\Scripts\mainCharakter\HealthController.cs" />
+    <Compile Include="Assets\Scripts\mainCharakter\MoveManager.cs" />
     <Compile Include="Assets\Scripts\old\Arrow.cs" />
     <Compile Include="Assets\Scripts\old\Bag.cs" />
     <Compile Include="Assets\Scripts\old\Balista.cs" />
@@ -114,6 +116,7 @@
     <Compile Include="Assets\Scripts\SpriterToUnityDX\EntityRenderer.cs" />
     <Compile Include="Assets\Scripts\SpriterToUnityDX\SortingOrderUpdater.cs" />
     <Compile Include="Assets\Scripts\SpriterToUnityDX\TextureController.cs" />
+    <Compile Include="Assets\Scripts\UI\HPSlider.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/projects/SpiderAttack/SpiderAttack/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
