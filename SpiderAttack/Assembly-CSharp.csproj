@@ -66,8 +66,9 @@
     <Compile Include="Assets\Scripts\ArrayGUI.cs" />
     <Compile Include="Assets\Scripts\blocks\BlockGroundDefault.cs" />
     <Compile Include="Assets\Scripts\enums\Layer.cs" />
+    <Compile Include="Assets\Scripts\LadderController.cs" />
     <Compile Include="Assets\Scripts\mainCharakter\HealthController.cs" />
-    <Compile Include="Assets\Scripts\mainCharakter\MoveManager.cs" />
+    <Compile Include="Assets\Scripts\mainCharakter\MoveController.cs" />
     <Compile Include="Assets\Scripts\old\Arrow.cs" />
     <Compile Include="Assets\Scripts\old\Bag.cs" />
     <Compile Include="Assets\Scripts\old\Balista.cs" />
@@ -100,7 +101,6 @@
     <Compile Include="Assets\Scripts\old\Shop\Shop.cs" />
     <Compile Include="Assets\Scripts\old\shopBorderController.cs" />
     <Compile Include="Assets\Scripts\old\ShopUpgrade1.cs" />
-    <Compile Include="Assets\Scripts\old\stairsController.cs" />
     <Compile Include="Assets\Scripts\old\stoneDynamic.cs" />
     <Compile Include="Assets\Scripts\old\supportController.cs" />
     <Compile Include="Assets\Scripts\old\TextController.cs" />

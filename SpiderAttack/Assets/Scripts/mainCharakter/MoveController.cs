@@ -14,7 +14,7 @@ public enum CharState
 }
 
 
-public class MoveManager : MonoBehaviour
+public class MoveController : MonoBehaviour
 {
     public Text text;
     public int count;
@@ -27,7 +27,6 @@ public class MoveManager : MonoBehaviour
     RaycastHit2D hit;
     private float horizontalRayRange = 0.4f;
     private float verticalRayRange = 0.55f;
-    private int LadderLayer = 12;
 
     float? temp = null;
 
@@ -42,9 +41,7 @@ public class MoveManager : MonoBehaviour
     private bool canMove;
     public bool canMoveUp; //есть ли сверху препятствие
 
-    public bool IsAlive = true;
-    private float _decelerationTolerance = 12.0f;
-    public Vector3 Velocity;
+  
 
 
     public CharState state
@@ -157,17 +154,7 @@ public class MoveManager : MonoBehaviour
 
     }
 
-    void FixedUpdate()
-    {
-        if (IsAlive)
-        {
-            var dist = Vector3.Distance(rb.velocity, Velocity);
-            IsAlive = Vector3.Distance(rb.velocity, Velocity) < _decelerationTolerance;
-            Velocity = rb.velocity;
-
-            //Debug.Log(dist);
-        }
-    }
+    
 
     public void GetRaycastHit(Vector2 vector2, float rayRange)
     {
@@ -218,8 +205,18 @@ public class MoveManager : MonoBehaviour
 
     public void SetLadder()
     {
-        float posX = Mathf.Round(transform.position.x);
-        float posY = Mathf.Round(transform.position.y)+0.5f;
+        //float posX = Mathf.Round(transform.position.x)+0.5f;
+        float posX;
+        if (transform.position.x > 0)
+        {
+            posX = (int)transform.position.x + 0.5f;
+        }
+        else
+        {
+            posX = (int)transform.position.x - 0.5f;
+        }
+        
+        float posY = Mathf.Round(transform.position.y) + 0.5f;
         Vector2 pos = new Vector2(posX, posY);
 
         Collider2D check = Physics2D.OverlapPoint(new Vector2(transform.position.x, transform.position.y + 0.5f), 1 << Layer.Ladders);

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.enums;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -33,6 +34,7 @@ public class BlockGroundDefault : MonoBehaviour
         if (crackCount == 4)
         {
             SetDeadState();
+            CheckMoveDownObject();
             return;
         }
 
@@ -50,7 +52,16 @@ public class BlockGroundDefault : MonoBehaviour
     }
 
     //SetSpikesToBlock();
-
+    private void CheckMoveDownObject()
+    {
+        var hitTop = Physics2D.Raycast(transform.position, Vector2.up, hitRange, 1 << Layer.Ladders);
+        if (hitTop.collider != null)
+        {
+            //var ladderhitTop.collider.GetComponent<LadderController>();
+            var test22 = hitTop.collider.gameObject.GetComponent<LadderController>();
+            test22.MoveObjectDown(0);
+        }
+    }
 
     private void SetSpikesToBlock()
     {

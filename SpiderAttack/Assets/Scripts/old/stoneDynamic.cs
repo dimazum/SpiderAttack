@@ -48,7 +48,7 @@ public class stoneDynamic : MonoBehaviour,IMoveDown {
             {
                 //Debug.Log("Я блок! Не могу падать, подомной стоит " + hit.collider.tag);
                 //if (hit.collider.tag == "stairs")
-                if (hit.collider.GetComponent<stairsController>())
+                if (hit.collider.GetComponent<LadderController>())
                 {
                     Destroy(hit.collider.gameObject); //если лестница, то уничтожаем её
                     transform.position = new Vector2(transform.position.x, transform.position.y - 1f);  //вдигаемся вниз

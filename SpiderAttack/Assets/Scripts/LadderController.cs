@@ -1,10 +1,11 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.enums;
+using System.Collections;
 using System.Collections.Generic;
 using System.Net.Mime;
 using UnityEngine;
 using UnityEngine.Experimental.PlayerLoop;
 
-public class stairsController : MonoBehaviour, IMoveDown
+public class LadderController : MonoBehaviour, IMoveDown
 {
 
     public float speed;
@@ -15,23 +16,12 @@ public class stairsController : MonoBehaviour, IMoveDown
     public void OnTriggerStay2D(Collider2D coll)
     {
 
-        if (coll is CircleCollider2D && coll.tag == "player")
-        {
-           // coll.gameObject.GetComponent<Rigidbody2D>().gravityScale = 4f;
-
-            //coll.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
-        }
     }
 
 
     public void OnTriggerExit2D(Collider2D coll)
     {
 
-        if (coll is CircleCollider2D && coll.tag == "player")
-        {
-            //coll.gameObject.GetComponent<Rigidbody2D>().gravityScale = 2f;
-            //coll.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-        }
     }
 
 
@@ -53,7 +43,7 @@ public class stairsController : MonoBehaviour, IMoveDown
         Vector2 direction = Vector2.up;
         float distance = 0.6f;
         //стреляем вверх и запоиманем в hit_up что сверху
-        RaycastHit2D hit_up = Physics2D.Raycast(pos, direction, distance, 1 << 9);
+        RaycastHit2D hit_up = Physics2D.Raycast(pos, direction, distance, 1 << Layer.Ladders);
 
         bool trigger;
         do
@@ -62,7 +52,7 @@ public class stairsController : MonoBehaviour, IMoveDown
             pos = transform.position;
             direction = Vector2.down;
             distance = 0.6f;
-            RaycastHit2D hit = Physics2D.Raycast(pos, direction, distance, 1 << 9); //стреляю вниз
+            RaycastHit2D hit = Physics2D.Raycast(pos, direction, distance, 1 << Layer.Ladders| 1<<Layer.Blocks); //стреляю вниз
             if (hit.collider == null) //если внизу свободно, то двигаюсь вниз
             {
                 Debug.Log("Я лестница! Двигаюсь вниз! Свободно!");
@@ -78,7 +68,7 @@ public class stairsController : MonoBehaviour, IMoveDown
 
         //если сверху была не земля, то двигаем то что сверху вниз
         if (hit_up.collider != null)
-            if (hit_up.collider.tag != "blockGround")
+            if (!hit_up.collider.name.Contains("blockGround"))
             {
                 IMoveDown gm = hit_up.collider.GetComponent<IMoveDown>();
                 gm.MoveObjectDown(0);
