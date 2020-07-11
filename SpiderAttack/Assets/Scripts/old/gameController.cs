@@ -216,7 +216,7 @@ public class gameController : MonoBehaviour
 
     public void OnChangedMapSlider()
     {
-        Camera.main.orthographicSize = 8f + mapSlider.GetComponent<Slider>().value * 16f;
+        //Camera.main.orthographicSize = 8f + mapSlider.GetComponent<Slider>().value * 16f;
     }
 
 

@@ -26,7 +26,7 @@ public class MoveController : MonoBehaviour
     public float speed = 2f;                  //скорость
     RaycastHit2D hit;
     private float horizontalRayRange = 0.4f;
-    private float verticalRayRange = 0.55f;
+    private float verticalRayRange = 0.6f;
 
     float? temp = null;
 
@@ -115,11 +115,23 @@ public class MoveController : MonoBehaviour
 
             var directionHit = move > 0 ? Vector2.up : Vector2.down;
 
-            GetRaycastHit(directionHit, verticalRayRange);
+            if (move > 0)
+            {
+                GetRaycastHit(directionHit, verticalRayRange);
+            }
+            else
+            {
+                GetRaycastHit(directionHit, verticalRayRange);
+            }
 
-            if (hit.collider?.name.Contains("block") == true )
-            {         
+            
+            if (hit.collider?.name.Contains("block") == true)
+            {
                 state = CharState.Rubilovo;
+                canMoveUp = false;
+            }
+            else if (hit.collider?.name.Contains("Stone") == true)
+            {
                 canMoveUp = false;
             }
 
@@ -159,7 +171,7 @@ public class MoveController : MonoBehaviour
     public void GetRaycastHit(Vector2 vector2, float rayRange)
     {
 
-        hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + 0.5f), vector2 , rayRange, 1<<Layer.Blocks);
+        hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + 0.45f), vector2 , rayRange, 1<<Layer.Blocks|1<<Layer.Stones);
         Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + 0.5f), vector2 , Color.red, rayRange);
 
     }
@@ -225,7 +237,7 @@ public class MoveController : MonoBehaviour
 
         if (check == null) //если место свободно, проверяем не на воздухе ли ставим лестницу
         {
-            if (Physics2D.Raycast(pos, Vector2.down, 1f, 1 << Layer.Blocks | 1 << Layer.Ladders).collider != null)//стреляем вниз
+            if (Physics2D.Raycast(pos, Vector2.down, 1f, 1 << Layer.Blocks | 1 << Layer.Ladders |1<< Layer.Stones).collider != null)//стреляем вниз
             {
                 Instantiate(ladder, pos, Quaternion.identity, sceneContainer); //если ничего не нашли внизу не пусто, то ставим лестницу
                 test = true;

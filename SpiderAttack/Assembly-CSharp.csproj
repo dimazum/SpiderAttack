@@ -64,7 +64,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\ArrayGUI.cs" />
+    <Compile Include="Assets\Scripts\BattlePlace.cs" />
     <Compile Include="Assets\Scripts\blocks\BlockGroundDefault.cs" />
+    <Compile Include="Assets\Scripts\blocks\StoneController.cs" />
+    <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\enums\Layer.cs" />
     <Compile Include="Assets\Scripts\LadderController.cs" />
     <Compile Include="Assets\Scripts\mainCharakter\HealthController.cs" />
@@ -110,6 +113,7 @@
     <Compile Include="Assets\Scripts\old\TriggerBattle.cs" />
     <Compile Include="Assets\Scripts\old\TriggerBattle2.cs" />
     <Compile Include="Assets\Scripts\old\UpgradeUI.cs" />
+    <Compile Include="Assets\Scripts\SceneContainer.cs" />
     <Compile Include="Assets\Scripts\SceneGenerator.cs" />
     <Compile Include="Assets\Scripts\Singleton.cs" />
     <Compile Include="Assets\Scripts\SpriteData.cs" />

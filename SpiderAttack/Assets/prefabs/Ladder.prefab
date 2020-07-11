@@ -72,7 +72,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  delay: 1
+  delay: 0.3
 --- !u!212 &7446770821569112492
 SpriteRenderer:
   m_ObjectHideFlags: 0

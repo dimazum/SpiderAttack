@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 4438242591651086}
   - component: {fileID: 61321573145703352}
   - component: {fileID: 7446770821569112492}
-  m_Layer: 12
+  - component: {fileID: 2485100427046296843}
+  m_Layer: 11
   m_Name: Stone
   m_TagString: stairs
   m_Icon: {fileID: 0}
@@ -42,7 +43,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -106,3 +107,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2485100427046296843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1443624561525846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f2c07ad1bc8e6b4ebbfc1a4634270f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
+  delay: 2

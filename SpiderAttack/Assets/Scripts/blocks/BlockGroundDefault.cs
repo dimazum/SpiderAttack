@@ -54,12 +54,12 @@ public class BlockGroundDefault : MonoBehaviour
     //SetSpikesToBlock();
     private void CheckMoveDownObject()
     {
-        var hitTop = Physics2D.Raycast(transform.position, Vector2.up, hitRange, 1 << Layer.Ladders);
+        var hitTop = Physics2D.Raycast(transform.position, Vector2.up, hitRange, 1 << Layer.Ladders|1<<Layer.Stones );
         if (hitTop.collider != null)
         {
             //var ladderhitTop.collider.GetComponent<LadderController>();
-            var test22 = hitTop.collider.gameObject.GetComponent<LadderController>();
-            test22.MoveObjectDown(0);
+            var moveDownObj = hitTop.collider.gameObject.GetComponent<IMoveDown>();
+            moveDownObj?.MoveObjectDown();
         }
     }
 

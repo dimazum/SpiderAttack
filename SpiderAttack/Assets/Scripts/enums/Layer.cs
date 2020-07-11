@@ -10,6 +10,7 @@ namespace Assets.Scripts.enums
     {
         public const int Dead = 8;
         public const int Blocks = 10;
+        public const int Stones = 11;
         public const int Ladders = 12;
     }
 }

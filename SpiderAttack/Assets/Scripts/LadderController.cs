@@ -25,9 +25,9 @@ public class LadderController : MonoBehaviour, IMoveDown
     }
 
 
-    public void MoveObjectDown(float delayTime)
+    public void MoveObjectDown()
     {
-        delay = delayTime;
+        //delay = delayTime;
         StartCoroutine(Down());
     }
 
@@ -52,7 +52,7 @@ public class LadderController : MonoBehaviour, IMoveDown
             pos = transform.position;
             direction = Vector2.down;
             distance = 0.6f;
-            RaycastHit2D hit = Physics2D.Raycast(pos, direction, distance, 1 << Layer.Ladders| 1<<Layer.Blocks); //стреляю вниз
+            RaycastHit2D hit = Physics2D.Raycast(pos, direction, distance, 1 << Layer.Ladders | 1 << Layer.Blocks); //стреляю вниз
             if (hit.collider == null) //если внизу свободно, то двигаюсь вниз
             {
                 Debug.Log("Я лестница! Двигаюсь вниз! Свободно!");
@@ -71,7 +71,7 @@ public class LadderController : MonoBehaviour, IMoveDown
             if (!hit_up.collider.name.Contains("blockGround"))
             {
                 IMoveDown gm = hit_up.collider.GetComponent<IMoveDown>();
-                gm.MoveObjectDown(0);
+                gm.MoveObjectDown();
             }
 
     }
