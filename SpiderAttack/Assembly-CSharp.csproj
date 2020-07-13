@@ -64,11 +64,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\ArrayGUI.cs" />
-    <Compile Include="Assets\Scripts\BattlePlace.cs" />
+    <Compile Include="Assets\Scripts\BattlePlaceFirstFloor.cs" />
+    <Compile Include="Assets\Scripts\BattlePlaceSecondFloor.cs" />
     <Compile Include="Assets\Scripts\blocks\BlockGroundDefault.cs" />
     <Compile Include="Assets\Scripts\blocks\StoneController.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\enums\Layer.cs" />
+    <Compile Include="Assets\Scripts\GateLeft.cs" />
     <Compile Include="Assets\Scripts\LadderController.cs" />
     <Compile Include="Assets\Scripts\mainCharakter\HealthController.cs" />
     <Compile Include="Assets\Scripts\mainCharakter\MoveController.cs" />
