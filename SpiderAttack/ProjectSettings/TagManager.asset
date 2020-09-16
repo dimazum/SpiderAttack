@@ -6,6 +6,7 @@ TagManager:
   tags:
   - player
   - stairs
+  - Post
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - blockLayer
   - stone
   - ladder
-  - 
+  - BASE
   - 
   - 
   - 

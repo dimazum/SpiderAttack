@@ -8,9 +8,11 @@ using UnityEngine.UI;
 public enum CharState
 {
     Idle,
-    Run,
+    Walk,
     Rubilovo,
-    IdleBlink
+    IdleKirche = 4,
+    WalkKirche = 6,
+    //IdleBlink
 }
 
 
@@ -40,8 +42,10 @@ public class MoveController : MonoBehaviour
 
     private bool canMove;
     public bool canMoveUp; //есть ли сверху препятствие
+    public bool inBase = true;
 
-  
+    //kirche lvl
+    public int kircheLvl;
 
 
     public CharState state
@@ -143,7 +147,14 @@ public class MoveController : MonoBehaviour
             else if (!isLadder)
             {
                 canMoveUp = false;
-                state = CharState.IdleBlink;
+                if (inBase)
+                {
+                    state = CharState.Idle;
+                }
+                else
+                {
+                    state = CharState.IdleKirche;
+                }
             }
 
             if (canMoveUp && isLadder)
@@ -161,7 +172,15 @@ public class MoveController : MonoBehaviour
 
         else
         {
-            state = CharState.IdleBlink;
+            if (inBase)
+            {
+                state = CharState.Idle;
+            }
+            else
+            {
+                state = CharState.IdleKirche;
+            }
+            
         }
 
     }
@@ -180,7 +199,16 @@ public class MoveController : MonoBehaviour
     {
         Vector2 vector2 = vector3 * axisRaw;
         transform.position = Vector2.MoveTowards(transform.position, (Vector2)transform.position + vector2, speed * Time.deltaTime);
-        state = CharState.Run;
+
+        if (inBase)
+        {
+            state = CharState.Walk;
+        }
+        else
+        {
+            state = CharState.WalkKirche;
+        }
+        
     }
 
     public void SetRigidbodyType2D(bool isLadder)
@@ -197,7 +225,14 @@ public class MoveController : MonoBehaviour
             Collider2D check2 = Physics2D.OverlapPoint(new Vector2(transform.position.x, transform.position.y + 0.03f), 1 << Layer.Ladders);
             if (check2 == null)//for staying at ladder
             {
-                state = CharState.IdleBlink;
+                if (inBase)
+                {
+                    state = CharState.Idle;
+                }
+                else
+                {
+                    state = CharState.IdleKirche;
+                }
                 test = false;
             }
 
@@ -245,7 +280,7 @@ public class MoveController : MonoBehaviour
         }
         else
         {
-            Debug.Log("Место занято, не могу поставить лестницу! Стоит: " + InstHit.collider.tag);
+            //Debug.Log("Место занято, не могу поставить лестницу! Стоит: " + InstHit.collider.tag);
         }
     }
 
