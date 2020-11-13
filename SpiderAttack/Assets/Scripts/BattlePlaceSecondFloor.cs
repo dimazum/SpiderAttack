@@ -23,7 +23,7 @@ public class BattlePlaceSecondFloor : MonoBehaviour
             cameraController.index = screen;
             cameraAnimator.Play("CameraFirstPlace");
             //cameraController.offset = new Vector3(3 * ((float)Screen.width / 1000), -0.5f, -10);
-            cameraController.offset = new Vector3(3 , -0.5f, -10);
+            cameraController.offset = new Vector3(3 , -1f, -10);
         }
     }
 

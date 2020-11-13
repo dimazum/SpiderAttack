@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Timer : MonoBehaviour {
+public class TimerOld : MonoBehaviour {
     public GameObject Skelet;
     public Transform spownBox;
     public float sec = 0;

@@ -41,10 +41,10 @@ public class KrabController : MonoBehaviour
     public int damageBalista;
     public float damageEnemy;
     private Transform wall;
-    public Text textDamage;
+    //public Text textDamage;
     public Slider slider;
     public float distance = 2f;
-    public float distanceRange = 6f;
+    public float distanceRange = 100f;
     //public GameObject CanvasChild;
 
     public CharStateEnemy state
@@ -56,7 +56,7 @@ public class KrabController : MonoBehaviour
     {
 
         animator.SetFloat("speed", move1);
-        wall = GameObject.FindGameObjectWithTag("TurretRight").transform;
+        wall = GameObject.FindGameObjectWithTag("GateRight").transform;
         damageTreb = 1000;
         damageBalista = 100;
 
@@ -117,7 +117,7 @@ public class KrabController : MonoBehaviour
     }
     public void WallForDamage()
     {
-        wall.SendMessage("Damage", damageEnemy);
+        //wall.SendMessage("Damage", damageEnemy);
     }
 
     IEnumerator WallAttack()
@@ -125,6 +125,7 @@ public class KrabController : MonoBehaviour
 
         while (true)
         {
+            //Debug.Log(Vector3.Distance(transform.position, wall.position));
 
             if (Vector3.Distance(transform.position, wall.position) < distance)
             {
@@ -182,7 +183,7 @@ public class KrabController : MonoBehaviour
             move = move1;
             animator.SetFloat("speed", move1);
             slider.transform.localScale = new Vector3(-0.01f, 0.01f, 1);
-            textDamage.transform.localScale = new Vector3(-0.01f, 0.01f, 1);
+            //textDamage.transform.localScale = new Vector3(-0.01f, 0.01f, 1);
             
             transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
             state = CharStateEnemy.Walk;
@@ -201,7 +202,7 @@ public class KrabController : MonoBehaviour
             //transform.localScale = new Vector3(-0.35f, 0.35f, 0.35f);
             transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
             slider.transform.localScale = new Vector3(0.01f, 0.01f, 1);
-            textDamage.transform.localScale = new Vector3(0.01f, 0.01f, 1);
+            //textDamage.transform.localScale = new Vector3(0.01f, 0.01f, 1);
             Direction = 1;
             animator.SetFloat("speed", move1);
             move = move1;
@@ -243,7 +244,7 @@ public class KrabController : MonoBehaviour
 
                 //StartCoroutine(AnimWalk());
                 health -= damageTreb;
-                textDamage.text = damageTreb.ToString();
+                //textDamage.text = damageTreb.ToString();
 
                 canvasChild.GetComponent<Animator>().Play("textDamage");
 

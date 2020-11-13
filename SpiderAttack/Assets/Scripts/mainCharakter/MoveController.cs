@@ -16,7 +16,7 @@ public enum CharState
 }
 
 
-public class MoveController : MonoBehaviour
+public class MoveController : MonoBehaviour, IListener
 {
     public Text text;
     public int count;
@@ -38,8 +38,10 @@ public class MoveController : MonoBehaviour
     public GameObject ladder;
     public Transform sceneContainer;
 
-    Animator animator;
+    public FixedJoystick fixedJoystick;
 
+    Animator animator;
+    public bool blockMove = false;
     private bool canMove;
     public bool canMoveUp; //есть ли сверху препятствие
     public bool inBase = true;
@@ -63,6 +65,14 @@ public class MoveController : MonoBehaviour
 
     }
 
+    void Start()
+    {
+        fixedJoystick.SnapX = true;
+        fixedJoystick.SnapY = true;
+        EventManager.Instance.AddListener(EVENT_TYPE.OpenShop, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.CloseShop, this);
+    }
+
 
     void Update()
     {
@@ -71,14 +81,14 @@ public class MoveController : MonoBehaviour
             SetLadder();
         }
 
-        
-
-        if (Input.GetButton("Horizontal"))
+        //if (Input.GetButton("Horizontal"))
+        if (fixedJoystick.Horizontal != 0)
         {
             isLadder = CheckLadder();
             SetRigidbodyType2D(isLadder);
 
-            move = Input.GetAxisRaw("Horizontal");
+            //move = Input.GetAxisRaw("Horizontal");
+            move = fixedJoystick.Horizontal;
             test = true;//for staying at ladder
             var directionHit = move > 0 ? Vector2.right : Vector2.left;
             GetRaycastHit(directionHit, horizontalRayRange);
@@ -96,7 +106,7 @@ public class MoveController : MonoBehaviour
                 canMove = true;
             }
 
-            if (canMove)
+            if (canMove && !blockMove)
             {
                 Move(move, transform.right);
             }
@@ -105,12 +115,14 @@ public class MoveController : MonoBehaviour
             if (move < 0 && richtDirect) Flip();
         }
 
-        else if (Input.GetButton("Vertical"))
+        //else if (Input.GetButton("Vertical"))
+        else if (fixedJoystick.Vertical != 0)
         {
             isLadder = CheckLadder();
             SetRigidbodyType2D(isLadder);
 
-            move = Input.GetAxisRaw("Vertical");
+            //move = Input.GetAxisRaw("Vertical");
+            move = fixedJoystick.Vertical;
 
             if (move < 0)
             {
@@ -292,12 +304,12 @@ public class MoveController : MonoBehaviour
             BlockGroundDefault blockGroundDefault = currentblock.GetComponent<BlockGroundDefault>();
             blockGroundDefault?.Hit();
             //--
-            if (blockGroundDefault != null)
-            {
-                blockGroundDefault.Notify += message => { count++; };
-            }
-            count1 = count / 3;
-            text.text = count1.ToString();
+            //if (blockGroundDefault != null)
+            //{
+            //    blockGroundDefault.Notify += message => { count++; };
+            //}
+            //count1 = count / 3;
+            //text.text = count1.ToString();
             //--
         }
     }
@@ -316,4 +328,18 @@ public class MoveController : MonoBehaviour
         Gizmos.DrawSphere(new Vector2(transform.position.x, transform.position.y + 0.03f), .025f);
     }
 
+    public void OnEvent(EVENT_TYPE Event_Type, Component Sender, object Param = null)
+    {
+
+        switch (Event_Type)
+        {
+            case EVENT_TYPE.OpenShop:
+                blockMove = true;
+                break;
+
+            case EVENT_TYPE.CloseShop:
+                blockMove = false;
+                break;
+        }
+    }
 }

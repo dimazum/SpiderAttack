@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GameStates : Singleton<GameStates>, IListener
 {
-    private int _pickLvl;
+    private int _pickLvl; //current pick lvl
+    private bool _savesReset;
     public int PickLvl
     {
         get { return _pickLvl; }
@@ -17,7 +18,11 @@ public class GameStates : Singleton<GameStates>, IListener
         }
     }
 
-    public int money = 1000;
+    public int money = 1000; //current money
+
+    public int round = 0; // current day
+    public int currentTime; //current timer
+    public bool isDay;
 
     public Transform Picks;
     public GameObject CurrentPick;
@@ -26,6 +31,7 @@ public class GameStates : Singleton<GameStates>, IListener
     void Awake()
     {
         PickLvl = PlayerPrefs.GetInt("PickLvl", 0);
+        currentTime = PlayerPrefs.GetInt("CurrentTime", 0);
         CurrentPick = GetPick(PickLvl);
         NextPick = GetPick(PickLvl + 1);
         EventManager.Instance.AddListener(EVENT_TYPE.BuyPick, this);
@@ -50,8 +56,30 @@ public class GameStates : Singleton<GameStates>, IListener
         return pickLvl < Picks.childCount  ? Picks.GetChild(pickLvl).gameObject : null;
     }
 
-    public void Reset()
+
+    public void SavesReset()
     {
         PlayerPrefs.SetInt("PickLvl", 0);
+        PlayerPrefs.SetInt("CurrentTime", 0);
+    }
+
+    void OnApplicationQuit()
+    {
+        if (_savesReset)
+        {
+            return;
+        }
+        PlayerPrefs.SetInt("CurrentTime", currentTime);
+        PlayerPrefs.SetInt("CurrentDay", round);
+        Debug.Log("Application ending after " + Time.time + " seconds");
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            _savesReset = true;
+            SavesReset();
+        }
     }
 }

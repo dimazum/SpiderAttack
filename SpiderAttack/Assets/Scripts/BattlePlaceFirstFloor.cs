@@ -27,7 +27,7 @@ public class BattlePlaceFirstFloor : MonoBehaviour
             cameraController.index = screen;
             cameraAnimator.Play("CameraFirstPlace");
             animator.Play("SecondBatlePlaceDisappear");
-            cameraController.offset = new Vector3(3 , 1, -10);
+            cameraController.offset = new Vector3(4f , .7f, -10);
         }
     }
 

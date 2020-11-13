@@ -48,6 +48,16 @@ public class PickShop : MonoBehaviour, IListener
         
     }
 
+    public void OpenShop()
+    {
+        EventManager.Instance.PostNotification(EVENT_TYPE.OpenShop, this);
+    }
+
+    public void CloseShop()
+    {
+        EventManager.Instance.PostNotification(EVENT_TYPE.CloseShop, this);
+    }
+
     public void OnEvent(EVENT_TYPE Event_Type, Component Sender, object Param = null)
     {
         switch (Event_Type)

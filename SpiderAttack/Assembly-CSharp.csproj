@@ -63,6 +63,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Joystick Pack\Examples\JoystickPlayerExample.cs" />
+    <Compile Include="Assets\Joystick Pack\Examples\JoystickSetterExample.cs" />
+    <Compile Include="Assets\Joystick Pack\Scripts\Base\Joystick.cs" />
+    <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\DynamicJoystick.cs" />
+    <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FixedJoystick.cs" />
+    <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FloatingJoystick.cs" />
+    <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\VariableJoystick.cs" />
     <Compile Include="Assets\Scripts\ArrayGUI.cs" />
     <Compile Include="Assets\Scripts\BasePlace.cs" />
     <Compile Include="Assets\Scripts\BattlePlaceFirstFloor.cs" />
@@ -71,6 +78,7 @@
     <Compile Include="Assets\Scripts\blocks\StoneController.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\CavePlace.cs" />
+    <Compile Include="Assets\Scripts\Enemies\Spider.cs" />
     <Compile Include="Assets\Scripts\enums\Layer.cs" />
     <Compile Include="Assets\Scripts\EventsManager\EventManager.cs" />
     <Compile Include="Assets\Scripts\EventsManager\IListener.cs" />
@@ -115,7 +123,7 @@
     <Compile Include="Assets\Scripts\old\stoneDynamic.cs" />
     <Compile Include="Assets\Scripts\old\supportController.cs" />
     <Compile Include="Assets\Scripts\old\TextController.cs" />
-    <Compile Include="Assets\Scripts\old\Timer.cs" />
+    <Compile Include="Assets\Scripts\old\TimerOld.cs" />
     <Compile Include="Assets\Scripts\old\Tower.cs" />
     <Compile Include="Assets\Scripts\old\Trebuchet.cs" />
     <Compile Include="Assets\Scripts\old\TriggerBattle.cs" />
@@ -131,6 +139,7 @@
     <Compile Include="Assets\Scripts\Utils\GameStates.cs" />
     <Compile Include="Assets\Scripts\Utils\Singleton.cs" />
     <Compile Include="Assets\Scripts\Utils\SpriteData.cs" />
+    <Compile Include="Assets\Scripts\Utils\Timer.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />

@@ -7,7 +7,11 @@ public interface IListener
 
 public enum EVENT_TYPE
 {
-    BuyPick,
-    PickUp//вошел в пещеру
+    BuyPick, //buy Pick Button
+    PickUp, //upgrade Pick
+    OpenShop, //click Open Shop Button
+    CloseShop, //click Close Shop
+    StartDay, //Start New Day
+    StartNight, //Start New Night
 
 }
