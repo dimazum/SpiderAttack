@@ -13,5 +13,22 @@ public enum EVENT_TYPE
     CloseShop, //click Close Shop
     StartDay, //Start New Day
     StartNight, //Start New Night
+    FireButtonUp,
+    FireButtonDown,
+    //Trebuchet
+    TrebSpoonUpPointerUp, 
+    TrebSpoonUpPointerDown,
+    TrebSpoonDownPointerUp,
+    TrebSpoonDownPointerDown,
+    TrebSpoonLimit,
+    TrebShot,// end of spoon move
+
+    //Spider
+    SpiderMeleeAttackHitGate,
+    SpiderRangeAttackHitGate,
+    SpiderHurt,
+    SpiderDie
+
+ 
 
 }

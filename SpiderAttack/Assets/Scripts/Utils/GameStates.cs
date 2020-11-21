@@ -23,6 +23,7 @@ public class GameStates : Singleton<GameStates>, IListener
     public int round = 0; // current day
     public int currentTime; //current timer
     public bool isDay;
+    public bool inTrebuchetPlace;
 
     public Transform Picks;
     public GameObject CurrentPick;

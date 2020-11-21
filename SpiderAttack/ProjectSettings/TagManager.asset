@@ -7,8 +7,8 @@ TagManager:
   - player
   - stairs
   - Post
-  - Krab
   - GateRight
+  - BulletStone
   layers:
   - Default
   - TransparentFX
@@ -24,8 +24,8 @@ TagManager:
   - stone
   - ladder
   - BASE
-  - 
-  - 
+  - BulletStoun
+  - Spider
   - 
   - 
   - 

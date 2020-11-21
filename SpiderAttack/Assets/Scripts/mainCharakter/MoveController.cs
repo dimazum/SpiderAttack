@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using Assets.Scripts.enums;
 using UnityEngine;
 using UnityEngine.UI;
@@ -49,6 +50,14 @@ public class MoveController : MonoBehaviour, IListener
     //kirche lvl
     public int kircheLvl;
 
+    //for Android and Editor
+    public Func<bool> IsHorizontal;
+    public Func<bool> IsVertical;
+
+    public Func<float> HorizontalControls;
+    public Func<float> VerticalControls;
+
+
 
     public CharState state
     {
@@ -59,11 +68,27 @@ public class MoveController : MonoBehaviour, IListener
 
     void Awake()
     {
+        IsHorizontal = () => fixedJoystick.Horizontal != 0;
+        IsVertical = () => fixedJoystick.Vertical!= 0;
+
+        HorizontalControls = () => fixedJoystick.Horizontal;
+        VerticalControls = () => fixedJoystick.Vertical;
+
+#if UNITY_EDITOR
+        IsHorizontal = () => Input.GetButton("Horizontal");
+        IsVertical = () => Input.GetButton("Vertical");
+
+        HorizontalControls = () => Input.GetAxisRaw("Horizontal");
+        VerticalControls = () => Input.GetAxisRaw("Vertical");
+#endif
+
+
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         richtDirect = false;
 
     }
+
 
     void Start()
     {
@@ -71,8 +96,20 @@ public class MoveController : MonoBehaviour, IListener
         fixedJoystick.SnapY = true;
         EventManager.Instance.AddListener(EVENT_TYPE.OpenShop, this);
         EventManager.Instance.AddListener(EVENT_TYPE.CloseShop, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.FireButtonDown, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.FireButtonUp, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.TrebSpoonDownPointerDown, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.TrebSpoonDownPointerUp, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.TrebSpoonUpPointerDown, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.TrebSpoonUpPointerUp, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.TrebSpoonLimit, this);
     }
 
+    public void HorizontalFlip(Vector3 vector3)
+    {
+        if (vector3.x > 0 && !richtDirect) Flip();
+        if (vector3.x < 0 && richtDirect) Flip();
+    }
 
     void Update()
     {
@@ -81,14 +118,12 @@ public class MoveController : MonoBehaviour, IListener
             SetLadder();
         }
 
-        //if (Input.GetButton("Horizontal"))
-        if (fixedJoystick.Horizontal != 0)
+        if (IsHorizontal())
         {
             isLadder = CheckLadder();
-            SetRigidbodyType2D(isLadder);
+            SetRigidbodyType2D(isLadder); 
+            move = HorizontalControls();
 
-            //move = Input.GetAxisRaw("Horizontal");
-            move = fixedJoystick.Horizontal;
             test = true;//for staying at ladder
             var directionHit = move > 0 ? Vector2.right : Vector2.left;
             GetRaycastHit(directionHit, horizontalRayRange);
@@ -115,14 +150,12 @@ public class MoveController : MonoBehaviour, IListener
             if (move < 0 && richtDirect) Flip();
         }
 
-        //else if (Input.GetButton("Vertical"))
-        else if (fixedJoystick.Vertical != 0)
+        else if (IsVertical())
         {
             isLadder = CheckLadder();
             SetRigidbodyType2D(isLadder);
 
-            //move = Input.GetAxisRaw("Vertical");
-            move = fixedJoystick.Vertical;
+            move = VerticalControls();
 
             if (move < 0)
             {
@@ -248,15 +281,11 @@ public class MoveController : MonoBehaviour, IListener
                 test = false;
             }
 
-
-                temp = rb.position.y;
+            temp = rb.position.y;
                 //Debug.Log(temp);
 
             return true;
         }
-        
-       
-
 
         //Debug.Log(temp);
         return false;
@@ -340,6 +369,73 @@ public class MoveController : MonoBehaviour, IListener
             case EVENT_TYPE.CloseShop:
                 blockMove = false;
                 break;
+
+            case EVENT_TYPE.FireButtonUp:
+                if (GameStates.Instance.inTrebuchetPlace)
+                {
+
+                    animator.SetBool("TrebuchetCharge", false);
+                }
+
+                break;
+            case EVENT_TYPE.FireButtonDown:
+                if (GameStates.Instance.inTrebuchetPlace)
+                {
+                    animator.SetBool("TrebuchetCharge", true);
+                    HorizontalFlip(transform.right);
+                }
+
+                break;
+
+            case EVENT_TYPE.TrebSpoonDownPointerDown:
+                if (GameStates.Instance.inTrebuchetPlace)
+                {
+                    animator.SetBool("TrebuchetSpoonDown", true);
+                    HorizontalFlip(-transform.right);
+                }
+
+                break;
+
+            case EVENT_TYPE.TrebSpoonDownPointerUp:
+                if (GameStates.Instance.inTrebuchetPlace)
+                {
+                    animator.SetBool("TrebuchetSpoonDown", false);
+                    HorizontalFlip(-transform.right);
+                }
+
+                animator.SetFloat("TrebSpoonSpeed", 1f);
+
+                break;
+
+            case EVENT_TYPE.TrebSpoonUpPointerDown:
+                if (GameStates.Instance.inTrebuchetPlace)
+                {
+                    animator.SetBool("TrebuchetSpoonUp", true);
+                    HorizontalFlip(-transform.right);
+                }
+
+                break;
+
+            case EVENT_TYPE.TrebSpoonUpPointerUp:
+                if (GameStates.Instance.inTrebuchetPlace)
+                {
+                    animator.SetBool("TrebuchetSpoonUp", false);
+                    HorizontalFlip(-transform.right);
+                }
+                animator.SetFloat("TrebSpoonSpeed", 1f);
+
+                break;
+
+            case EVENT_TYPE.TrebSpoonLimit:
+                animator.SetFloat("TrebSpoonSpeed", 0f);
+                //animator.SetBool("TrebuchetSpoonUp", false);
+                //animator.SetBool("TrebuchetSpoonDown", false);
+
+                break;
+
+
         }
     }
 }
+
+//когда стреляет может ходить

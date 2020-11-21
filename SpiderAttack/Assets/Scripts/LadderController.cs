@@ -1,9 +1,6 @@
 ﻿using Assets.Scripts.enums;
 using System.Collections;
-using System.Collections.Generic;
-using System.Net.Mime;
 using UnityEngine;
-using UnityEngine.Experimental.PlayerLoop;
 
 public class LadderController : MonoBehaviour, IMoveDown
 {
