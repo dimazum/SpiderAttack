@@ -84,7 +84,7 @@ public class SpiderController : MonoBehaviour, IListener
         StopAnimCoroutines();
         bool random = (Random.value < 0.5f);
         SpiderAttackState spA = random ? SpiderAttackState.RangeAttack : SpiderAttackState.MeleeAttack;
-        var co = StartCoroutine(SmoothLerpLeft(SpiderAttackState.RangeAttack));
+        var co = StartCoroutine(WalkLeft(SpiderAttackState.RangeAttack));
         _coroutines.Add(co);
     }
 
@@ -97,7 +97,7 @@ public class SpiderController : MonoBehaviour, IListener
         return anim;
     }
 
-    private IEnumerator SmoothLerpLeft(SpiderAttackState spiderAttackState)
+    private IEnumerator WalkLeft(SpiderAttackState spiderAttackState)
     {
         _speed = speed;
         CheckFlip(Vector3.left);
@@ -151,7 +151,7 @@ public class SpiderController : MonoBehaviour, IListener
 
     }
 
-    private IEnumerator SmoothLerpRight(float time, Vector3 vector3)
+    private IEnumerator WalkRight(float time, Vector3 vector3)
     {
         _speed = speed;
         CheckFlip(Vector3.right);
@@ -170,7 +170,7 @@ public class SpiderController : MonoBehaviour, IListener
         StopAnimCoroutines();
         bool random = (Random.value < 0.5f);
         SpiderAttackState spA = random ? SpiderAttackState.RangeAttack : SpiderAttackState.MeleeAttack;////////
-        var co = StartCoroutine(SmoothLerpLeft(SpiderAttackState.RangeAttack));
+        var co = StartCoroutine(WalkLeft(SpiderAttackState.RangeAttack));
         _coroutines.Add(co);
     }
 
@@ -182,7 +182,7 @@ public class SpiderController : MonoBehaviour, IListener
         if (myBool)
         {
             StopAnimCoroutines();
-            var co = StartCoroutine(SmoothLerpRight(Random.Range(1, 4), Vector3.right));
+            var co = StartCoroutine(WalkRight(Random.Range(1, 4), Vector3.right));
             _coroutines.Add(co);
         }
     }
@@ -194,7 +194,7 @@ public class SpiderController : MonoBehaviour, IListener
         if (myBool)
         {
             StopAnimCoroutines();
-            var co = StartCoroutine(SmoothLerpRight(Random.Range(1, 4), Vector3.right));
+            var co = StartCoroutine(WalkRight(Random.Range(1, 4), Vector3.right));
             _coroutines.Add(co);
         }
     }
@@ -224,14 +224,14 @@ public class SpiderController : MonoBehaviour, IListener
         if (_currentAnim == attack_melee || _currentAnim == attack_range)
         {
             StopAnimCoroutines();
-            var co = StartCoroutine(SmoothLerpRight(Random.Range(1, 4), Vector3.right));
+            var co = StartCoroutine(WalkRight(Random.Range(1, 4), Vector3.right));
             _coroutines.Add(co);
         }
 
         if (_currentAnim == walk)
         {
             StopAnimCoroutines();
-            var co = StartCoroutine(SmoothLerpRight(Random.Range(1, 2), Vector3.right));
+            var co = StartCoroutine(WalkRight(Random.Range(1, 2), Vector3.right));
             _coroutines.Add(co);
         }
     }
@@ -291,7 +291,7 @@ public class SpiderController : MonoBehaviour, IListener
                 StopAnimCoroutines();
                 bool random = (Random.value < 0.5f);
                 SpiderAttackState spA = random ? SpiderAttackState.RangeAttack : SpiderAttackState.MeleeAttack;
-                var co = StartCoroutine(SmoothLerpLeft(spA));
+                var co = StartCoroutine(WalkLeft(SpiderAttackState.RangeAttack));
                 _coroutines.Add(co);
 
                 break;

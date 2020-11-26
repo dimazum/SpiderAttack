@@ -8,6 +8,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour, IListener
 {
     public Transform player;
+    public Transform mainHouse;
     public Transform bulletPosition;
     public Vector3 offset;
     public Vector3 desiredPos;
@@ -19,6 +20,7 @@ public class CameraController : MonoBehaviour, IListener
     void Start()
     {
         EventManager.Instance.AddListener(EVENT_TYPE.TrebShot, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.GameOver, this);
     }
 
     public void LateUpdate()
@@ -46,6 +48,13 @@ public class CameraController : MonoBehaviour, IListener
                     _fireTrebuchet = true;
                     bulletPosition = (Transform)Param;
                 }
+                break;
+        }
+
+        switch (Event_Type)
+        {
+            case EVENT_TYPE.GameOver:
+                player = mainHouse;
                 break;
         }
     }

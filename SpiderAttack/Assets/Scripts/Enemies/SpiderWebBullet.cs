@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.enums;
+using Unity.UNetWeaver;
 using UnityEngine;
 
 public class SpiderWebBullet : MonoBehaviour, IListener
@@ -9,8 +11,12 @@ public class SpiderWebBullet : MonoBehaviour, IListener
     public Transform character;
     public Transform webContainer;
     public Transform spiderTarget;
+    public Transform mainHouse;
     public bool _isAttack;
     public int PowerDamage { get; set; }
+    public List<GameObject> webs;
+
+    int webCount = 0;
 
 
     void Start()
@@ -35,10 +41,21 @@ public class SpiderWebBullet : MonoBehaviour, IListener
 
         if (collision.tag == "player")
         {
+            _isAttack = false;
             EventManager.Instance.PostNotification(EVENT_TYPE.SpiderWebHitCharacter, this);
+            transform.SetParent(webContainer);
+            transform.localPosition = new Vector3(0, 0, 0);
+            spiderTarget.position = mainHouse.position; 
+            //spiderTarget.SetParent(null);
+        }
+
+        
+
+        if (collision.tag == "mainHouse")
+        {
+            webs.ElementAtOrDefault(webCount++)?.SetActive(true);
         }
     }
-
 
 
     void Update()
@@ -66,7 +83,20 @@ public class SpiderWebBullet : MonoBehaviour, IListener
                 break;
 
             case EVENT_TYPE.GateDestroy:
-                spiderTarget.position = character.position;
+                Debug.Log(Vector2.Distance(webContainer.position, character.position));
+                Debug.Log(Vector2.Distance(mainHouse.position, webContainer.position));
+                if (Vector2.Distance(webContainer.position, character.position) <
+                    Vector2.Distance(mainHouse.position, webContainer.position))
+                {
+                    spiderTarget.position = character.position;
+                    spiderTarget.SetParent(character);
+                }
+                else
+                {
+                    spiderTarget.position = mainHouse.position;
+                    spiderTarget.SetParent(null);
+                }
+                
                 break;
         }
     }

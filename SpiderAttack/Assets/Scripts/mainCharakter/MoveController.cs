@@ -434,12 +434,14 @@ public class MoveController : MonoBehaviour, IListener
                 break;
 
             case EVENT_TYPE.SpiderWebHitCharacter:
-                animator.Play("die");
+                animator.Play("webDie");
+                EventManager.Instance.PostNotification(EVENT_TYPE.GameOver,this);
                 canMove = false;
                 canMoveUp = false;
                 break;
 
             case EVENT_TYPE.SpiderMeleeHitCharacter:
+                EventManager.Instance.PostNotification(EVENT_TYPE.GameOver, this);
                 animator.Play("die");
                 break;
 

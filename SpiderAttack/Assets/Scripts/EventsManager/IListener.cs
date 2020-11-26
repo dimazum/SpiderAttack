@@ -7,6 +7,7 @@ public interface IListener
 
 public enum EVENT_TYPE
 {
+    GameOver,
     BuyPick, //buy Pick Button
     PickUp, //upgrade Pick
     OpenShop, //click Open Shop Button
