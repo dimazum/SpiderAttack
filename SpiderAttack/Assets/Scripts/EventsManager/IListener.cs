@@ -24,10 +24,18 @@ public enum EVENT_TYPE
     TrebShot,// end of spoon move
 
     //Spider
-    SpiderMeleeAttackHitGate,
-    SpiderRangeAttackHitGate,
+    SpiderMeleeAttackGate,
+    SpiderRangeAttackGate,
+    SpiderStartRangeAttack,
+    SpiderSpitRangeAttack,// начало плевка
+    SpiderWebReachedWall,
     SpiderHurt,
-    SpiderDie
+    SpiderDie,
+    SpiderWebHitCharacter,
+    SpiderMeleeHitCharacter,
+
+    //Gate
+    GateDestroy,
 
  
 

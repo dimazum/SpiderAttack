@@ -9,6 +9,8 @@ TagManager:
   - Post
   - GateRight
   - BulletStone
+  - Krab
+  - spiderWeb
   layers:
   - Default
   - TransparentFX

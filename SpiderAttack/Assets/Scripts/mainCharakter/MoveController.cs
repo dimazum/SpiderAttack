@@ -43,7 +43,7 @@ public class MoveController : MonoBehaviour, IListener
 
     Animator animator;
     public bool blockMove = false;
-    private bool canMove;
+    public bool canMove;
     public bool canMoveUp; //есть ли сверху препятствие
     public bool inBase = true;
 
@@ -103,6 +103,8 @@ public class MoveController : MonoBehaviour, IListener
         EventManager.Instance.AddListener(EVENT_TYPE.TrebSpoonUpPointerDown, this);
         EventManager.Instance.AddListener(EVENT_TYPE.TrebSpoonUpPointerUp, this);
         EventManager.Instance.AddListener(EVENT_TYPE.TrebSpoonLimit, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.SpiderWebHitCharacter, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.SpiderMeleeHitCharacter, this);
     }
 
     public void HorizontalFlip(Vector3 vector3)
@@ -130,9 +132,9 @@ public class MoveController : MonoBehaviour, IListener
 
             if (hit.collider != null)
             {
+                canMove = false;
                 if (hit.collider.name.Contains("block"))
                 {
-                    canMove = false;
                     state = CharState.Rubilovo;
                 }
             }
@@ -428,9 +430,17 @@ public class MoveController : MonoBehaviour, IListener
 
             case EVENT_TYPE.TrebSpoonLimit:
                 animator.SetFloat("TrebSpoonSpeed", 0f);
-                //animator.SetBool("TrebuchetSpoonUp", false);
-                //animator.SetBool("TrebuchetSpoonDown", false);
 
+                break;
+
+            case EVENT_TYPE.SpiderWebHitCharacter:
+                animator.Play("die");
+                canMove = false;
+                canMoveUp = false;
+                break;
+
+            case EVENT_TYPE.SpiderMeleeHitCharacter:
+                animator.Play("die");
                 break;
 
 
@@ -439,3 +449,4 @@ public class MoveController : MonoBehaviour, IListener
 }
 
 //когда стреляет может ходить
+

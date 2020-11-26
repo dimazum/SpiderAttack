@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class TrebuchetBullet : MonoBehaviour
 {
-    public int Damage;
+    public int Damage = 100;
 
 }

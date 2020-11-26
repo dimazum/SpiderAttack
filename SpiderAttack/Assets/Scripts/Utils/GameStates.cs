@@ -72,7 +72,7 @@ public class GameStates : Singleton<GameStates>, IListener
         }
         PlayerPrefs.SetInt("CurrentTime", currentTime);
         PlayerPrefs.SetInt("CurrentDay", round);
-        Debug.Log("Application ending after " + Time.time + " seconds");
+        //Debug.Log("Application ending after " + Time.time + " seconds");
     }
 
     void Update()
