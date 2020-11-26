@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Spine;
 using UnityEngine;
 using UnityEngine.UI;
@@ -36,8 +37,8 @@ public class SpiderController : MonoBehaviour, IListener
     public string webAnimation = "WebAnimation";
 
     //public Transform targetPos;
+    public BattleController battleController;
     public Transform webTargetBone;
-    public Transform spiderTarget;
     public Transform mainCharacter;
     private bool _rightDirect;
     private string _currentAnim;
@@ -56,6 +57,7 @@ public class SpiderController : MonoBehaviour, IListener
 
     public float meleeRange = 3;
 
+    private bool _forceAttack; //when need to attack immediately
 
 
 
@@ -81,11 +83,12 @@ public class SpiderController : MonoBehaviour, IListener
         //_webSlot = skeletonAnimation.skeleton.FindSlot("web");
         skeletonAnimation.skeleton.FindSlot("body_pattern1").SetColor(Color.green);
 
-        StopAnimCoroutines();
+        //StopAnimCoroutines();
         bool random = (Random.value < 0.5f);
-        SpiderAttackState spA = random ? SpiderAttackState.RangeAttack : SpiderAttackState.MeleeAttack;
-        var co = StartCoroutine(WalkLeft(SpiderAttackState.RangeAttack));
-        _coroutines.Add(co);
+        //SpiderAttackState spA = random ? SpiderAttackState.RangeAttack : SpiderAttackState.MeleeAttack;
+        //var co = StartCoroutine(WalkLeft(SpiderAttackState.RangeAttack));
+        //_coroutines.Add(co);
+        SpiderWalkToTarget();
     }
 
     private TrackEntry SetAnimation(string animationName, bool loop, float speedAnimation = 1, int trackIndex = 0)
@@ -97,19 +100,73 @@ public class SpiderController : MonoBehaviour, IListener
         return anim;
     }
 
-    private IEnumerator WalkLeft(SpiderAttackState spiderAttackState)
+    //private IEnumerator WalkLeft(SpiderAttackState spiderAttackState)
+    //{
+    //    _speed = speed;
+    //    CheckFlip(Vector3.left);
+
+    //    SetAnimation(walk, true, speedWalking);
+    //    var rangeRange = Random.Range(3, 7);
+    //    while (true)
+    //    {
+    //        if (spiderAttackState == SpiderAttackState.MeleeAttack && Vector3.Distance(transform.position, new Vector3(spiderTarget.position.x, transform.position.y)) < meleeRange)
+    //        {
+    //            var animMelee = SetAnimation(attack_melee, true, speedAttackMelee);
+    //            animMelee.Complete += AnimMelee_Complete;
+
+    //            skeletonAnimation.state.Event += delegate (TrackEntry entry, Spine.Event e)
+    //            {
+    //                if (e.Data.Name == "Start_animations_folder/start_attack_melee")
+    //                {
+    //                    EventManager.Instance.PostNotification(EVENT_TYPE.SpiderMeleeAttackGate, this,
+    //                        meleeDamage);
+    //                }
+                   
+    //            };
+    //            break;
+    //        }
+    //        if (spiderAttackState == SpiderAttackState.RangeAttack && Vector3.Distance(transform.position, new Vector3(spiderTarget.position.x, transform.position.y)) < rangeRange)
+    //        {
+
+    //            webTargetBone.position = spiderTarget.position;
+    //            var animRange = SetAnimation(attack_range, true, speedAttackRange);
+                
+    //            animRange.Complete += AnimRange_Complete;
+    //            skeletonAnimation.state.Event += delegate (TrackEntry entry, Spine.Event e)
+    //            {
+    //                if (e.Data.Name == "Start_animations_folder/start_attack_range")
+    //                {
+    //                    EventManager.Instance.PostNotification(EVENT_TYPE.SpiderStartRangeAttack, this);
+    //                }
+
+    //                if (e.Data.Name == "Start_animations_folder/start_animation_web_1")
+    //                {
+    //                    EventManager.Instance.PostNotification(EVENT_TYPE.SpiderSpitRangeAttack, this);
+    //                }
+
+    //            };
+    //            break;
+    //        }
+
+    //        transform.Translate(Vector3.left * _speed * Time.deltaTime);
+    //        yield return null;
+    //    }
+
+    //}
+
+    private IEnumerator WalkAttack(SpiderAttackState spiderAttackState, Transform target, Vector3 dir)
     {
         _speed = speed;
-        CheckFlip(Vector3.left);
+        CheckFlip(dir);
 
         SetAnimation(walk, true, speedWalking);
         var rangeRange = Random.Range(3, 7);
         while (true)
         {
-            if (spiderAttackState == SpiderAttackState.MeleeAttack && Vector3.Distance(transform.position, new Vector3(spiderTarget.position.x, transform.position.y)) < meleeRange)
+            if (spiderAttackState == SpiderAttackState.MeleeAttack && Vector3.Distance(transform.position, new Vector3(target.position.x, transform.position.y)) < meleeRange)
             {
                 var animMelee = SetAnimation(attack_melee, true, speedAttackMelee);
-                animMelee.Complete += AnimMelee_Complete;
+                //animMelee.Complete += AnimMelee_Complete;
 
                 skeletonAnimation.state.Event += delegate (TrackEntry entry, Spine.Event e)
                 {
@@ -118,17 +175,17 @@ public class SpiderController : MonoBehaviour, IListener
                         EventManager.Instance.PostNotification(EVENT_TYPE.SpiderMeleeAttackGate, this,
                             meleeDamage);
                     }
-                   
+
                 };
                 break;
             }
-            if (spiderAttackState == SpiderAttackState.RangeAttack && Vector3.Distance(transform.position, new Vector3(spiderTarget.position.x, transform.position.y)) < rangeRange)
+            if (spiderAttackState == SpiderAttackState.RangeAttack && Vector3.Distance(transform.position, new Vector3(target.position.x, transform.position.y)) < rangeRange)
             {
 
-                webTargetBone.position = spiderTarget.position;
+                //webTargetBone.position = spiderTarget.position;
                 var animRange = SetAnimation(attack_range, true, speedAttackRange);
-                
-                animRange.Complete += AnimRange_Complete;
+
+                animRange.Complete += AnimRange_Complete2;
                 skeletonAnimation.state.Event += delegate (TrackEntry entry, Spine.Event e)
                 {
                     if (e.Data.Name == "Start_animations_folder/start_attack_range")
@@ -145,13 +202,36 @@ public class SpiderController : MonoBehaviour, IListener
                 break;
             }
 
-            transform.Translate(Vector3.left * _speed * Time.deltaTime);
+            transform.Translate(dir * _speed * Time.deltaTime);
             yield return null;
         }
 
     }
 
-    private IEnumerator WalkRight(float time, Vector3 vector3)
+    //private IEnumerator WalkRight(float time, Vector3 vector3)
+    //{
+    //    _speed = speed;
+    //    CheckFlip(Vector3.right);
+
+    //    float elapsedTime = 0;
+    //    var animWalk = SetAnimation(walk, true, speedWalking);
+
+
+    //    while (elapsedTime < time)
+    //    {
+    //        elapsedTime += Time.deltaTime;
+    //        transform.Translate(vector3 * _speed * Time.deltaTime);
+    //        yield return null;
+    //    }
+
+    //    StopAnimCoroutines();
+    //    bool random = (Random.value < 0.5f);
+    //    SpiderAttackState spA = random ? SpiderAttackState.RangeAttack : SpiderAttackState.MeleeAttack;////////
+    //    var co = StartCoroutine(WalkLeft(SpiderAttackState.RangeAttack));
+    //    _coroutines.Add(co);
+    //}
+
+    private IEnumerator WalkAway(float time, Vector3 vector3)
     {
         _speed = speed;
         CheckFlip(Vector3.right);
@@ -167,74 +247,156 @@ public class SpiderController : MonoBehaviour, IListener
             yield return null;
         }
 
-        StopAnimCoroutines();
+
         bool random = (Random.value < 0.5f);
         SpiderAttackState spA = random ? SpiderAttackState.RangeAttack : SpiderAttackState.MeleeAttack;////////
-        var co = StartCoroutine(WalkLeft(SpiderAttackState.RangeAttack));
-        _coroutines.Add(co);
+        SpiderWalkToTarget();
+
     }
 
-
-    private void AnimRange_Complete(TrackEntry trackEntry)
+    public void SpiderWalkToTarget()
     {
+        var target = FindTarget();
+
+        if (target == null)
+        {
+            SetAnimation(idle, true);
+            return;
+        }
+        var targetSide = CheckTargetSide();
+
+        if (targetSide == TargetSide.TargetOnLeft)
+        {
+            StopAnimCoroutines();
+            var co = StartCoroutine(WalkAttack(SpiderAttackState.RangeAttack, target, Vector3.left));
+            _coroutines.Add(co);
+        }
+        else
+        {
+            StopAnimCoroutines();
+            var co = StartCoroutine(WalkAttack(SpiderAttackState.RangeAttack, target, Vector3.right));
+            _coroutines.Add(co);
+        }
+
+    }
+
+    public void SpiderWalkFromTarget()
+    {
+        var target = FindTarget();
+        var targetSide = CheckTargetSide();
+        if (targetSide == TargetSide.TargetOnLeft)
+        {
+            StopAnimCoroutines();
+            var co = StartCoroutine(WalkAway(2, Vector3.right));
+            _coroutines.Add(co);
+        }
+        else
+        {
+            StopAnimCoroutines();
+            var co = StartCoroutine(WalkAway(2, Vector3.left));
+            _coroutines.Add(co);
+        }
+    }
+
+    public Transform FindTarget()
+    {
+        var aim = battleController.allTargets?.OrderBy(x => Vector2.Distance(transform.position, x.position)).FirstOrDefault();
+        battleController.spiderTarget = aim;
+
+        return aim;
+    }
+
+    private TargetSide CheckTargetSide()
+    {
+        if (gameObject.transform.position.x > battleController.spiderTarget.position.x)
+        {
+            return TargetSide.TargetOnLeft;
+        }
+
+        return TargetSide.TargetOnRight;
+
+    }
+    
+
+
+    //private void AnimRange_Complete(TrackEntry trackEntry)
+    //{
+    //    var val = Random.value;
+    //    var myBool = (val < .5);
+    //    if (myBool)
+    //    {
+    //        StopAnimCoroutines();
+    //        var co = StartCoroutine(WalkRight(Random.Range(1, 4), Vector3.right));
+    //        _coroutines.Add(co);
+    //    }
+    //}
+
+    private void AnimRange_Complete2(TrackEntry trackEntry)
+    {
+        if (_forceAttack)
+        {
+            SpiderWalkToTarget();
+            return;
+        }
+
         var val = Random.value;
         var myBool = (val < .5);
         if (myBool)
         {
-            StopAnimCoroutines();
-            var co = StartCoroutine(WalkRight(Random.Range(1, 4), Vector3.right));
-            _coroutines.Add(co);
+            //var co = StartCoroutine(WalkRight(Random.Range(1, 4), Vector3.right));
+            SpiderWalkFromTarget();
+
         }
     }
 
-    private void AnimMelee_Complete(TrackEntry trackEntry)
-    {
-        var val = Random.value;
-        var myBool = (val < .5);
-        if (myBool)
-        {
-            StopAnimCoroutines();
-            var co = StartCoroutine(WalkRight(Random.Range(1, 4), Vector3.right));
-            _coroutines.Add(co);
-        }
-    }
+    //private void AnimMelee_Complete(TrackEntry trackEntry)
+    //{
+    //    var val = Random.value;
+    //    var myBool = (val < .5);
+    //    if (myBool)
+    //    {
+    //        StopAnimCoroutines();
+    //        var co = StartCoroutine(WalkRight(Random.Range(1, 4), Vector3.right));
+    //        _coroutines.Add(co);
+    //    }
+    //}
 
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "BulletStone")
-        {
+    //void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.tag == "BulletStone")
+    //    {
 
-            _speed = 0;
+    //        _speed = 0;
 
-            var animHurt = skeletonAnimation.state.SetAnimation(0, hurt, false);
-            animHurt.Complete += AnimHurt_Complete;
-            animHurt.TimeScale = 1.5f;
+    //        var animHurt = skeletonAnimation.state.SetAnimation(0, hurt, false);
+    //        animHurt.Complete += AnimHurt_Complete;
+    //        animHurt.TimeScale = 1.5f;
 
-            Destroy(collision.gameObject);
+    //        Destroy(collision.gameObject);
 
-            EventManager.Instance.PostNotification(EVENT_TYPE.SpiderHurt, this, collision.gameObject.GetComponent<TrebuchetBullet>().Damage);
-            ChangeHp(collision.gameObject.GetComponent<TrebuchetBullet>().Damage);
-        }
-    }
+    //        EventManager.Instance.PostNotification(EVENT_TYPE.SpiderHurt, this, collision.gameObject.GetComponent<TrebuchetBullet>().Damage);
+    //        ChangeHp(collision.gameObject.GetComponent<TrebuchetBullet>().Damage);
+    //    }
+    //}
 
-    private void AnimHurt_Complete(TrackEntry trackEntry)
-    {
+    //private void AnimHurt_Complete(TrackEntry trackEntry)
+    //{
 
-        if (_currentAnim == attack_melee || _currentAnim == attack_range)
-        {
-            StopAnimCoroutines();
-            var co = StartCoroutine(WalkRight(Random.Range(1, 4), Vector3.right));
-            _coroutines.Add(co);
-        }
+    //    if (_currentAnim == attack_melee || _currentAnim == attack_range)
+    //    {
+    //        StopAnimCoroutines();
+    //        var co = StartCoroutine(WalkRight(Random.Range(1, 4), Vector3.right));
+    //        _coroutines.Add(co);
+    //    }
 
-        if (_currentAnim == walk)
-        {
-            StopAnimCoroutines();
-            var co = StartCoroutine(WalkRight(Random.Range(1, 2), Vector3.right));
-            _coroutines.Add(co);
-        }
-    }
+    //    if (_currentAnim == walk)
+    //    {
+    //        StopAnimCoroutines();
+    //        var co = StartCoroutine(WalkRight(Random.Range(1, 2), Vector3.right));
+    //        _coroutines.Add(co);
+    //    }
+    //}
 
     private void ChangeHp(int damage)
     {
@@ -285,17 +447,24 @@ public class SpiderController : MonoBehaviour, IListener
         switch (Event_Type)
         {
             case EVENT_TYPE.GateDestroy:
-                spiderTarget.SetParent(mainCharacter);
-                spiderTarget.position = mainCharacter.position;
+                _forceAttack = true;
+                //spiderTarget.SetParent(mainCharacter);
+                //spiderTarget.position = mainCharacter.position;
 
-                StopAnimCoroutines();
-                bool random = (Random.value < 0.5f);
-                SpiderAttackState spA = random ? SpiderAttackState.RangeAttack : SpiderAttackState.MeleeAttack;
-                var co = StartCoroutine(WalkLeft(SpiderAttackState.RangeAttack));
-                _coroutines.Add(co);
+                //StopAnimCoroutines();
+                //bool random = (Random.value < 0.5f);
+                //SpiderAttackState spA = random ? SpiderAttackState.RangeAttack : SpiderAttackState.MeleeAttack;
+                //var co = StartCoroutine(WalkLeft(SpiderAttackState.RangeAttack));
+                //_coroutines.Add(co);
 
                 break;
 
         }
+    }
+
+    enum TargetSide
+    {
+        TargetOnRight,
+        TargetOnLeft,
     }
 }

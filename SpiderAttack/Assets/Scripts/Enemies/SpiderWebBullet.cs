@@ -7,20 +7,20 @@ using UnityEngine;
 
 public class SpiderWebBullet : MonoBehaviour, IListener
 {
+    public BattleController battleController;
     public SpiderController spiderController;
-    public Transform character;
     public Transform webContainer;
-    public Transform spiderTarget;
-    public Transform mainHouse;
+    public Transform spiderTarget2;
     public bool _isAttack;
     public int PowerDamage { get; set; }
     public List<GameObject> webs;
 
-    int webCount = 0;
+    int _webCount = 0;
 
 
     void Start()
     {
+        spiderTarget2 = spiderController.FindTarget();
         PowerDamage = spiderController.rangeDamage;
 
         EventManager.Instance.AddListener(EVENT_TYPE.GateDestroy, this);
@@ -37,6 +37,7 @@ public class SpiderWebBullet : MonoBehaviour, IListener
             EventManager.Instance.PostNotification(EVENT_TYPE.SpiderWebReachedWall, this, PowerDamage);
             transform.SetParent(webContainer);
             transform.localPosition = new Vector3(0, 0, 0);
+            spiderTarget2 = spiderController.FindTarget();
         }
 
         if (collision.tag == "player")
@@ -45,24 +46,32 @@ public class SpiderWebBullet : MonoBehaviour, IListener
             EventManager.Instance.PostNotification(EVENT_TYPE.SpiderWebHitCharacter, this);
             transform.SetParent(webContainer);
             transform.localPosition = new Vector3(0, 0, 0);
-            spiderTarget.position = mainHouse.position; 
-            //spiderTarget.SetParent(null);
+            battleController.allTargets.Remove(battleController.spiderTarget);
+            
+            spiderTarget2 = spiderController.FindTarget();
         }
-
-        
 
         if (collision.tag == "mainHouse")
         {
-            webs.ElementAtOrDefault(webCount++)?.SetActive(true);
+            spiderTarget2.SetParent(null);
+            webs.ElementAtOrDefault(_webCount++)?.SetActive(true);
+            spiderTarget2 = spiderController.FindTarget();
+
+            if (_webCount == 4)
+            {
+                EventManager.Instance.PostNotification(EVENT_TYPE.GameOver, this);
+                battleController.allTargets.Remove(battleController.spiderTarget);
+                spiderTarget2 = spiderController.FindTarget();
+            }
         }
     }
 
 
     void Update()
     {
-        if (_isAttack)
+        if (_isAttack && spiderTarget2!= null)
         {
-            transform.position = Vector2.MoveTowards(gameObject.transform.position, spiderTarget.position, 20 * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(gameObject.transform.position, spiderTarget2.position, 20 * Time.deltaTime);
         }
     }
 
@@ -83,20 +92,10 @@ public class SpiderWebBullet : MonoBehaviour, IListener
                 break;
 
             case EVENT_TYPE.GateDestroy:
-                Debug.Log(Vector2.Distance(webContainer.position, character.position));
-                Debug.Log(Vector2.Distance(mainHouse.position, webContainer.position));
-                if (Vector2.Distance(webContainer.position, character.position) <
-                    Vector2.Distance(mainHouse.position, webContainer.position))
-                {
-                    spiderTarget.position = character.position;
-                    spiderTarget.SetParent(character);
-                }
-                else
-                {
-                    spiderTarget.position = mainHouse.position;
-                    spiderTarget.SetParent(null);
-                }
-                
+
+                battleController.allTargets.Remove(battleController.spiderTarget);
+                var spiderTarget = spiderController.FindTarget();
+
                 break;
         }
     }

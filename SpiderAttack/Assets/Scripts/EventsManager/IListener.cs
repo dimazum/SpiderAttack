@@ -38,6 +38,9 @@ public enum EVENT_TYPE
     //Gate
     GateDestroy,
 
+    //MainHouse,
+    MainHouseDestroy,
+
  
 
 }

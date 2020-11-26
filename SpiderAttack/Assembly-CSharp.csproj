@@ -73,6 +73,7 @@
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\VariableJoystick.cs" />
     <Compile Include="Assets\Scripts\ArrayGUI.cs" />
     <Compile Include="Assets\Scripts\BasePlace.cs" />
+    <Compile Include="Assets\Scripts\BattleController.cs" />
     <Compile Include="Assets\Scripts\BattlePlaceFirstFloor.cs" />
     <Compile Include="Assets\Scripts\BattlePlaceSecondFloor.cs" />
     <Compile Include="Assets\Scripts\Buttons\FireButton.cs" />

@@ -32,6 +32,7 @@ public class BattlePlaceFirstFloor : MonoBehaviour, IListener
     void Start()
     {
         EventManager.Instance.AddListener(EVENT_TYPE.TrebShot, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.GameOver, this);
     }
 
     public void OnTriggerEnter2D(Collider2D coll)
@@ -106,6 +107,14 @@ public class BattlePlaceFirstFloor : MonoBehaviour, IListener
                 transition = 1;
                 //cameraController.offset = new Vector3(4f, 2.5f, -10);
                 break;
+
+            //case EVENT_TYPE.GameOver:
+            //    transition = 4;
+
+                break;
+
+
+
 
         }
     }
