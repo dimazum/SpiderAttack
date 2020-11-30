@@ -35,6 +35,7 @@ public class MoveController : MonoBehaviour, IListener
 
     public bool test = true;
     private bool isLadder = false;
+    public bool blockAllMoves;
 
     public GameObject ladder;
     public Transform sceneContainer;
@@ -46,9 +47,6 @@ public class MoveController : MonoBehaviour, IListener
     public bool canMove;
     public bool canMoveUp; //есть ли сверху препятствие
     public bool inBase = true;
-
-    //kirche lvl
-    public int kircheLvl;
 
     //for Android and Editor
     public Func<bool> IsHorizontal;
@@ -122,6 +120,10 @@ public class MoveController : MonoBehaviour, IListener
 
         if (IsHorizontal())
         {
+            if (blockAllMoves)
+            {
+                return;
+            }
             isLadder = CheckLadder();
             SetRigidbodyType2D(isLadder); 
             move = HorizontalControls();
@@ -154,6 +156,11 @@ public class MoveController : MonoBehaviour, IListener
 
         else if (IsVertical())
         {
+            if (blockAllMoves)
+            {
+                return;
+            }
+
             isLadder = CheckLadder();
             SetRigidbodyType2D(isLadder);
 
@@ -436,8 +443,7 @@ public class MoveController : MonoBehaviour, IListener
             case EVENT_TYPE.SpiderWebHitCharacter:
                 animator.Play("webDie");
                 EventManager.Instance.PostNotification(EVENT_TYPE.GameOver,this);
-                canMove = false;
-                canMoveUp = false;
+                blockAllMoves = true;
                 break;
 
             case EVENT_TYPE.SpiderMeleeHitCharacter:

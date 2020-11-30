@@ -29,6 +29,7 @@ public class GateRightController : MonoBehaviour, IListener
         switch (Event_Type)
         {
             case EVENT_TYPE.SpiderMeleeAttackGate:
+                _animator.Play("gate_right_Hit");
                 if (Param != null)
                 {
                     ChangeGateHp((int)Param);

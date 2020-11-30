@@ -33,8 +33,14 @@ public class GameStates : Singleton<GameStates>, IListener
     {
         PickLvl = PlayerPrefs.GetInt("PickLvl", 0);
         currentTime = PlayerPrefs.GetInt("CurrentTime", 0);
+        round = PlayerPrefs.GetInt("CurrentDay", 0);
         CurrentPick = GetPick(PickLvl);
         NextPick = GetPick(PickLvl + 1);
+        
+    }
+
+    void Start()
+    {
         EventManager.Instance.AddListener(EVENT_TYPE.BuyPick, this);
     }
 
@@ -62,6 +68,7 @@ public class GameStates : Singleton<GameStates>, IListener
     {
         PlayerPrefs.SetInt("PickLvl", 0);
         PlayerPrefs.SetInt("CurrentTime", 0);
+        PlayerPrefs.SetInt("CurrentDay", 0);
     }
 
     void OnApplicationQuit()

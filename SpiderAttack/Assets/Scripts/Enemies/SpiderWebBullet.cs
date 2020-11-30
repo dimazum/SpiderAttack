@@ -1,26 +1,30 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Assets.Scripts.enums;
-using Unity.UNetWeaver;
+﻿using System.Linq;
 using UnityEngine;
 
 public class SpiderWebBullet : MonoBehaviour, IListener
 {
-    public BattleController battleController;
-    public SpiderController spiderController;
-    public Transform webContainer;
-    public Transform spiderTarget2;
-    public bool _isAttack;
-    public int PowerDamage { get; set; }
-    public List<GameObject> webs;
+    private BattleController battleController;
+    private MainHomeController mainHomeController;
+    private Transform webContainer;
+    private Transform spiderTarget;
+    private bool _isAttack;
+    private Vector3 zeroPos = Vector3.zero;
 
-    int _webCount = 0;
+    public int PowerDamage { get; set; }
+    public Spider spiderController;
+
+    void Awake()
+    {
+        webContainer = transform.parent;
+        battleController = (BattleController)FindObjectOfType(typeof(BattleController));
+        mainHomeController = (MainHomeController)FindObjectOfType(typeof(MainHomeController));
+        spiderController = spiderController.GetComponent<Spider>();
+    }
 
 
     void Start()
     {
-        spiderTarget2 = spiderController.FindTarget();
+        spiderTarget = spiderController.FindTarget();
         PowerDamage = spiderController.rangeDamage;
 
         EventManager.Instance.AddListener(EVENT_TYPE.GateDestroy, this);
@@ -31,37 +35,39 @@ public class SpiderWebBullet : MonoBehaviour, IListener
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "GateRight")
+        if (collision.CompareTag("GateRight"))
         {
             _isAttack = false;
             EventManager.Instance.PostNotification(EVENT_TYPE.SpiderWebReachedWall, this, PowerDamage);
             transform.SetParent(webContainer);
-            transform.localPosition = new Vector3(0, 0, 0);
-            spiderTarget2 = spiderController.FindTarget();
+            transform.localPosition = zeroPos;
+            spiderTarget = spiderController.FindTarget();
         }
 
-        if (collision.tag == "player")
+        if (collision.CompareTag("player"))
         {
             _isAttack = false;
             EventManager.Instance.PostNotification(EVENT_TYPE.SpiderWebHitCharacter, this);
             transform.SetParent(webContainer);
-            transform.localPosition = new Vector3(0, 0, 0);
-            battleController.allTargets.Remove(battleController.spiderTarget);
-            
-            spiderTarget2 = spiderController.FindTarget();
+            transform.localPosition = zeroPos;
+            battleController.allTargets.Remove(battleController.allTargets.FirstOrDefault(x => x.name.Contains("Character")));
+
+            spiderTarget = spiderController.FindTarget();
         }
 
-        if (collision.tag == "mainHouse")
+        if (collision.CompareTag("mainHouse"))
         {
-            spiderTarget2.SetParent(null);
-            webs.ElementAtOrDefault(_webCount++)?.SetActive(true);
-            spiderTarget2 = spiderController.FindTarget();
+            _isAttack = false;
+            spiderTarget.SetParent(null);
+            mainHomeController.webHits++;
+            spiderTarget = spiderController.FindTarget();
+            EventManager.Instance.PostNotification(EVENT_TYPE.SpiderWebHitMainHouse, this);
 
-            if (_webCount == 4)
+            if (mainHomeController.webHits == 4)
             {
                 EventManager.Instance.PostNotification(EVENT_TYPE.GameOver, this);
-                battleController.allTargets.Remove(battleController.spiderTarget);
-                spiderTarget2 = spiderController.FindTarget();
+                battleController.allTargets.Remove(battleController.allTargets.FirstOrDefault(x=>x.name.Contains("SpidertargetHouse")));
+                spiderTarget = spiderController.FindTarget();
             }
         }
     }
@@ -69,9 +75,9 @@ public class SpiderWebBullet : MonoBehaviour, IListener
 
     void Update()
     {
-        if (_isAttack && spiderTarget2!= null)
+        if (_isAttack && spiderTarget!= null)
         {
-            transform.position = Vector2.MoveTowards(gameObject.transform.position, spiderTarget2.position, 20 * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(gameObject.transform.position, spiderTarget.position, 20 * Time.deltaTime);
         }
     }
 
@@ -80,21 +86,36 @@ public class SpiderWebBullet : MonoBehaviour, IListener
         switch (Event_Type)
         {
             case EVENT_TYPE.SpiderStartRangeAttack:
-                _isAttack = false;
-                transform.SetParent(webContainer);
-                transform.localPosition = new Vector3(0, 0, 0);
-
+                if (Sender == spiderController)
+                {
+                    _isAttack = false;
+                    transform.SetParent(webContainer);
+                    transform.localPosition = zeroPos;
+                }
                 break;
-            case EVENT_TYPE.SpiderSpitRangeAttack:
 
-                transform.SetParent(null);
-                _isAttack = true;
+            case EVENT_TYPE.SpiderSpitRangeAttack:
+                if(Sender == spiderController)
+                {
+                    transform.SetParent(null);
+                    _isAttack = true;
+                }
+                
                 break;
 
             case EVENT_TYPE.GateDestroy:
+                if (Sender == spiderController)
+                {
+                    transform.SetParent(webContainer);
+                    transform.localPosition = zeroPos;
 
-                battleController.allTargets.Remove(battleController.spiderTarget);
-                var spiderTarget = spiderController.FindTarget();
+                    {
+                        var spiderTargetGate = battleController.allTargets.FirstOrDefault(x => x.gameObject.name.Contains("spiderTargetGate"));
+                        battleController.allTargets.Remove(spiderTargetGate);
+                    }
+
+                    spiderTarget = spiderController.FindTarget();
+                }
 
                 break;
         }

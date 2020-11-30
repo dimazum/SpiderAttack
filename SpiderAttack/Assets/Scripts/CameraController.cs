@@ -54,7 +54,7 @@ public class CameraController : MonoBehaviour, IListener
         switch (Event_Type)
         {
             case EVENT_TYPE.GameOver:
-                offset = new Vector3(0,0,-10);
+                offset = new Vector3(0,.76f,-10);
                 Camera.main.orthographicSize = 2.5f;
                 player = mainHouse;
                 break;

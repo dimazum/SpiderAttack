@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class BattlePlaceFirstFloor : MonoBehaviour, IListener
 {
-    private Animator cameraAnimator;
     private Animator animator;
     private Animator _mainUIAnimator;
     private CameraController cameraController;
@@ -24,7 +23,6 @@ public class BattlePlaceFirstFloor : MonoBehaviour, IListener
     {
         _mainUIAnimator = mainUI.GetComponent<Animator>();
         cameraController = mainCamera.GetComponent<CameraController>();
-        cameraAnimator = mainCamera.GetComponent<Animator>();
         animator = GetComponent<Animator>();
         screen = (float)Screen.width / 1000;
     }
@@ -40,7 +38,6 @@ public class BattlePlaceFirstFloor : MonoBehaviour, IListener
         if (coll.tag == "player")
         {
             cameraController.index = screen;
-            cameraAnimator.Play("CameraFirstPlace");
             animator.Play("SecondBatlePlaceDisappear");
             _mainUIAnimator.Play("HideButtonsOnBattle");
             cameraController.offset = new Vector3(4f , .7f, -10);
@@ -53,7 +50,6 @@ public class BattlePlaceFirstFloor : MonoBehaviour, IListener
     {
         if (coll.tag == "player")
         {
-            cameraAnimator.Play("CameraFirstPlace0");
             animator.Play("SecondBatlePlaceDisappear0");
             _mainUIAnimator.Play("ShowButtonsOnBattle");
             cameraController.offset = defaultState;
@@ -93,7 +89,7 @@ public class BattlePlaceFirstFloor : MonoBehaviour, IListener
         else if (transition == 4)
         {
             elapsed += Time.deltaTime / duration;
-            Camera.main.orthographicSize = Mathf.Lerp(3, 2.5f, elapsed);
+            Camera.main.orthographicSize = Mathf.Lerp(3.5f, 2.5f, elapsed);
         }
 
     }
@@ -108,8 +104,8 @@ public class BattlePlaceFirstFloor : MonoBehaviour, IListener
                 //cameraController.offset = new Vector3(4f, 2.5f, -10);
                 break;
 
-            //case EVENT_TYPE.GameOver:
-            //    transition = 4;
+            case EVENT_TYPE.GameOver:
+                transition = 4;
 
                 break;
 

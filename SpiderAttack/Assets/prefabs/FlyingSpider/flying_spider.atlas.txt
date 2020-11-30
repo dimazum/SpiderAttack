@@ -1,0 +1,293 @@
+
+flying_spider.png
+size: 1762,464
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+back_leg_bot1
+  rotate: true
+  xy: 1022, 6
+  size: 44, 126
+  orig: 46, 128
+  offset: 1, 1
+  index: -1
+back_leg_bot2
+  rotate: true
+  xy: 125, 112
+  size: 47, 125
+  orig: 50, 127
+  offset: 2, 1
+  index: -1
+back_leg_bot3
+  rotate: false
+  xy: 1074, 59
+  size: 54, 122
+  orig: 56, 125
+  offset: 1, 1
+  index: -1
+back_leg_top1
+  rotate: false
+  xy: 1498, 33
+  size: 38, 118
+  orig: 40, 121
+  offset: 1, 2
+  index: -1
+back_leg_top2
+  rotate: false
+  xy: 853, 47
+  size: 35, 131
+  orig: 37, 134
+  offset: 1, 1
+  index: -1
+back_leg_top3
+  rotate: false
+  xy: 821, 34
+  size: 30, 144
+  orig: 32, 146
+  offset: 1, 1
+  index: -1
+body_end
+  rotate: true
+  xy: 142, 4
+  size: 36, 43
+  orig: 38, 47
+  offset: 1, 1
+  index: -1
+body_line
+  rotate: false
+  xy: 125, 161
+  size: 228, 301
+  orig: 230, 303
+  offset: 1, 1
+  index: -1
+body_main
+  rotate: false
+  xy: 355, 166
+  size: 223, 296
+  orig: 225, 298
+  offset: 1, 1
+  index: -1
+body_pattern_1
+  rotate: true
+  xy: 525, 2
+  size: 162, 294
+  orig: 166, 297
+  offset: 2, 2
+  index: -1
+body_pattern_2
+  rotate: false
+  xy: 870, 183
+  size: 211, 279
+  orig: 214, 282
+  offset: 1, 2
+  index: -1
+body_pattern_3
+  rotate: false
+  xy: 1533, 158
+  size: 223, 249
+  orig: 225, 251
+  offset: 1, 1
+  index: -1
+body_pattern_4
+  rotate: false
+  xy: 1083, 190
+  size: 223, 272
+  orig: 225, 274
+  offset: 1, 1
+  index: -1
+body_pattern_5
+  rotate: false
+  xy: 580, 173
+  size: 217, 289
+  orig: 219, 291
+  offset: 1, 1
+  index: -1
+body_shadow
+  rotate: false
+  xy: 1308, 191
+  size: 223, 271
+  orig: 225, 273
+  offset: 1, 1
+  index: -1
+eye_blinking
+  rotate: true
+  xy: 2, 18
+  size: 92, 68
+  orig: 94, 75
+  offset: 1, 3
+  index: -1
+eyes_closed
+  rotate: true
+  xy: 72, 18
+  size: 92, 68
+  orig: 94, 75
+  offset: 1, 3
+  index: -1
+eyes_opened
+  rotate: false
+  xy: 142, 42
+  size: 92, 68
+  orig: 94, 75
+  offset: 1, 3
+  index: -1
+fang_back
+  rotate: true
+  xy: 1657, 11
+  size: 32, 81
+  orig: 34, 83
+  offset: 1, 1
+  index: -1
+fang_front
+  rotate: true
+  xy: 1538, 10
+  size: 33, 85
+  orig: 35, 87
+  offset: 1, 1
+  index: -1
+front_leg_bot1
+  rotate: false
+  xy: 1028, 55
+  size: 44, 126
+  orig: 46, 128
+  offset: 1, 1
+  index: -1
+front_leg_bot2
+  rotate: true
+  xy: 821, 2
+  size: 30, 130
+  orig: 33, 132
+  offset: 2, 1
+  index: -1
+front_leg_bot3
+  rotate: false
+  xy: 890, 50
+  size: 19, 131
+  orig: 22, 134
+  offset: 1, 1
+  index: -1
+front_leg_top1
+  rotate: false
+  xy: 1477, 30
+  size: 19, 121
+  orig: 21, 123
+  offset: 1, 1
+  index: -1
+front_leg_top2
+  rotate: false
+  xy: 985, 52
+  size: 41, 129
+  orig: 43, 133
+  offset: 1, 2
+  index: -1
+front_leg_top3
+  rotate: false
+  xy: 911, 51
+  size: 72, 130
+  orig: 74, 132
+  offset: 1, 1
+  index: -1
+head
+  rotate: false
+  xy: 327, 9
+  size: 196, 150
+  orig: 199, 152
+  offset: 2, 1
+  index: -1
+minifang_left
+  rotate: true
+  xy: 2, 4
+  size: 12, 22
+  orig: 14, 24
+  offset: 1, 1
+  index: -1
+minifang_right
+  rotate: true
+  xy: 26, 4
+  size: 12, 22
+  orig: 14, 24
+  offset: 1, 1
+  index: -1
+prefang_back
+  rotate: true
+  xy: 1477, 153
+  size: 36, 43
+  orig: 38, 45
+  offset: 1, 1
+  index: -1
+prefang_front
+  rotate: false
+  xy: 986, 2
+  size: 34, 48
+  orig: 36, 50
+  offset: 1, 1
+  index: -1
+web1
+  rotate: true
+  xy: 1625, 10
+  size: 33, 30
+  orig: 35, 32
+  offset: 1, 1
+  index: -1
+web2
+  rotate: false
+  xy: 187, 10
+  size: 61, 30
+  orig: 64, 32
+  offset: 2, 1
+  index: -1
+web3
+  rotate: false
+  xy: 953, 2
+  size: 31, 47
+  orig: 33, 50
+  offset: 1, 2
+  index: -1
+web4
+  rotate: true
+  xy: 1533, 409
+  size: 53, 227
+  orig: 55, 229
+  offset: 1, 1
+  index: -1
+wing_back_down
+  rotate: false
+  xy: 1394, 2
+  size: 81, 187
+  orig: 83, 190
+  offset: 1, 1
+  index: -1
+wing_back_steady
+  rotate: false
+  xy: 799, 180
+  size: 69, 282
+  orig: 72, 284
+  offset: 2, 1
+  index: -1
+wing_back_up
+  rotate: true
+  xy: 252, 6
+  size: 153, 73
+  orig: 156, 77
+  offset: 2, 2
+  index: -1
+wing_front_Up
+  rotate: true
+  xy: 1150, 8
+  size: 180, 242
+  orig: 183, 245
+  offset: 2, 1
+  index: -1
+wing_front_down
+  rotate: false
+  xy: 1538, 45
+  size: 207, 111
+  orig: 211, 113
+  offset: 2, 1
+  index: -1
+wing_front_steady
+  rotate: false
+  xy: 2, 112
+  size: 121, 350
+  orig: 124, 353
+  offset: 1, 2
+  index: -1

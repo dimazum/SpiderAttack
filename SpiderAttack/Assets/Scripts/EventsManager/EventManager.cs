@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 
 //работает с реализациями IListener
@@ -28,6 +29,7 @@ public class EventManager : MonoBehaviour
 
     void Awake()
     {
+        SceneManager.sceneLoaded += SceneManager_sceneLoaded;
         //если экземпляр отсутствует, сохранить данный экземпляр
         if (instance == null)
         {
@@ -37,6 +39,7 @@ public class EventManager : MonoBehaviour
         else //Экземпляры уже существуют, поэтому уничтожьте это. Это должен быть одноэлементный объект
             DestroyImmediate(this);
     }
+
     //-----------------------------------------------------------
     /// <summary>
     /// Функция добавления получателя в массив
@@ -121,10 +124,16 @@ public class EventManager : MonoBehaviour
     }
     //-----------------------------------------------------------
     //Called on scene change. Clean up dictionary
-    void OnLevelWasLoaded()
+    //void OnLevelWasLoaded()
+    //{
+    //    RemoveRedundancies();
+    //}
+
+    private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
         RemoveRedundancies();
     }
+
     //-----------------------------------------------------------
     #endregion
 }

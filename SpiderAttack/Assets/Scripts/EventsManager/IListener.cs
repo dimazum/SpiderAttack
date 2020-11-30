@@ -33,6 +33,7 @@ public enum EVENT_TYPE
     SpiderHurt,
     SpiderDie,
     SpiderWebHitCharacter,
+    SpiderWebHitMainHouse,
     SpiderMeleeHitCharacter,
 
     //Gate
