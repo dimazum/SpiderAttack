@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Gate
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: Android
+      m_MaxTextureSize: 1024
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 47
+      m_TextureCompression: 1
+      m_CompressionQuality: 100
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 3c4e7e3801f038a41bd50c3a438c2c6e, type: 3}
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: b5319ae1534a2724482b00bd801adc42, type: 3}
+  - {fileID: 21300000, guid: 9226a4426722beb48b8c6b875ee8108d, type: 3}
+  - {fileID: 21300000, guid: 007b1ed253538124e88b904459457aca, type: 3}
+  - {fileID: 21300000, guid: a1f04c14d303ea74fb89bb4abc9eb021, type: 3}
+  - {fileID: 21300000, guid: 8acf1f051f9834f4c9211068ab8c65cb, type: 3}
+  - {fileID: 21300000, guid: b230ba25feeb0ff42afe084d957531b1, type: 3}
+  - {fileID: 21300000, guid: cce8cb8588d69f44ebe0f230c62f472a, type: 3}
+  - {fileID: 21300000, guid: 1f84a6f5fce4d9b48bef44413b23bc4c, type: 3}
+  - {fileID: 21300000, guid: cad10a77a8817394988b06865dea8c0a, type: 3}
+  - {fileID: 21300000, guid: d55e0188522691b459089c936689afea, type: 3}
+  - {fileID: 21300000, guid: bed63af9cdf364a47ba03aa5a56600bc, type: 3}
+  - {fileID: 21300000, guid: e2f1596af7c83f143912dd1c8c1554f1, type: 3}
+  - {fileID: 21300000, guid: c299d4aa651501e47aef61720552a4b9, type: 3}
+  - {fileID: 21300000, guid: 21f7561baa116ba46a8f67e9d211fb56, type: 3}
+  - {fileID: 21300000, guid: 87fb593b333ef934994611e677bafa2f, type: 3}
+  - {fileID: 21300000, guid: b27764bc53ebefe4f811741802e05f89, type: 3}
+  - {fileID: 21300000, guid: 497867dc9f2d41043adb5acd8e5ff5d3, type: 3}
+  - {fileID: 21300000, guid: 5124863e7419fd2408b64f234b051215, type: 3}
+  - {fileID: 21300000, guid: fbcc055e12e388543bf250c0937f1994, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - middle4
+  - Top4
+  - door2
+  - middle2
+  - middle1
+  - top1
+  - tower
+  - bottom4
+  - top2
+  - door4
+  - bottom3
+  - bottom2
+  - door
+  - web4
+  - bottom1
+  - door3
+  - middle3
+  - top3
+  - door1
+  m_Tag: Gate
+  m_IsVariant: 0

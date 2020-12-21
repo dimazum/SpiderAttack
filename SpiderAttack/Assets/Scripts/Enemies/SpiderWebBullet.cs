@@ -16,8 +16,8 @@ public class SpiderWebBullet : MonoBehaviour, IListener
     void Awake()
     {
         webContainer = transform.parent;
-        battleController = (BattleController)FindObjectOfType(typeof(BattleController));
-        mainHomeController = (MainHomeController)FindObjectOfType(typeof(MainHomeController));
+        battleController = FindObjectOfType<BattleController>();
+        mainHomeController = FindObjectOfType<MainHomeController>();
         spiderController = spiderController.GetComponent<Spider>();
     }
 
@@ -104,9 +104,7 @@ public class SpiderWebBullet : MonoBehaviour, IListener
                 break;
 
             case EVENT_TYPE.GateDestroy:
-                if (Sender == spiderController)
-                {
-                    transform.SetParent(webContainer);
+                transform.SetParent(webContainer);
                     transform.localPosition = zeroPos;
 
                     {
@@ -115,7 +113,7 @@ public class SpiderWebBullet : MonoBehaviour, IListener
                     }
 
                     spiderTarget = spiderController.FindTarget();
-                }
+                
 
                 break;
         }

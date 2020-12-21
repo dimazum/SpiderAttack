@@ -7,71 +7,86 @@ using UnityEngine;
 public class Timer : MonoBehaviour, IListener
 {
     private int defaultDayDuration = 600;
-    //private float _sec ;
     private int _sec;
-    public List<int> rounds;
-
-    public TextMeshProUGUI textTime;
-
+    public TextMeshProUGUI textMinuteTime;
+    public TextMeshProUGUI textSecTimePart1;
+    public TextMeshProUGUI textSecTimePart2;
     private IEnumerator co;
     private readonly WaitForSeconds _secondDelay = new WaitForSeconds(1f);
+    private Rounds _rounds;
+    private int _currentTime;
+    private int tempOldVal;
 
-    //private float currentTime;
+    public int CurrentTime
+    {
+        get { return _currentTime; }
+        set { _currentTime = value; }
+    }
+
+
+    private Dictionary<int, string> seconds = new Dictionary<int, string>(){};
+
     void Start()
     {
         EventManager.Instance.AddListener(EVENT_TYPE.StartDay, this);
+        _rounds = FindObjectOfType<Rounds>();
         if (co != null)
         {
             StopCoroutine(co);
         }
 
         var day = GameStates.Instance.round;
-        _sec = GameStates.Instance.currentTime;
+        _sec = GameStates.Instance.CurrentTime;
         co = StartTimer(day, _sec);
 
         StartCoroutine(co);
-
+        PopulateSeconds();
     }
 
-    void Update()
+    void PopulateSeconds()
     {
-
-        if (Input.GetKeyDown(KeyCode.T))
+        for (int i = 0; i < 10; i++)
         {
-            if (co != null)
-            {
-                StopCoroutine(co);
-            }
-
-            co = StartTimer(GameStates.Instance.round);
-           
-            StartCoroutine(co);
-            GameStates.Instance.round++;
+            seconds.Add(i, i.ToString());
         }
-
     }
-
 
     public IEnumerator StartTimer(int day, int sec = 0)
     {
         if (sec == 0)
         {
-            GameStates.Instance.currentTime = rounds.ElementAtOrDefault(day) != 0 ? rounds.ElementAtOrDefault(day) : defaultDayDuration;
+            CurrentTime = _rounds.rounds.ElementAtOrDefault(day).duration != 0 ? _rounds.rounds.ElementAtOrDefault(day).duration : defaultDayDuration;
         }
         else
         {
-            GameStates.Instance.currentTime = sec;
+            CurrentTime = sec;
         }
 
-        while (GameStates.Instance.currentTime > 0)
+        while (CurrentTime > 0)
         {
             yield return _secondDelay;
-            textTime.text = $"{GameStates.Instance.currentTime / 60}:{Mathf.Round(GameStates.Instance.currentTime % 60):00}";
-            GameStates.Instance.currentTime -= 1;
+            CurrentTime -= 1;
+            BuildTime();
         }
         EventManager.Instance.PostNotification(EVENT_TYPE.StartNight, this);
     }
 
+
+    public void BuildTime()
+    {
+        var sec = CurrentTime % 60;
+        
+        if(tempOldVal != CurrentTime / 60)
+        {
+            textMinuteTime.text = $"{CurrentTime / 60}:";
+            tempOldVal = CurrentTime / 60;
+        }
+        
+        textSecTimePart1.text = seconds[sec / 10];
+        textSecTimePart2.text = seconds[sec % 10];
+
+
+    }
     public void OnEvent(EVENT_TYPE Event_Type, Component Sender, object Param = null)
     {
         switch (Event_Type)
@@ -91,9 +106,9 @@ public class Timer : MonoBehaviour, IListener
 
     public void WaitForNight()
     {
-        if (GameStates.Instance.currentTime > 10)
+        if (CurrentTime > 10)
         {
-            GameStates.Instance.currentTime = 10;
+            CurrentTime = 10;
         }
     }
 }

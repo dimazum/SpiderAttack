@@ -1,0 +1,116 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Weapons
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 5e3a1ef05370927449393fcf302ab820, type: 3}
+    - {fileID: 102900000, guid: fb283adb804f8fe42bccc24bf8731a3e, type: 3}
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: c2525030f1d82a040814be67da19f5c7, type: 3}
+  - {fileID: 21300000, guid: a52d245064c8e9a4fbcb8de2607be921, type: 3}
+  - {fileID: 21300000, guid: f4b9af50606362b47a395911cbdb2452, type: 3}
+  - {fileID: 21300000, guid: 5379046206812e243929726dfabecf25, type: 3}
+  - {fileID: 21300000, guid: 65ebdb93be1840344b06ea92bfc37596, type: 3}
+  - {fileID: 21300000, guid: 3a9845c3dfbee3d43a9f33594998430e, type: 3}
+  - {fileID: 21300000, guid: ce4c61e3663fd63449e08e800a27df96, type: 3}
+  - {fileID: 21300000, guid: 48bbaaf3c4227764cb94fc788958e8a2, type: 3}
+  - {fileID: 21300000, guid: 854e3614c50293049b694cfcba042419, type: 3}
+  - {fileID: 21300000, guid: 181dffc4a960d1f4dad09f7589529fc5, type: 3}
+  - {fileID: 21300000, guid: fc01730504dd6f546b1923f484cfac81, type: 3}
+  - {fileID: 21300000, guid: cb7098f53c5e0114f81f1bf1f0ae41fc, type: 3}
+  - {fileID: 21300000, guid: 77db0257a19f96e4684fe6095f5a8de4, type: 3}
+  - {fileID: 21300000, guid: 1c924548ef8c97f4ea70a0ffb69b150a, type: 3}
+  - {fileID: 21300000, guid: 0d2fc0d81abd109448a71b85ae12075f, type: 3}
+  - {fileID: 21300000, guid: 2d89d5a9e0f71614e91c5b425528d94c, type: 3}
+  - {fileID: 21300000, guid: 93f0ca8a89b3afe49abbb5c7b03872a2, type: 3}
+  - {fileID: 2715086809806018986, guid: 3277994be1d4ccc4991554a1ab5b89e5, type: 3}
+  - {fileID: -4267786321970871214, guid: 3277994be1d4ccc4991554a1ab5b89e5, type: 3}
+  - {fileID: -1428606794445503162, guid: 3277994be1d4ccc4991554a1ab5b89e5, type: 3}
+  - {fileID: -1142719451520337115, guid: 3277994be1d4ccc4991554a1ab5b89e5, type: 3}
+  - {fileID: -4187197493931701805, guid: 3277994be1d4ccc4991554a1ab5b89e5, type: 3}
+  - {fileID: -1636314963296570960, guid: 3277994be1d4ccc4991554a1ab5b89e5, type: 3}
+  - {fileID: 8422967028613626872, guid: 3277994be1d4ccc4991554a1ab5b89e5, type: 3}
+  - {fileID: 2986216791631707670, guid: 3277994be1d4ccc4991554a1ab5b89e5, type: 3}
+  - {fileID: 6491490586396257414, guid: 3277994be1d4ccc4991554a1ab5b89e5, type: 3}
+  - {fileID: -7014398925809352070, guid: 3277994be1d4ccc4991554a1ab5b89e5, type: 3}
+  - {fileID: 21300000, guid: 6e457efcc5f0c7a4b843c270a9c00afc, type: 3}
+  - {fileID: 21300000, guid: 10276c1dd350ad047a44fd216b05f3ad, type: 3}
+  - {fileID: 21300000, guid: 5862706d5e65de0409d244ecb167a522, type: 3}
+  - {fileID: 21300000, guid: 5ac5f18d641ea15408998a34b1f42872, type: 3}
+  - {fileID: 21300000, guid: 726863cd91d58344a9a16f4ca35b4a68, type: 3}
+  - {fileID: 21300000, guid: cd3f8b9e2a3579b4c8deb9ed075fced4, type: 3}
+  - {fileID: 21300000, guid: 129e7dee89d793342b3e254aaa029287, type: 3}
+  - {fileID: 21300000, guid: 87c3dbfe49a0f1b4494abf7f7425eb79, type: 3}
+  - {fileID: 21300000, guid: 0425333f3f22ac746babddb4c71c4139, type: 3}
+  - {fileID: 21300000, guid: 3fe79d8faf5eca64b81a046e4abf8abb, type: 3}
+  - {fileID: 21300000, guid: 46a219df84b22a3488e0efa7343b495b, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - arm_angle
+  - angle_box
+  - angle_wheel
+  - arrow
+  - bow_mid
+  - string_bot
+  - arm
+  - shovel
+  - Layer 77
+  - Layer 74
+  - wheel_angle
+  - bow_top
+  - base_chain_box
+  - belt_top
+  - charging_wheel
+  - belt_bot2
+  - gear
+  - trebuchet_8
+  - trebuchet_9
+  - trebuchet_6
+  - trebuchet_7
+  - trebuchet_4
+  - trebuchet_5
+  - trebuchet_2
+  - trebuchet_3
+  - trebuchet_0
+  - trebuchet_1
+  - string_mid
+  - wheel_chargiing
+  - bow_base
+  - bow_mid_underlayer
+  - bow_bot
+  - base
+  - Layer 78
+  - core
+  - belt_bot
+  - ballista_detail
+  - base
+  m_Tag: Weapons
+  m_IsVariant: 0

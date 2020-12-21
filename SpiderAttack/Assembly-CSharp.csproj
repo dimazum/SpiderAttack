@@ -64,18 +64,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\All1ShaderDemoController.cs" />
-    <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\Demo2AutoScroll.cs" />
-    <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\DemoCamera.cs" />
-    <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\DemoCircleExpositor.cs" />
-    <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\DemoItem.cs" />
-    <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\DemoRandomColorSwap.cs" />
-    <Compile Include="Assets\AllIn1SpriteShader\Scripts\All1CreateUnifiedOutline.cs" />
-    <Compile Include="Assets\AllIn1SpriteShader\Scripts\AllIn1Shader.cs" />
-    <Compile Include="Assets\AllIn1SpriteShader\Scripts\AllIn1ShaderWindow.cs" />
-    <Compile Include="Assets\AllIn1SpriteShader\Scripts\RandomSeed.cs" />
-    <Compile Include="Assets\AllIn1SpriteShader\Scripts\SetAtlasUvs.cs" />
-    <Compile Include="Assets\AllIn1SpriteShader\Scripts\SetGlobalTime.cs" />
+    <Compile Include="Assets\Data\scripts\ArrowType.cs" />
+    <Compile Include="Assets\Data\scripts\ItemType.cs" />
+    <Compile Include="Assets\Data\scripts\ItemsData.cs" />
+    <Compile Include="Assets\EasyObjectPool\Core\EasyObjectPool.cs" />
+    <Compile Include="Assets\EasyObjectPool\Core\PoolObject.cs" />
+    <Compile Include="Assets\EasyObjectPool\Example\CubeBehaviour.cs" />
+    <Compile Include="Assets\EasyObjectPool\Example\Example.cs" />
     <Compile Include="Assets\Joystick Pack\Examples\JoystickPlayerExample.cs" />
     <Compile Include="Assets\Joystick Pack\Examples\JoystickSetterExample.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Base\Joystick.cs" />
@@ -88,11 +83,14 @@
     <Compile Include="Assets\Scripts\BattleController.cs" />
     <Compile Include="Assets\Scripts\BattlePlaceFirstFloor.cs" />
     <Compile Include="Assets\Scripts\BattlePlaceSecondFloor.cs" />
-    <Compile Include="Assets\Scripts\Buttons\FireButton.cs" />
+    <Compile Include="Assets\Scripts\Buttons\BtnGateBuy.cs" />
+    <Compile Include="Assets\Scripts\Buttons\FireBallistaButton.cs" />
+    <Compile Include="Assets\Scripts\Buttons\FireTrebButton.cs" />
     <Compile Include="Assets\Scripts\Buttons\TrebSpoonDown.cs" />
     <Compile Include="Assets\Scripts\Buttons\TrebSpoonUp.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\CavePlace.cs" />
+    <Compile Include="Assets\Scripts\CaveTrigger.cs" />
     <Compile Include="Assets\Scripts\Enemies\Spider.cs" />
     <Compile Include="Assets\Scripts\Enemies\SpiderController.cs" />
     <Compile Include="Assets\Scripts\Enemies\SpiderFlyingController.cs" />
@@ -101,28 +99,41 @@
     <Compile Include="Assets\Scripts\EventsManager\IListener.cs" />
     <Compile Include="Assets\Scripts\GateLeft.cs" />
     <Compile Include="Assets\Scripts\GateRightController.cs" />
+    <Compile Include="Assets\Scripts\Inventory\InventoryController.cs" />
     <Compile Include="Assets\Scripts\LadderController.cs" />
     <Compile Include="Assets\Scripts\MainHomeController.cs" />
     <Compile Include="Assets\Scripts\Models\Pick.cs" />
+    <Compile Include="Assets\Scripts\ObservationTower.cs" />
     <Compile Include="Assets\Scripts\SceneContainer.cs" />
     <Compile Include="Assets\Scripts\SceneGenerator.cs" />
+    <Compile Include="Assets\Scripts\Shops\GateShop.cs" />
     <Compile Include="Assets\Scripts\Shops\PickShop.cs" />
+    <Compile Include="Assets\Scripts\Shops\ShopsPanelController.cs" />
     <Compile Include="Assets\Scripts\SpriterToUnityDX\EntityRenderer.cs" />
     <Compile Include="Assets\Scripts\SpriterToUnityDX\SortingOrderUpdater.cs" />
     <Compile Include="Assets\Scripts\SpriterToUnityDX\TextureController.cs" />
     <Compile Include="Assets\Scripts\UI\HPSlider.cs" />
     <Compile Include="Assets\Scripts\UI\UIController.cs" />
+    <Compile Include="Assets\Scripts\UpgradeController\GateUpgradeController.cs" />
     <Compile Include="Assets\Scripts\Utils\GameStates.cs" />
     <Compile Include="Assets\Scripts\Utils\Rounds.cs" />
     <Compile Include="Assets\Scripts\Utils\SceneGameManager.cs" />
     <Compile Include="Assets\Scripts\Utils\Singleton.cs" />
     <Compile Include="Assets\Scripts\Utils\SpriteData.cs" />
     <Compile Include="Assets\Scripts\Utils\Timer.cs" />
-    <Compile Include="Assets\Scripts\Weapons\Trebuchet.cs" />
-    <Compile Include="Assets\Scripts\Weapons\TrebuchetBullet.cs" />
-    <Compile Include="Assets\Scripts\Weapons\TrebuchetOld.cs" />
+    <Compile Include="Assets\Scripts\Weapons\Balista\ArrowsInventotyController.cs" />
+    <Compile Include="Assets\Scripts\Weapons\Balista\BalistaArrow.cs" />
+    <Compile Include="Assets\Scripts\Weapons\Balista\Ballista.cs" />
+    <Compile Include="Assets\Scripts\Weapons\Balista\BallistaChildArrow.cs" />
+    <Compile Include="Assets\Scripts\Weapons\Balista\BallistaMultiArrow.cs" />
+    <Compile Include="Assets\Scripts\Weapons\Bullet.cs" />
+    <Compile Include="Assets\Scripts\Weapons\Trebuchet\TrebChildBall.cs" />
+    <Compile Include="Assets\Scripts\Weapons\Trebuchet\TrebMultiBall.cs" />
+    <Compile Include="Assets\Scripts\Weapons\Trebuchet\Trebuchet.cs" />
+    <Compile Include="Assets\Scripts\Weapons\Trebuchet\TrebuchetBullet.cs" />
     <Compile Include="Assets\Scripts\blocks\BlockGroundDefault.cs" />
     <Compile Include="Assets\Scripts\blocks\StoneController.cs" />
+    <Compile Include="Assets\Scripts\enums\ItemCategory.cs" />
     <Compile Include="Assets\Scripts\enums\Layer.cs" />
     <Compile Include="Assets\Scripts\mainCharakter\EquipmentController.cs" />
     <Compile Include="Assets\Scripts\mainCharakter\HealthController.cs" />
@@ -205,13 +216,11 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\SpriteOutline\Shaders\SpriteOutline.shader" />
+    <None Include="Assets\sprites\Trebuchet\trebuchet.atlas.txt" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald-Bold - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Anton OFL.txt" />
-    <None Include="Assets\AllIn1SpriteShader\Resources\AllIn1SpriteShader.shader" />
-    <None Include="Assets\AllIn1SpriteShader\Resources\AllIn1SpriteShaderScaledTime.shader" />
     <None Include="Assets\prefabs\FlyingSpider\flying_spider.atlas.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
-    <None Include="Assets\AllIn1SpriteShader\Resources\AllIn1SpriteShaderUiMask.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
@@ -228,7 +237,6 @@
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
-    <None Include="Assets\AllIn1SpriteShader\Resources\AllIn1OneShaderFunctions.cginc" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Bangers - OFL.txt" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.14f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
@@ -883,17 +891,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="spine-unity-examples.csproj">
-      <Project>{A1BC6609-1417-4344-3B3D-BFC9148B1B62}</Project>
-      <Name>spine-unity-examples</Name>
-    </ProjectReference>
     <ProjectReference Include="spine-unity.csproj">
       <Project>{820231A7-7A1C-0AF1-CC7E-A362FB25D083}</Project>
       <Name>spine-unity</Name>
-    </ProjectReference>
-    <ProjectReference Include="spine-unity-examples-editor.csproj">
-      <Project>{ACCCE851-281D-B87A-4729-27FE8A8E2A0E}</Project>
-      <Name>spine-unity-examples-editor</Name>
     </ProjectReference>
     <ProjectReference Include="spine-unity-editor.csproj">
       <Project>{2CAA33C8-0D32-8756-E508-37A54B83C9E5}</Project>

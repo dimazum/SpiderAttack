@@ -1,0 +1,76 @@
+
+trebuchet.png
+size: 591,529
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Layer 74
+  rotate: false
+  xy: 448, 414
+  size: 132, 113
+  orig: 134, 117
+  offset: 1, 1
+  index: -1
+arm
+  rotate: true
+  xy: 241, 94
+  size: 433, 205
+  orig: 439, 208
+  offset: 1, 1
+  index: -1
+arm_angle
+  rotate: true
+  xy: 517, 208
+  size: 204, 59
+  orig: 209, 61
+  offset: 1, 1
+  index: -1
+base
+  rotate: true
+  xy: 2, 41
+  size: 486, 237
+  orig: 512, 238
+  offset: 11, 0
+  index: -1
+belt_bot
+  rotate: false
+  xy: 2, 4
+  size: 233, 35
+  orig: 236, 38
+  offset: 2, 1
+  index: -1
+belt_top
+  rotate: false
+  xy: 241, 7
+  size: 226, 85
+  orig: 228, 87
+  offset: 1, 1
+  index: -1
+gear
+  rotate: false
+  xy: 530, 149
+  size: 59, 57
+  orig: 61, 59
+  offset: 1, 1
+  index: -1
+shovel
+  rotate: true
+  xy: 448, 200
+  size: 212, 67
+  orig: 214, 69
+  offset: 1, 1
+  index: -1
+wheel_angle
+  rotate: true
+  xy: 448, 113
+  size: 85, 80
+  orig: 87, 82
+  offset: 1, 1
+  index: -1
+wheel_chargiing
+  rotate: false
+  xy: 469, 2
+  size: 107, 109
+  orig: 112, 111
+  offset: 4, 1
+  index: -1

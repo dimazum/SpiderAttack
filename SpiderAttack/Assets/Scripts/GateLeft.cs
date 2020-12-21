@@ -15,6 +15,8 @@ public class GateLeft : MonoBehaviour
         if (coll.tag == "player")
         {
             animator.Play("gate_left");
+            GameStates.Instance.InCity = true;
+            GameStates.Instance.smoothCameraSpeed = 3;
         }
     }
 
@@ -23,6 +25,7 @@ public class GateLeft : MonoBehaviour
         if (coll.tag == "player")
         {
             animator.Play("gate_left0");
+            //GameStates.Instance.smoothCameraSpeed = 5;
         }
     }
 }

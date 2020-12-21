@@ -19,6 +19,11 @@ public enum CharState
 
 public class MoveController : MonoBehaviour, IListener
 {
+    private const string State = "State";
+    private const string Block = "block";
+    private const string Stone = "Stone";
+    private const string Ladder = "Ladder";
+        
     public Text text;
     public int count;
     public int count1;
@@ -31,36 +36,35 @@ public class MoveController : MonoBehaviour, IListener
     private float horizontalRayRange = 0.4f;
     private float verticalRayRange = 0.6f;
 
-    float? temp = null;
-
     public bool test = true;
     private bool isLadder = false;
     public bool blockAllMoves;
 
     public GameObject ladder;
     public Transform sceneContainer;
-
     public FixedJoystick fixedJoystick;
 
     Animator animator;
     public bool blockMove = false;
     public bool canMove;
     public bool canMoveUp; //есть ли сверху препятствие
-    public bool inBase = true;
+    //public bool inBase = true;
 
     //for Android and Editor
     public Func<bool> IsHorizontal;
     public Func<bool> IsVertical;
 
-    public Func<float> HorizontalControls;
     public Func<float> VerticalControls;
-
+    public Func<float> HorizontalControls;
+    private Collider2D checkLadder;
+    private Collider2D checkLadder2;
+    public GameObject flashlight;
 
 
     public CharState state
     {
-        get { return (CharState)animator.GetInteger("State"); }
-        set { animator.SetInteger("State", (int)value); }
+        get { return (CharState)animator.GetInteger(State); }
+        set { animator.SetInteger(State, (int)value); }
     }
 
 
@@ -94,15 +98,23 @@ public class MoveController : MonoBehaviour, IListener
         fixedJoystick.SnapY = true;
         EventManager.Instance.AddListener(EVENT_TYPE.OpenShop, this);
         EventManager.Instance.AddListener(EVENT_TYPE.CloseShop, this);
-        EventManager.Instance.AddListener(EVENT_TYPE.FireButtonDown, this);
-        EventManager.Instance.AddListener(EVENT_TYPE.FireButtonUp, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.TrebFireButtonDown, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.TrebFireButtonUp, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.BallistaFireButtonDown, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.BallistaFireButtonUp, this);
         EventManager.Instance.AddListener(EVENT_TYPE.TrebSpoonDownPointerDown, this);
         EventManager.Instance.AddListener(EVENT_TYPE.TrebSpoonDownPointerUp, this);
         EventManager.Instance.AddListener(EVENT_TYPE.TrebSpoonUpPointerDown, this);
         EventManager.Instance.AddListener(EVENT_TYPE.TrebSpoonUpPointerUp, this);
         EventManager.Instance.AddListener(EVENT_TYPE.TrebSpoonLimit, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.TrebCharge, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.TrebSetup, this);
         EventManager.Instance.AddListener(EVENT_TYPE.SpiderWebHitCharacter, this);
         EventManager.Instance.AddListener(EVENT_TYPE.SpiderMeleeHitCharacter, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.GameOver, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.CharInCity, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.BallistaShot, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.BallistaCharge, this);
     }
 
     public void HorizontalFlip(Vector3 vector3)
@@ -135,7 +147,7 @@ public class MoveController : MonoBehaviour, IListener
             if (hit.collider != null)
             {
                 canMove = false;
-                if (hit.collider.name.Contains("block"))
+                if (hit.collider.name.Contains(Block))
                 {
                     state = CharState.Rubilovo;
                 }
@@ -183,12 +195,12 @@ public class MoveController : MonoBehaviour, IListener
             }
 
             
-            if (hit.collider?.name.Contains("block") == true)
+            if (hit.collider?.name.Contains(Block) == true)
             {
                 state = CharState.Rubilovo;
                 canMoveUp = false;
             }
-            else if (hit.collider?.name.Contains("Stone") == true)
+            else if (hit.collider?.name.Contains(Stone) == true)
             {
                 canMoveUp = false;
             }
@@ -201,7 +213,7 @@ public class MoveController : MonoBehaviour, IListener
             else if (!isLadder)
             {
                 canMoveUp = false;
-                if (inBase)
+                if (GameStates.Instance.InCity)
                 {
                     state = CharState.Idle;
                 }
@@ -226,7 +238,7 @@ public class MoveController : MonoBehaviour, IListener
 
         else
         {
-            if (inBase)
+            if (GameStates.Instance.InCity)
             {
                 state = CharState.Idle;
             }
@@ -245,7 +257,7 @@ public class MoveController : MonoBehaviour, IListener
     {
 
         hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + 0.45f), vector2 , rayRange, 1<<Layer.Blocks|1<<Layer.Stones);
-        Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + 0.5f), vector2 , Color.red, rayRange);
+        //Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + 0.5f), vector2 , Color.red, rayRange);
 
     }
 
@@ -254,7 +266,7 @@ public class MoveController : MonoBehaviour, IListener
         Vector2 vector2 = vector3 * axisRaw;
         transform.position = Vector2.MoveTowards(transform.position, (Vector2)transform.position + vector2, speed * Time.deltaTime);
 
-        if (inBase)
+        if (GameStates.Instance.InCity)
         {
             state = CharState.Walk;
         }
@@ -272,14 +284,17 @@ public class MoveController : MonoBehaviour, IListener
 
     public bool CheckLadder()
     {
-        Collider2D check = Physics2D.OverlapPoint(new Vector2(transform.position.x, transform.position.y + 0.00f), 1<<Layer.Ladders );
+        checkLadder = Physics2D.OverlapPoint(new Vector2(transform.position.x, transform.position.y + 0.00f), 1<<Layer.Ladders| 1 << Layer.Static );
 
-        if (check != null && check.name.Contains("Ladder"))
+
+        //if (checkLadder != null && checkLadder.name.Contains(Ladder))
+        if (checkLadder != null && checkLadder.CompareTag("stairs"))
         {
-            Collider2D check2 = Physics2D.OverlapPoint(new Vector2(transform.position.x, transform.position.y + 0.03f), 1 << Layer.Ladders);
-            if (check2 == null)//for staying at ladder
+            //{
+            checkLadder2 = Physics2D.OverlapPoint(new Vector2(transform.position.x, transform.position.y + 0.03f), 1 << Layer.Ladders);
+            if (checkLadder2 == null)//for staying at ladder
             {
-                if (inBase)
+                if (GameStates.Instance.InCity)
                 {
                     state = CharState.Idle;
                 }
@@ -289,10 +304,6 @@ public class MoveController : MonoBehaviour, IListener
                 }
                 test = false;
             }
-
-            temp = rb.position.y;
-                //Debug.Log(temp);
-
             return true;
         }
 
@@ -371,34 +382,58 @@ public class MoveController : MonoBehaviour, IListener
 
         switch (Event_Type)
         {
-            case EVENT_TYPE.OpenShop:
-                blockMove = true;
+            //case EVENT_TYPE.OpenShop:
+            //    blockMove = true;
+            //    break;
+
+            //case EVENT_TYPE.CloseShop:
+            //    blockMove = false;
+            //    break;
+
+
+          
+            case EVENT_TYPE.BallistaCharge:
+                animator.SetBool("TrebuchetCharge", true);
+                HorizontalFlip(transform.right);
+
                 break;
 
-            case EVENT_TYPE.CloseShop:
-                blockMove = false;
+            case EVENT_TYPE.BallistaFireButtonUp:
+                animator.SetBool("TrebuchetCharge", false);
+
+                break;
+            case EVENT_TYPE.TrebCharge:
+                animator.SetBool("TrebuchetCharge", true);
+                HorizontalFlip(transform.right);
                 break;
 
-            case EVENT_TYPE.FireButtonUp:
-                if (GameStates.Instance.inTrebuchetPlace)
+            case EVENT_TYPE.TrebFireButtonUp:
+                animator.SetBool("TrebuchetCharge", false);
+
+                break;
+
+            case EVENT_TYPE.BallistaShot:
+                state = CharState.Idle;
+                HorizontalFlip(transform.right);
+                break;
+
+            case EVENT_TYPE.TrebSetup:
+                if (Param == null)
                 {
-
-                    animator.SetBool("TrebuchetCharge", false);
+                    break;
                 }
-
-                break;
-            case EVENT_TYPE.FireButtonDown:
-                if (GameStates.Instance.inTrebuchetPlace)
+                if ((int)Param == 1)
                 {
-                    animator.SetBool("TrebuchetCharge", true);
-                    HorizontalFlip(transform.right);
+                    animator.SetBool("TrebuchetSpoonDown", true);
+                    HorizontalFlip(-transform.right);
                 }
-
                 break;
+
 
             case EVENT_TYPE.TrebSpoonDownPointerDown:
-                if (GameStates.Instance.inTrebuchetPlace)
+                if (GameStates.Instance.inTrebuchetPlace || GameStates.Instance.inBallistaPlace)
                 {
+                    //animator.SetFloat("TrebSpoonSpeed", 1f);
                     animator.SetBool("TrebuchetSpoonDown", true);
                     HorizontalFlip(-transform.right);
                 }
@@ -406,8 +441,9 @@ public class MoveController : MonoBehaviour, IListener
                 break;
 
             case EVENT_TYPE.TrebSpoonDownPointerUp:
-                if (GameStates.Instance.inTrebuchetPlace)
+                if (GameStates.Instance.inTrebuchetPlace || GameStates.Instance.inBallistaPlace)
                 {
+                    
                     animator.SetBool("TrebuchetSpoonDown", false);
                     HorizontalFlip(-transform.right);
                 }
@@ -417,8 +453,9 @@ public class MoveController : MonoBehaviour, IListener
                 break;
 
             case EVENT_TYPE.TrebSpoonUpPointerDown:
-                if (GameStates.Instance.inTrebuchetPlace)
+                if (GameStates.Instance.inTrebuchetPlace || GameStates.Instance.inBallistaPlace)
                 {
+                    //animator.SetFloat("TrebSpoonSpeed", 1f);
                     animator.SetBool("TrebuchetSpoonUp", true);
                     HorizontalFlip(-transform.right);
                 }
@@ -426,17 +463,20 @@ public class MoveController : MonoBehaviour, IListener
                 break;
 
             case EVENT_TYPE.TrebSpoonUpPointerUp:
-                if (GameStates.Instance.inTrebuchetPlace)
+                if (GameStates.Instance.inTrebuchetPlace || GameStates.Instance.inBallistaPlace)
                 {
+                    
                     animator.SetBool("TrebuchetSpoonUp", false);
                     HorizontalFlip(-transform.right);
                 }
-                animator.SetFloat("TrebSpoonSpeed", 1f);
+                animator.SetFloat("TrebSpoonSpeed", 1f);//off limit
 
                 break;
 
             case EVENT_TYPE.TrebSpoonLimit:
                 animator.SetFloat("TrebSpoonSpeed", 0f);
+                //animator.SetBool("TrebuchetSpoonDown", false);
+                //animator.SetBool("TrebuchetSpoonUp", false);
 
                 break;
 
@@ -451,10 +491,29 @@ public class MoveController : MonoBehaviour, IListener
                 animator.Play("die");
                 break;
 
+            case EVENT_TYPE.GameOver:
+                blockAllMoves = true;
+                break;
 
+            case EVENT_TYPE.CharInCity:
+                if (Param != null)
+                {
+                    var inCity = (bool)Param;
+                    if (inCity)
+                    {
+                        flashlight.SetActive(false);
+                    }
+                    else
+                    {
+                        flashlight.SetActive(true);
+                    }
+                    
+                }
+                break;
         }
     }
 }
 
 //когда стреляет может ходить
+//when release the button camera jumps
 

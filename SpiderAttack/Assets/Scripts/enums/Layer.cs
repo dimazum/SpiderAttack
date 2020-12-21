@@ -13,5 +13,6 @@ namespace Assets.Scripts.enums
         public const int Stones = 11;
         public const int Ladders = 12;
         public const int Spider = 15;
+        public const int Static = 18;
     }
 }

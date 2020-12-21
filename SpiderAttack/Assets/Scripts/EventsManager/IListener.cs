@@ -8,21 +8,29 @@ public interface IListener
 public enum EVENT_TYPE
 {
     GameOver,
+    EnableAllButtons,
+    DisableAllButtons,
     BuyPick, //buy Pick Button
     PickUp, //upgrade Pick
+    BuyGate, //buy Pick Button
+    GateUp, //buy Pick Button
+
     OpenShop, //click Open Shop Button
     CloseShop, //click Close Shop
     StartDay, //Start New Day
     StartNight, //Start New Night
-    FireButtonUp,
-    FireButtonDown,
+
     //Trebuchet
+    TrebFireButtonUp,
+    TrebFireButtonDown,
     TrebSpoonUpPointerUp, 
     TrebSpoonUpPointerDown,
     TrebSpoonDownPointerUp,
     TrebSpoonDownPointerDown,
     TrebSpoonLimit,
-    TrebShot,// end of spoon move
+    TrebShot,
+    TrebCharge,
+    TrebSetup,// end of spoon move
 
     //Spider
     SpiderMeleeAttackGate,
@@ -42,6 +50,19 @@ public enum EVENT_TYPE
     //MainHouse,
     MainHouseDestroy,
 
- 
+    //Character
+    CharacterEnterFirstFloor,
+    CharacterExitFirstFloor,
+    CharacterEnterSecondFloor,
+    CharacterExitSecondFloor,
+    CharInCity,
+
+    BallistaShot, //start
+    BallistaIsCharged,//заряжена
+    BallistaFireButtonUp,
+    BallistaFireButtonDown,
+    BallistaCharge,
+
+
 
 }

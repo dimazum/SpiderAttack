@@ -11,12 +11,7 @@ namespace mainCharakter
 {
     public class HealthController : MonoBehaviour
     {
-
-
-
-
         public List<Vector3> tileWorldLocations;
-
 
         public bool IsAlive = true;
         private float _decelerationTolerance = 12.0f;

@@ -1,117 +1,162 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Assets.Scripts.enums;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class BattlePlaceFirstFloor : MonoBehaviour, IListener
+namespace Assets.Scripts
 {
-    private Animator animator;
-    private Animator _mainUIAnimator;
-    private CameraController cameraController;
-    private float screen;
-    public GameObject mainCamera;
-    public GameObject mainUI;
-
-    private Vector3 defaultState = new Vector3(0, 1, -10);
-
-
-    public float duration = 1f;
-    private float elapsed = 0.0f;
-    private int transition ;
-
-    void Awake()
+    public class BattlePlaceFirstFloor : MonoBehaviour, IListener
     {
-        _mainUIAnimator = mainUI.GetComponent<Animator>();
-        cameraController = mainCamera.GetComponent<CameraController>();
-        animator = GetComponent<Animator>();
-        screen = (float)Screen.width / 1000;
-    }
+        private Animator animator;
+        private CameraController cameraController;
+        private float screen;
+        public Vector3 DefaultState { get; set; } = new Vector3(0, 1.5f, -10);
+        private Camera _camera;
 
-    void Start()
-    {
-        EventManager.Instance.AddListener(EVENT_TYPE.TrebShot, this);
-        EventManager.Instance.AddListener(EVENT_TYPE.GameOver, this);
-    }
 
-    public void OnTriggerEnter2D(Collider2D coll)
-    {
-        if (coll.tag == "player")
+        public float duration = 1f;
+        public float Elapsed { get; set; } = 0.0f;
+
+        private int _transition;
+
+        public GameObject ballistaButtons;
+        public GameObject trebuchetButtons;
+
+        public int Transition
         {
-            cameraController.index = screen;
-            animator.Play("SecondBatlePlaceDisappear");
-            _mainUIAnimator.Play("HideButtonsOnBattle");
-            cameraController.offset = new Vector3(4f , .7f, -10);
-            transition = 3;
-            elapsed = 0;
-        }
-    }
-
-    public void OnTriggerExit2D(Collider2D coll)
-    {
-        if (coll.tag == "player")
-        {
-            animator.Play("SecondBatlePlaceDisappear0");
-            _mainUIAnimator.Play("ShowButtonsOnBattle");
-            cameraController.offset = defaultState;
-            transition = 4;
-            elapsed = 0;
-        }
-    }
-
-    void LateUpdate()
-    {
-        //1st floor => treb shot
-        if (transition == 1)
-        {
-            elapsed += Time.deltaTime / duration;
-            Camera.main.orthographicSize = Mathf.Lerp(3.5f, 5, elapsed);
-            mainCamera.GetComponent<CameraController>().offset.y = Mathf.Lerp(.7f, 2.5f, elapsed);
-            if (elapsed > 1.0f)
+            get => _transition;
+            set
             {
-                elapsed = 0;
-                transition = 2;
+                Elapsed = 0;
+                _transition = value;
             }
         }
-        // treb shot => 1st floor
-        else if (transition == 2)
+
+
+        void Awake()
         {
-            elapsed += Time.deltaTime / duration;
-            Camera.main.orthographicSize = Mathf.Lerp(5, 3.5f, elapsed);
-            mainCamera.GetComponent<CameraController>().offset.y = Mathf.Lerp(2.5f, .7f, elapsed);
-        }
-        // village => 1st floor
-        else if (transition == 3)
-        {
-            elapsed += Time.deltaTime / duration;
-            Camera.main.orthographicSize = Mathf.Lerp(2.5f, 3.5f, elapsed);
-        }
-        // 1st floor => village
-        else if (transition == 4)
-        {
-            elapsed += Time.deltaTime / duration;
-            Camera.main.orthographicSize = Mathf.Lerp(3.5f, 2.5f, elapsed);
+            _camera = Camera.main;
+            cameraController = _camera.GetComponent<CameraController>();
+            animator = GetComponent<Animator>();
+            screen = (float)Screen.width / 1000;
         }
 
-    }
-
-    public void OnEvent(EVENT_TYPE Event_Type, Component Sender, object Param = null)
-    {
-        switch (Event_Type)
+        void Start()
         {
-            case EVENT_TYPE.TrebShot:
-                elapsed = 0;
-                transition = 1;
-                //cameraController.offset = new Vector3(4f, 2.5f, -10);
-                break;
+            EventManager.Instance.AddListener(EVENT_TYPE.TrebShot, this);
+            EventManager.Instance.AddListener(EVENT_TYPE.GameOver, this);
+        }
 
-            case EVENT_TYPE.GameOver:
-                transition = 4;
+        public void OnTriggerEnter2D(Collider2D coll)
+        {
+            if (coll.tag == "player")
+            {
+                EventManager.Instance.PostNotification(EVENT_TYPE.CharacterEnterFirstFloor, this);
+                cameraController.index = screen;
+                animator.Play("SecondBatlePlaceDisappear");
+                cameraController.offset = new Vector3(4f , 1.5f, -10); //offset second floor
+                Transition = 3;
+                Elapsed = 0;
+                trebuchetButtons.SetActive(true);
+                ballistaButtons.SetActive(false);
+            }
+        }
 
-                break;
+        public void OnTriggerExit2D(Collider2D coll)
+        {
+            if (coll.tag == "player")
+            {
+                EventManager.Instance.PostNotification(EVENT_TYPE.CharacterExitFirstFloor, this);
+                animator.Play("SecondBatlePlaceDisappear0"); 
+                cameraController.offset = DefaultState;
+                Transition = 4;
+                Elapsed = 0;
+            }
+        }
 
+        void LateUpdate()
+        {
+            if (Elapsed > 1.1f)
+            {
+                if (GameStates.Instance.smoothCameraSpeed != 5.0f)
+                {
+                    GameStates.Instance.smoothCameraSpeed = 5;
+                }
+                return;
+            }
+            //1st floor => treb shot
+            if (Transition == 1)
+            {
+                Elapsed += Time.deltaTime / duration;
+                _camera.orthographicSize = Mathf.Lerp(4.5f, 5, Elapsed);
+                _camera.GetComponent<CameraController>().offset.y = Mathf.Lerp(1.5f, 3f, Elapsed);
+                if (Elapsed > 1.0f)
+                {
+                    Elapsed = 0;
+                    Transition = 2;
+                }
+            }
+            // treb shot => 1st floor
+            else if (Transition == 2)
+            {
+                Elapsed += Time.deltaTime / duration;
+                _camera.orthographicSize = Mathf.Lerp(5, 4.5f, Elapsed);
+                _camera.gameObject.GetComponent<CameraController>().offset.y = Mathf.Lerp(3f, 1.5f, Elapsed);
+            }
+            // village => 1st floor
+            else if (Transition == 3)
+            {
+                Elapsed += Time.deltaTime / duration;
+                _camera.orthographicSize = Mathf.Lerp(2.5f, 4.5f, Elapsed);
+            }
+            // 1st floor => village
+            else if (Transition == 4)
+            {
+                Elapsed += Time.deltaTime / duration;
+                _camera.orthographicSize = Mathf.Lerp(4.5f, 2.5f, Elapsed);
+            }
 
+            // village => 2st floor
+            else if (Transition == 5)
+            {
+                Elapsed += Time.deltaTime / duration;
+                _camera.orthographicSize = Mathf.Lerp(2.5f, 5f, Elapsed);
+            }
+            // 2st floor =>  village 
+            else if (Transition == 6)
+            {
+                Elapsed += Time.deltaTime / duration;
+                _camera.orthographicSize = Mathf.Lerp(5f, 2.5f, Elapsed);
+            }
 
+            // village => observation tower   
+            else if (Transition == 7)
+            {
+                Elapsed += Time.deltaTime / duration;
+                _camera.orthographicSize = Mathf.Lerp(2.5f, 14f, Elapsed);
+                GameStates.Instance.smoothCameraSpeed = 15;
+            }
 
+            // observation tower => village
+            else if (Transition == 8)
+            {
+                Elapsed += Time.deltaTime / duration;
+                _camera.orthographicSize = Mathf.Lerp(14f, 2.5f, Elapsed);
+                GameStates.Instance.smoothCameraSpeed = 15;
+            }
+        }
+
+        public void OnEvent(EVENT_TYPE Event_Type, Component Sender, object Param = null)
+        {
+            switch (Event_Type)
+            {
+                case EVENT_TYPE.TrebShot:
+                    Elapsed = 0;
+                    Transition = 1;
+                    break;
+
+                case EVENT_TYPE.GameOver:
+                    Transition = 4;
+
+                    break;
+            }
         }
     }
 }

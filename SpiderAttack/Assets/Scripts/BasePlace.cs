@@ -8,7 +8,7 @@ public class BasePlace : MonoBehaviour
     {
         if (coll.tag == "player")
         {
-            coll.gameObject.GetComponent<MoveController>().inBase = true;
+            //coll.gameObject.GetComponent<MoveController>().inBase = true;
         }
     }
 

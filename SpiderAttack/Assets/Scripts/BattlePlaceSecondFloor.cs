@@ -1,18 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts;
 using UnityEngine;
 
 public class BattlePlaceSecondFloor : MonoBehaviour
 {
+    private BattlePlaceFirstFloor _battlePlaceFirstFloor;
     private CameraController cameraController;
-    private Animator cameraAnimator;
     private float screen;
     public GameObject mainCamera;
+    public GameObject ballistaButtons;
+    public GameObject trebuchetButtons;
 
     void Awake()
     {
+        _battlePlaceFirstFloor = FindObjectOfType<BattlePlaceFirstFloor>();
         cameraController = mainCamera.GetComponent<CameraController>();
-        cameraAnimator = mainCamera.GetComponent<Animator>();
         screen = (float)Screen.width / 1000;
     }
 
@@ -20,10 +23,13 @@ public class BattlePlaceSecondFloor : MonoBehaviour
     {
         if (coll.tag == "player")
         {
+            EventManager.Instance.PostNotification(EVENT_TYPE.CharacterEnterSecondFloor, this);
+            _battlePlaceFirstFloor.Elapsed = 0;
+            _battlePlaceFirstFloor.Transition = 5;
             cameraController.index = screen;
-            cameraAnimator.Play("CameraFirstPlace");
-            //cameraController.offset = new Vector3(3 * ((float)Screen.width / 1000), -0.5f, -10);
-            cameraController.offset = new Vector3(3 , -1f, -10);
+            cameraController.offset = new Vector3(5 , -.27f, -10);//offset second floor
+            trebuchetButtons.SetActive(false);
+            ballistaButtons.SetActive(true);
         }
     }
 
@@ -31,8 +37,12 @@ public class BattlePlaceSecondFloor : MonoBehaviour
     {
         if (coll.tag == "player")
         {
-            cameraAnimator.Play("CameraFirstPlace0");
-            cameraController.offset = new Vector3(0, 1, -10);
+            EventManager.Instance.PostNotification(EVENT_TYPE.CharacterExitSecondFloor, this);
+            _battlePlaceFirstFloor.Elapsed = 0;
+            _battlePlaceFirstFloor.Transition = 6;
+            cameraController.offset = _battlePlaceFirstFloor.DefaultState;
+            ballistaButtons.SetActive(false);
+            trebuchetButtons.SetActive(true);
         }
     }
 }

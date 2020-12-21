@@ -22,16 +22,16 @@ TagManager:
   - 
   - 
   - deadLayer
-  - 
+  - Alpha Sprites
   - blockLayer
   - stone
   - ladder
   - BASE
   - BulletStoun
   - Spider
-  - 
-  - 
-  - 
+  - SpiderTarget
+  - Character
+  - Static
   - 
   - 
   - 

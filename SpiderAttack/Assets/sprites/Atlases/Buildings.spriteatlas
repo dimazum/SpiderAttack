@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Buildings
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: c859ba687f357434c9eb51664ade14d0, type: 3}
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: -7486638935296929111, guid: 657771a3991b8b84ca20b0387356f524, type: 3}
+  - {fileID: 8722149285918444149, guid: 657771a3991b8b84ca20b0387356f524, type: 3}
+  - {fileID: 5463485661928934436, guid: 657771a3991b8b84ca20b0387356f524, type: 3}
+  - {fileID: -4253117911260501183, guid: 657771a3991b8b84ca20b0387356f524, type: 3}
+  - {fileID: 4062464748300552693, guid: 657771a3991b8b84ca20b0387356f524, type: 3}
+  - {fileID: -2262956834312892847, guid: 657771a3991b8b84ca20b0387356f524, type: 3}
+  - {fileID: 4508338673216725468, guid: 657771a3991b8b84ca20b0387356f524, type: 3}
+  - {fileID: 6511025288332630012, guid: 657771a3991b8b84ca20b0387356f524, type: 3}
+  - {fileID: -2443141439758115180, guid: 657771a3991b8b84ca20b0387356f524, type: 3}
+  - {fileID: -2697781508902350272, guid: 657771a3991b8b84ca20b0387356f524, type: 3}
+  - {fileID: -2036344803627871046, guid: 657771a3991b8b84ca20b0387356f524, type: 3}
+  - {fileID: -6308101119850816888, guid: 657771a3991b8b84ca20b0387356f524, type: 3}
+  - {fileID: 1170939447136125084, guid: 657771a3991b8b84ca20b0387356f524, type: 3}
+  - {fileID: 8048061658430078457, guid: 370bb99ad666dc746a54fa0fb4558929, type: 3}
+  - {fileID: -7955063981085512990, guid: 370bb99ad666dc746a54fa0fb4558929, type: 3}
+  - {fileID: 7422488057228119394, guid: 370bb99ad666dc746a54fa0fb4558929, type: 3}
+  - {fileID: -7345246341386026787, guid: 370bb99ad666dc746a54fa0fb4558929, type: 3}
+  - {fileID: 6460046932514362435, guid: 370bb99ad666dc746a54fa0fb4558929, type: 3}
+  - {fileID: 1046959786515361051, guid: 370bb99ad666dc746a54fa0fb4558929, type: 3}
+  - {fileID: -5362089283490652125, guid: 370bb99ad666dc746a54fa0fb4558929, type: 3}
+  - {fileID: -6066240335044615314, guid: 370bb99ad666dc746a54fa0fb4558929, type: 3}
+  - {fileID: -6128048781434503068, guid: 370bb99ad666dc746a54fa0fb4558929, type: 3}
+  - {fileID: 5168587543366499482, guid: 370bb99ad666dc746a54fa0fb4558929, type: 3}
+  - {fileID: -2323108650218199375, guid: 370bb99ad666dc746a54fa0fb4558929, type: 3}
+  - {fileID: 3100555359788709948, guid: 370bb99ad666dc746a54fa0fb4558929, type: 3}
+  - {fileID: -6339916947688098301, guid: 370bb99ad666dc746a54fa0fb4558929, type: 3}
+  - {fileID: 21300000, guid: d93c9c7b4017ee246a999b32e1cb293a, type: 3}
+  - {fileID: -628316152014009622, guid: edb1dddb9afb6f1408700d3213ced3f7, type: 3}
+  - {fileID: -3302849623311378386, guid: edb1dddb9afb6f1408700d3213ced3f7, type: 3}
+  - {fileID: 5616016343302997465, guid: edb1dddb9afb6f1408700d3213ced3f7, type: 3}
+  - {fileID: 845716634808584508, guid: edb1dddb9afb6f1408700d3213ced3f7, type: 3}
+  - {fileID: 1885105881622853007, guid: edb1dddb9afb6f1408700d3213ced3f7, type: 3}
+  - {fileID: -8925744572383429609, guid: edb1dddb9afb6f1408700d3213ced3f7, type: 3}
+  - {fileID: 4786903226721400996, guid: edb1dddb9afb6f1408700d3213ced3f7, type: 3}
+  - {fileID: -7620539747172235524, guid: edb1dddb9afb6f1408700d3213ced3f7, type: 3}
+  - {fileID: -5026459254668024051, guid: edb1dddb9afb6f1408700d3213ced3f7, type: 3}
+  - {fileID: 7997175075464251811, guid: edb1dddb9afb6f1408700d3213ced3f7, type: 3}
+  - {fileID: 3487949407472216874, guid: edb1dddb9afb6f1408700d3213ced3f7, type: 3}
+  - {fileID: 148276219534634092, guid: edb1dddb9afb6f1408700d3213ced3f7, type: 3}
+  - {fileID: -1221372358737652863, guid: edb1dddb9afb6f1408700d3213ced3f7, type: 3}
+  - {fileID: -1661993755153071834, guid: edb1dddb9afb6f1408700d3213ced3f7, type: 3}
+  - {fileID: 21300000, guid: d2db1ecfd4d77c849bfd844be05daed4, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Shop3_3
+  - Shop3_2
+  - Shop3_1
+  - Shop3_0
+  - Shop3_7
+  - Shop3_6
+  - Shop3_5
+  - Shop3_4
+  - Shop3_9
+  - Shop3_8
+  - Shop3_12
+  - Shop3_10
+  - Shop3_11
+  - Shop4_12
+  - Shop4_11
+  - Shop4_10
+  - Shop4_8
+  - Shop4_9
+  - Shop4_0
+  - Shop4_1
+  - Shop4_2
+  - Shop4_3
+  - Shop4_4
+  - Shop4_5
+  - Shop4_6
+  - Shop4_7
+  - Bush
+  - mainHouse_9
+  - mainHouse_8
+  - mainHouse_1
+  - mainHouse_0
+  - mainHouse_3
+  - mainHouse_2
+  - mainHouse_5
+  - mainHouse_10
+  - mainHouse_4
+  - mainHouse_11
+  - mainHouse_7
+  - mainHouse_12
+  - mainHouse_6
+  - mainHouse_13
+  - Fence
+  m_Tag: Buildings
+  m_IsVariant: 0

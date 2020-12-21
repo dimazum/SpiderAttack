@@ -8,7 +8,7 @@ public class CavePlace : MonoBehaviour
     {
         if (coll.tag == "player")
         {
-            coll.gameObject.GetComponent<MoveController>().inBase = false;
+            //coll.gameObject.GetComponent<MoveController>().inBase = false;
         }
     }
 

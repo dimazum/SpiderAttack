@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Character
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: Android
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 47
+      m_TextureCompression: 1
+      m_CompressionQuality: 100
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 6d8b247805885b34fa3e7290ed09dece, type: 3}
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 0e432d20928877c44b38257b05cac57a, type: 3}
+  - {fileID: 21300000, guid: 87e4f330b52d42343b250257e574e890, type: 3}
+  - {fileID: 21300000, guid: 7764d1a08fc878a4eafba23e81d50572, type: 3}
+  - {fileID: 21300000, guid: 2582fd0172e1c944f9663c185098e38b, type: 3}
+  - {fileID: 21300000, guid: 526f871142571644fb2f2358c636929d, type: 3}
+  - {fileID: 21300000, guid: 1777cd5267675aa4c9901b1b4839dbd5, type: 3}
+  - {fileID: 21300000, guid: 0baad3b2381d1a54e9d38832459d9d49, type: 3}
+  - {fileID: 21300000, guid: 10769dd2701d4ec4f83a0db1d9cc5422, type: 3}
+  - {fileID: 21300000, guid: e3f3601339fa706478beba2723e0b336, type: 3}
+  - {fileID: 21300000, guid: b04c74136e3e640468586f838ae8f654, type: 3}
+  - {fileID: 21300000, guid: b28abd43548c9024a8bab81fdfaee858, type: 3}
+  - {fileID: 21300000, guid: cbf2a5732dc500741a37b105bedae21d, type: 3}
+  - {fileID: 21300000, guid: aea3ae16217b00c46bac4b5c3de748b4, type: 3}
+  - {fileID: 21300000, guid: ce763196d8d8ff84dbfb3a85266f7c68, type: 3}
+  - {fileID: 21300000, guid: 1c6e16eb22e158b4e8694f9b208266f1, type: 3}
+  - {fileID: 21300000, guid: c9b1432ccc83e9041af5ba2d05d79d76, type: 3}
+  - {fileID: 21300000, guid: fd22bc9c8fbfa5f45b49ae6c9c7417cb, type: 3}
+  - {fileID: 21300000, guid: 424a2ffc3ba647545b742eb926435964, type: 3}
+  - {fileID: 21300000, guid: c296937d3aa262144b0c852c86242c7f, type: 3}
+  - {fileID: 21300000, guid: f9d3df9d6a89be349b81743d1713164d, type: 3}
+  - {fileID: 21300000, guid: 1f77322ea571f3942a26e526e42b4761, type: 3}
+  - {fileID: 21300000, guid: 9f402a3ef6a9b62489a49e82bcb2c955, type: 3}
+  - {fileID: 21300000, guid: 5e9dc25eeda1e3948b1460fe4392e5da, type: 3}
+  - {fileID: 21300000, guid: 2e1476ae4ff1cfe4eb8d24c1f52e2c87, type: 3}
+  - {fileID: 21300000, guid: 3f4dec3f445d67e4c91e888dbbdfac70, type: 3}
+  - {fileID: 21300000, guid: 3fbeee7fd39417a44b3a3a594c05be90, type: 3}
+  - {fileID: 21300000, guid: e967cfaf703b9de4584785ef2b83ac6c, type: 3}
+  - {fileID: 21300000, guid: 641040cfa41f9694fab6109e4db21542, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Pick3
+  - head1_1
+  - head2_1
+  - bow
+  - Pick1
+  - body
+  - head4_1
+  - bow s2
+  - foot
+  - Pick4
+  - Pick2
+  - hand 2
+  - head3_1
+  - gun eff
+  - hand 3
+  - head5_1
+  - weapon
+  - g9949
+  - sleeve
+  - slash eff
+  - bow s1
+  - arm
+  - girl_web
+  - Pick0
+  - hand 1
+  - thigh
+  - Pick5
+  - hand 4
+  m_Tag: Character
+  m_IsVariant: 0

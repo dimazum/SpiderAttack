@@ -64,9 +64,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\AllIn1SpriteShader\Editor\AllIn1ShaderScriptEditor.cs" />
-    <Compile Include="Assets\AllIn1SpriteShader\Editor\AllIn1SpriteShader.cs" />
-    <Compile Include="Assets\AllIn1SpriteShader\Editor\AllIn1SpriteShaderStencil.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Editor\DynamicJoystickEditor.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Editor\FloatingJoystickEditor.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Editor\JoystickEditor.cs" />
@@ -758,17 +755,9 @@
       <Project>{02221ACA-0353-04BC-5DED-A34D51B7189F}</Project>
       <Name>Assembly-CSharp</Name>
     </ProjectReference>
-    <ProjectReference Include="spine-unity-examples.csproj">
-      <Project>{A1BC6609-1417-4344-3B3D-BFC9148B1B62}</Project>
-      <Name>spine-unity-examples</Name>
-    </ProjectReference>
     <ProjectReference Include="spine-unity.csproj">
       <Project>{820231A7-7A1C-0AF1-CC7E-A362FB25D083}</Project>
       <Name>spine-unity</Name>
-    </ProjectReference>
-    <ProjectReference Include="spine-unity-examples-editor.csproj">
-      <Project>{ACCCE851-281D-B87A-4729-27FE8A8E2A0E}</Project>
-      <Name>spine-unity-examples-editor</Name>
     </ProjectReference>
     <ProjectReference Include="spine-unity-editor.csproj">
       <Project>{2CAA33C8-0D32-8756-E508-37A54B83C9E5}</Project>

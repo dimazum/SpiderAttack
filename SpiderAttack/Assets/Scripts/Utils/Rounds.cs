@@ -58,6 +58,6 @@ public class Rounds : MonoBehaviour, IListener
 [System.Serializable]
 public struct Round
 {
-    public string Name;
+    public int duration;
     public GameObject[] Enemies;
 }
