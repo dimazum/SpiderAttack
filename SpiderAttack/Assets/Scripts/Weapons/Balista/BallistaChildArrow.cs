@@ -5,6 +5,8 @@ using UnityEngine;
 public class BallistaChildArrow : BalistaArrow
 {
     public BallistaMultiArrow ballistaTripleArrow;
+    private Vector3 vectorZero = new Vector3(0, 0, 0);
+    private Quaternion quatZero = new Quaternion(0, 0, 0, 0);
 
     public void OnCollisionEnter2D(Collision2D collision)
     {

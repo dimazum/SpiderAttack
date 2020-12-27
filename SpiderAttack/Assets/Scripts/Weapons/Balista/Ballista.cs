@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class Ballista : MonoBehaviour, IListener
+public class Ballista : MonoBehaviour, IListener,IWeapon
 {
     //private Animator _animator;
     public Animation _animation;
@@ -27,7 +27,8 @@ public class Ballista : MonoBehaviour, IListener
     public float _BowBaseRotateSpeed = 10;
     public float _smallGearSpeed = 100;
     private UIController _uiController;
-    public ItemCategory itemCategory;
+    //public ItemCategory itemCategory;
+    private EasyObjectPool _easyPool;
 
     private float _counter;
     public float Counter
@@ -43,6 +44,7 @@ public class Ballista : MonoBehaviour, IListener
         }
     }
 
+    public ItemCategory itemCategory { get ; set; }
 
     void Awake()
     {
@@ -51,6 +53,8 @@ public class Ballista : MonoBehaviour, IListener
 
     void Start()
     {
+        itemCategory = ItemCategory.ArrowX1;
+        _easyPool = GetComponent<EasyObjectPool>();
         _uiController = FindObjectOfType<UIController>();
         sliderBallista.fillAmount = 0;
         EventManager.Instance.AddListener(EVENT_TYPE.BallistaFireButtonUp, this);
@@ -142,7 +146,7 @@ public class Ballista : MonoBehaviour, IListener
 
                 if (Counter > 99)
                 {
-                    EventManager.Instance.PostNotification(EVENT_TYPE.BallistaShot, this, itemCategory);
+                    EventManager.Instance.PostNotification(EVENT_TYPE.BallistaShot, this);
                     SetAnimation("BallistaShot");
                     _isCharging = false;
                     Shot();
@@ -206,7 +210,7 @@ public class Ballista : MonoBehaviour, IListener
         //arr?.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector3(1, 0, 0) * _BowBasePower);
 
 
-        GameObject go = EasyObjectPool.instance.GetObjectFromPool(itemCategory.ToString(), arrowStart.position, arrowStart.rotation);
+       _easyPool.GetObjectFromPool(itemCategory.ToString(), arrowStart.position, arrowStart.rotation);
         //go?.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector3(1, 0, 0) * _BowBasePower);
 
     }
@@ -275,5 +279,7 @@ public class Ballista : MonoBehaviour, IListener
         }
 
     }
+
+    
 
 }

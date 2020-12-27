@@ -63,6 +63,7 @@ public abstract class Spider: MonoBehaviour, IListener
     private Coroutine _coWalkAway;
     private Transform _spiderAim;
 
+
     void Start()
     {
         EventManager.Instance.AddListener(EVENT_TYPE.GateDestroy, this);

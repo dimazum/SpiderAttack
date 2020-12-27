@@ -23,11 +23,11 @@ public class InventoryController : MonoBehaviour
 
     private void RenderCells()
     {
-        for (int i = 0; i < cellContainer.transform.childCount; i++)
-        {
-            cellContainer.transform.GetChild(i).GetChild(0).GetComponent<Image>().sprite = itemsData.collections.ElementAtOrDefault(i)?.image;
-            cellContainer.transform.GetChild(i).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = itemsData.collections.ElementAtOrDefault(i)?.Qty.ToString();
+        //for (int i = 0; i < cellContainer.transform.childCount; i++)
+        //{
+        //    cellContainer.transform.GetChild(i).GetChild(0).GetComponent<Image>().sprite = itemsData.collections.ElementAtOrDefault(i)?.itemType.image;
+        //    cellContainer.transform.GetChild(i).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = itemsData.collections.ElementAtOrDefault(i)?. itemType.Qty.ToString();
 
-        }
+        //}
     }
 }

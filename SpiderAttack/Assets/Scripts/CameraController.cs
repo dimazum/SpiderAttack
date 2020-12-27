@@ -10,7 +10,7 @@ public class CameraController : MonoBehaviour, IListener
     private Camera _camera;
     public Transform player;
     public Transform mainHouse;
-    public Transform bulletPosition;
+    //public Transform bulletPosition;
     public Vector3 offset;
     public Vector3 desiredPos;
     public Vector3 smoothPos;
@@ -43,10 +43,10 @@ public class CameraController : MonoBehaviour, IListener
         switch (Event_Type)
         {
             case EVENT_TYPE.TrebShot:
-                if (Param != null)
-                {
-                    bulletPosition = (Transform)Param;
-                }
+                //if (Param != null)
+                //{
+                //    bulletPosition = (Transform)Param;
+                //}
                 break;
 
             case EVENT_TYPE.GameOver:

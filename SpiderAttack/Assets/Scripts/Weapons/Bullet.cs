@@ -8,10 +8,6 @@ public abstract class Bullet : MonoBehaviour
 {
     public int Damage = 100;
     public BulletType bulletType;
-}
-public enum BulletType
+    public ItemCategory ItemCategory;
 
-{
-    Ball,
-    Arrow
 }
