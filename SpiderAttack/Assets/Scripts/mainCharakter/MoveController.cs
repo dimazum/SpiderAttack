@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using Assets.Scripts.enums;
 using UnityEngine;
 using UnityEngine.UI;
@@ -36,12 +33,10 @@ public class MoveController : MonoBehaviour, IListener
     private float horizontalRayRange = 0.4f;
     private float verticalRayRange = 0.6f;
 
-    public bool test = true;
-    private bool isLadder = false;
+    public bool isLadderAbove;
+    private bool isLadder;
     public bool blockAllMoves;
 
-    public GameObject ladder;
-    public Transform sceneContainer;
     public FixedJoystick fixedJoystick;
 
     Animator animator;
@@ -59,6 +54,9 @@ public class MoveController : MonoBehaviour, IListener
     private Collider2D checkLadder;
     private Collider2D checkLadder2;
     public GameObject flashlight;
+
+    public float testLadderCheck2 = 0.05f;
+
 
 
     public CharState state
@@ -115,6 +113,8 @@ public class MoveController : MonoBehaviour, IListener
         EventManager.Instance.AddListener(EVENT_TYPE.CharInCity, this);
         EventManager.Instance.AddListener(EVENT_TYPE.BallistaShot, this);
         EventManager.Instance.AddListener(EVENT_TYPE.BallistaCharge, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.Teleport, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.SetLadder, this);
     }
 
     public void HorizontalFlip(Vector3 vector3)
@@ -125,10 +125,6 @@ public class MoveController : MonoBehaviour, IListener
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SetLadder();
-        }
 
         if (IsHorizontal())
         {
@@ -140,7 +136,7 @@ public class MoveController : MonoBehaviour, IListener
             SetRigidbodyType2D(isLadder); 
             move = HorizontalControls();
 
-            test = true;//for staying at ladder
+            isLadderAbove = true;//for staying at ladder
             var directionHit = move > 0 ? Vector2.right : Vector2.left;
             GetRaycastHit(directionHit, horizontalRayRange);
 
@@ -180,7 +176,7 @@ public class MoveController : MonoBehaviour, IListener
 
             if (move < 0)
             {
-                test = true; //for staying at ladder
+                isLadderAbove = true; //for staying at ladder
             }
 
             var directionHit = move > 0 ? Vector2.up : Vector2.down;
@@ -225,7 +221,7 @@ public class MoveController : MonoBehaviour, IListener
 
             if (canMoveUp && isLadder)
             {
-                if (test == false && move > 0)
+                if (isLadderAbove == false && move > 0)
                 {
                     //Idle
                 }
@@ -233,6 +229,7 @@ public class MoveController : MonoBehaviour, IListener
                 {
                     Move(move, transform.up);
                 }
+
             }
         }
 
@@ -248,7 +245,6 @@ public class MoveController : MonoBehaviour, IListener
             }
             
         }
-
     }
 
     
@@ -302,47 +298,13 @@ public class MoveController : MonoBehaviour, IListener
                 {
                     state = CharState.IdleKirche;
                 }
-                test = false;
+                isLadderAbove = false;
             }
             return true;
         }
 
         //Debug.Log(temp);
         return false;
-    }
-
-    public void SetLadder()
-    {
-        //float posX = Mathf.Round(transform.position.x)+0.5f;
-        float posX;
-        if (transform.position.x > 0)
-        {
-            posX = (int)transform.position.x + 0.5f;
-        }
-        else
-        {
-            posX = (int)transform.position.x - 0.5f;
-        }
-        
-        float posY = Mathf.Round(transform.position.y) + 0.5f;
-        Vector2 pos = new Vector2(posX, posY);
-
-        Collider2D check = Physics2D.OverlapPoint(new Vector2(transform.position.x, transform.position.y + 0.5f), 1 << Layer.Ladders);
-
-        RaycastHit2D InstHit = Physics2D.Raycast(pos, Vector2.down, 1f, Layer.Blocks | 1 << Layer.Ladders);
-
-        if (check == null) //если место свободно, проверяем не на воздухе ли ставим лестницу
-        {
-            if (Physics2D.Raycast(pos, Vector2.down, 1f, 1 << Layer.Blocks | 1 << Layer.Ladders |1<< Layer.Stones).collider != null)//стреляем вниз
-            {
-                Instantiate(ladder, pos, Quaternion.identity, sceneContainer); //если ничего не нашли внизу не пусто, то ставим лестницу
-                test = true;
-            }
-        }
-        else
-        {
-            //Debug.Log("Место занято, не могу поставить лестницу! Стоит: " + InstHit.collider.tag);
-        }
     }
 
     public void HitBlock()
@@ -382,34 +344,24 @@ public class MoveController : MonoBehaviour, IListener
 
         switch (Event_Type)
         {
-            //case EVENT_TYPE.OpenShop:
-            //    blockMove = true;
-            //    break;
-
-            //case EVENT_TYPE.CloseShop:
-            //    blockMove = false;
-            //    break;
-
-
-          
             case EVENT_TYPE.BallistaCharge:
-                animator.SetBool("TrebuchetCharge", true);
+                animator.SetBool("WeaponCharge", true);
                 HorizontalFlip(transform.right);
 
                 break;
 
             case EVENT_TYPE.BallistaFireButtonUp:
-                animator.SetBool("TrebuchetCharge", false);
+                animator.SetBool("WeaponCharge", false);
 
                 break;
             case EVENT_TYPE.TrebCharge:
-                animator.SetBool("TrebuchetCharge", true);
+                animator.SetBool("WeaponCharge", true);
                 HorizontalFlip(transform.right);
                 break;
 
             case EVENT_TYPE.TrebFireButtonUp:
-                animator.SetBool("TrebuchetCharge", false);
-
+                animator.SetBool("WeaponCharge", false);
+                state = CharState.Idle;
                 break;
 
             case EVENT_TYPE.BallistaShot:
@@ -424,7 +376,7 @@ public class MoveController : MonoBehaviour, IListener
                 }
                 if ((int)Param == 1)
                 {
-                    animator.SetBool("TrebuchetSpoonDown", true);
+                    animator.SetBool("WeaponMoveDown", true);
                     HorizontalFlip(-transform.right);
                 }
                 break;
@@ -433,8 +385,8 @@ public class MoveController : MonoBehaviour, IListener
             case EVENT_TYPE.TrebSpoonDownPointerDown:
                 if (GameStates.Instance.inTrebuchetPlace || GameStates.Instance.inBallistaPlace)
                 {
-                    //animator.SetFloat("TrebSpoonSpeed", 1f);
-                    animator.SetBool("TrebuchetSpoonDown", true);
+                    //animator.SetFloat("WeaponMoveSpeed", 1f);
+                    animator.SetBool("WeaponMoveDown", true);
                     HorizontalFlip(-transform.right);
                 }
 
@@ -444,19 +396,19 @@ public class MoveController : MonoBehaviour, IListener
                 if (GameStates.Instance.inTrebuchetPlace || GameStates.Instance.inBallistaPlace)
                 {
                     
-                    animator.SetBool("TrebuchetSpoonDown", false);
+                    animator.SetBool("WeaponMoveDown", false);
                     HorizontalFlip(-transform.right);
                 }
 
-                animator.SetFloat("TrebSpoonSpeed", 1f);
+                animator.SetFloat("WeaponMoveSpeed", 1f);
 
                 break;
 
             case EVENT_TYPE.TrebSpoonUpPointerDown:
                 if (GameStates.Instance.inTrebuchetPlace || GameStates.Instance.inBallistaPlace)
                 {
-                    //animator.SetFloat("TrebSpoonSpeed", 1f);
-                    animator.SetBool("TrebuchetSpoonUp", true);
+                    //animator.SetFloat("WeaponMoveSpeed", 1f);
+                    animator.SetBool("WeaponMoveUp", true);
                     HorizontalFlip(-transform.right);
                 }
 
@@ -466,17 +418,17 @@ public class MoveController : MonoBehaviour, IListener
                 if (GameStates.Instance.inTrebuchetPlace || GameStates.Instance.inBallistaPlace)
                 {
                     
-                    animator.SetBool("TrebuchetSpoonUp", false);
+                    animator.SetBool("WeaponMoveUp", false);
                     HorizontalFlip(-transform.right);
                 }
-                animator.SetFloat("TrebSpoonSpeed", 1f);//off limit
+                animator.SetFloat("WeaponMoveSpeed", 1f);//off limit
 
                 break;
 
             case EVENT_TYPE.TrebSpoonLimit:
-                animator.SetFloat("TrebSpoonSpeed", 0f);
-                //animator.SetBool("TrebuchetSpoonDown", false);
-                //animator.SetBool("TrebuchetSpoonUp", false);
+                animator.SetFloat("WeaponMoveSpeed", 0f);
+                //animator.SetBool("WeaponMoveDown", false);
+                //animator.SetBool("WeaponMoveUp", false);
 
                 break;
 
@@ -491,8 +443,16 @@ public class MoveController : MonoBehaviour, IListener
                 animator.Play("die");
                 break;
 
+            case EVENT_TYPE.SetLadder:
+                isLadderAbove = true;
+                break;
+
             case EVENT_TYPE.GameOver:
                 blockAllMoves = true;
+                break;
+                case EVENT_TYPE.Teleport: 
+                    GameStates.Instance.InCity = false; 
+                    state = CharState.IdleKirche;
                 break;
 
             case EVENT_TYPE.CharInCity:

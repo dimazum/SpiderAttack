@@ -15,5 +15,6 @@ namespace Assets.Scripts.enums
         public const int BulletStone = 14;
         public const int Spider = 15;
         public const int Static = 18;
+        public const int SpiderDead = 19;
     }
 }

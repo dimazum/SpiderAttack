@@ -13,13 +13,114 @@ MonoBehaviour:
   m_Name: InventoryData
   m_EditorClassIdentifier: 
   collections:
-  - {fileID: 11400000, guid: 2b8ba1925695d654fabadaebef9cb61d, type: 2}
-  - {fileID: 11400000, guid: 0295ea724536e224eb33382062f4a1a4, type: 2}
-  - {fileID: 11400000, guid: f83306ffa7fcd244c8492380e9fb295c, type: 2}
-  - {fileID: 11400000, guid: 40631e023ec5d2e41b411e3640872b60, type: 2}
-  - {fileID: 11400000, guid: 3cdfb1086c518a047be0943857618b82, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - ItemGroup: 0
+    itemTypes:
+    - _qty: 9999
+      ItemCategory: 0
+      description: 
+      endlesQty: 1
+      image: {fileID: 21300000, guid: 694457130617a5b41854cf9af24005be, type: 3}
+      action:
+        m_PersistentCalls:
+          m_Calls: []
+      prefab: {fileID: 0}
+    - _qty: 92
+      ItemCategory: 1
+      description: 
+      endlesQty: 0
+      image: {fileID: 21300000, guid: d0241edf105dd8c41998d6d01bea4f42, type: 3}
+      action:
+        m_PersistentCalls:
+          m_Calls: []
+      prefab: {fileID: 0}
+    - _qty: 78
+      ItemCategory: 2
+      description: 
+      endlesQty: 0
+      image: {fileID: 21300000, guid: a95055b1799d4354e892983fedc7828f, type: 3}
+      action:
+        m_PersistentCalls:
+          m_Calls: []
+      prefab: {fileID: 0}
+    - _qty: 98
+      ItemCategory: 3
+      description: 
+      endlesQty: 0
+      image: {fileID: 21300000, guid: 6046a261f4234a24dbd7b9d4fdfbf671, type: 3}
+      action:
+        m_PersistentCalls:
+          m_Calls: []
+      prefab: {fileID: 0}
+  - ItemGroup: 1
+    itemTypes:
+    - _qty: 9995
+      ItemCategory: 4
+      description: 
+      endlesQty: 1
+      image: {fileID: 21300000, guid: cd72d12461663334b8bdd420159827cd, type: 3}
+      action:
+        m_PersistentCalls:
+          m_Calls: []
+      prefab: {fileID: 0}
+    - _qty: 71
+      ItemCategory: 5
+      description: 
+      endlesQty: 0
+      image: {fileID: 21300000, guid: 028557605a3a78e4a9cdec0c435516e7, type: 3}
+      action:
+        m_PersistentCalls:
+          m_Calls: []
+      prefab: {fileID: 0}
+    - _qty: 75
+      ItemCategory: 6
+      description: 
+      endlesQty: 0
+      image: {fileID: 21300000, guid: 5915534948087cf459350f5c42f5ced4, type: 3}
+      action:
+        m_PersistentCalls:
+          m_Calls: []
+      prefab: {fileID: 0}
+    - _qty: 115
+      ItemCategory: 7
+      description: 
+      endlesQty: 0
+      image: {fileID: 21300000, guid: c46294f8431d71c4ca2b18e85fc3bb17, type: 3}
+      action:
+        m_PersistentCalls:
+          m_Calls: []
+      prefab: {fileID: 0}
+  - ItemGroup: 2
+    itemTypes: []
+  - ItemGroup: 3
+    itemTypes:
+    - _qty: 19
+      ItemCategory: 8
+      description: 
+      endlesQty: 0
+      image: {fileID: 21300000, guid: dedbef7d745a1f64784f5830e027c9ac, type: 3}
+      action:
+        m_PersistentCalls:
+          m_Calls: []
+      prefab: {fileID: 0}
+  - ItemGroup: 4
+    itemTypes:
+    - _qty: 20
+      ItemCategory: 8
+      description: 
+      endlesQty: 0
+      image: {fileID: 21300000, guid: 41296d701eeb56449ae599ea3ab01a29, type: 3}
+      action:
+        m_PersistentCalls:
+          m_Calls: []
+      prefab: {fileID: 0}
+  - ItemGroup: 4
+    itemTypes:
+    - _qty: 20
+      ItemCategory: 8
+      description: 
+      endlesQty: 0
+      image: {fileID: 21300000, guid: 41296d701eeb56449ae599ea3ab01a29, type: 3}
+      action:
+        m_PersistentCalls:
+          m_Calls: []
+      prefab: {fileID: 0}

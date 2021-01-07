@@ -5,7 +5,8 @@
         Arrows,
         Balls,
         Minerals,
-        Actives,
-
+        Ladders,
+        Teleports,
+        Bombs
     }
 }

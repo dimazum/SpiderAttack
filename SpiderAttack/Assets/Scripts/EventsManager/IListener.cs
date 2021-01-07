@@ -14,6 +14,10 @@ public enum EVENT_TYPE
     PickUp, //upgrade Pick
     BuyGate, //buy Pick Button
     GateUp, //buy Pick Button
+    SuperBomb, //buy Pick Button
+    Teleport,
+    SetLadder,
+    GetResurs,
 
     OpenShop, //click Open Shop Button
     CloseShop, //click Close Shop

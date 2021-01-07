@@ -30,7 +30,7 @@ namespace MarchingBytes {
 		private ItemCategory itemCategory;
 
 		public Pool(string poolName, GameObject poolObjectPrefab, int initialCount, bool fixedSize, Transform parent, ItemCategory itemCategory) {
-			this.poolName = poolName;
+			this.poolName = itemCategory.ToString();
 			this.poolObjectPrefab = poolObjectPrefab;
 			this.poolSize = initialCount;
 			this.fixedSize = fixedSize;
@@ -152,7 +152,7 @@ namespace MarchingBytes {
 				                     currentPoolInfo.poolSize, currentPoolInfo.fixedSize, currentPoolInfo.parent, currentPoolInfo.itemCategory);
 
 				
-				Debug.Log("Creating pool: " + currentPoolInfo.poolName);
+				//Debug.Log("Creating pool: " + currentPoolInfo.poolName);
 				//add to mapping dict
 				poolDictionary[currentPoolInfo.poolName] = pool;
 			}

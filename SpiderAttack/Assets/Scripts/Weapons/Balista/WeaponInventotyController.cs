@@ -12,10 +12,27 @@ using UnityEngine.UI;
 public class WeaponInventotyController : MonoBehaviour, IListener
 {
     public Image arrowTypeSelectImage;
-    public ItemsData itemsData;
+    public InventoryData itemsData;
     private TypeCollection _bulletCollection;
     private IWeapon weapon;
     int _typeCounter;
+
+    public int typeCounter
+    {
+        get => _typeCounter;
+        set
+        {
+            if (value < _bulletCollection.itemTypes.Length)
+            {
+                _typeCounter = value;
+
+            }
+            else
+            {
+                _typeCounter = 0;
+            }
+        }
+    }
     public ItemGroup ItemGroup;
 
 
@@ -40,21 +57,15 @@ public class WeaponInventotyController : MonoBehaviour, IListener
 
     public void NextArrowType()
     {
-        if (_typeCounter < _bulletCollection.itemTypes.Length - 1)
+        typeCounter++;
+        while (_bulletCollection.itemTypes[typeCounter].Qty < 1)
         {
-            _typeCounter++;
-            if (_bulletCollection.itemTypes[_typeCounter].Qty < 1)
-            {
-                _typeCounter++;
-            }
-        }
-        else
-        {
-            _typeCounter = 0;
+            typeCounter++;
         }
 
-        SetItenCategotyToPool(_bulletCollection.itemTypes[_typeCounter].ItemCategory);
-        RenderArrowTypeIcon(_typeCounter);
+
+        SetItenCategotyToPool(_bulletCollection.itemTypes[typeCounter].ItemCategory);
+        RenderArrowTypeIcon(typeCounter);
 
     }
 
@@ -75,43 +86,41 @@ public class WeaponInventotyController : MonoBehaviour, IListener
             arrowTypeSelectImage.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = string.Empty;
         }
     }
+    private void ChangeQty()
+    {
+        if (_bulletCollection.itemTypes[typeCounter].endlesQty) 
+        {
+            return;
+        }
+
+        _bulletCollection.itemTypes[typeCounter].Qty--;
+
+        if (_bulletCollection.itemTypes[typeCounter].Qty < 1)
+        {
+            typeCounter = 0;
+            SetItenCategotyToPool(_bulletCollection.itemTypes[0].ItemCategory);
+            RenderArrowTypeIcon(0);
+        }
+        RenderArrowTypeIcon(typeCounter);
+    }
 
     public void OnEvent(EVENT_TYPE Event_Type, Component Sender, object Param = null)
     {
         switch (Event_Type)
         {
-            case EVENT_TYPE.BallistaShot :
- 
-                if (_bulletCollection.itemTypes[(int)ItemGroup].Qty < 1)
+            case EVENT_TYPE.BallistaShot:
+                if (ItemGroup == ItemGroup.Arrows)
                 {
-                    SetItenCategotyToPool(_bulletCollection.itemTypes[_typeCounter].ItemCategory);
+                    ChangeQty();
                 }
-                _bulletCollection.itemTypes[_typeCounter].Qty--;
-
-                if (_bulletCollection.itemTypes[_typeCounter].Qty < 1)
-                {
-                    _typeCounter = 0;
-                }
-                RenderArrowTypeIcon(_typeCounter);
 
                 break;
 
             case EVENT_TYPE.TrebShot:
-
-
-
-                if (_bulletCollection.itemTypes[(int)ItemGroup].Qty < 1)
+                if (ItemGroup == ItemGroup.Balls)
                 {
-                    SetItenCategotyToPool(_bulletCollection.itemTypes[_typeCounter].ItemCategory);
+                    ChangeQty();
                 }
-                _bulletCollection.itemTypes[_typeCounter].Qty--;
-
-                if (_bulletCollection.itemTypes[_typeCounter].Qty < 1)
-                {
-                    _typeCounter = 0;
-                }
-                RenderArrowTypeIcon(_typeCounter);
-
                 break;
         }
     }

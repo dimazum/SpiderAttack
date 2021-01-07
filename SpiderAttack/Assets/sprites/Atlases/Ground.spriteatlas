@@ -104,9 +104,9 @@ SpriteAtlas:
   - Shop3_12
   - Shop3_10
   - Shop3_11
-  - stone2
-  - ground2
-  - ladder
+  - stone_6
+  - ground1_1
+  - ladder_7
   - Shop4_12
   - Shop4_11
   - Shop4_10
@@ -136,7 +136,7 @@ SpriteAtlas:
   - mainHouse_12
   - mainHouse_6
   - mainHouse_13
-  - Tile_G
-  - stone1
+  - grass_6
+  - stone_0
   m_Tag: Ground
   m_IsVariant: 0

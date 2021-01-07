@@ -68,6 +68,13 @@
     <Compile Include="Assets\Joystick Pack\Scripts\Editor\FloatingJoystickEditor.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Editor\JoystickEditor.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Editor\VariableJoystickEditor.cs" />
+    <Compile Include="Assets\Spriter2UnityDX\Editor\AnimationBuilder.cs" />
+    <Compile Include="Assets\Spriter2UnityDX\Editor\CustomEditors.cs" />
+    <Compile Include="Assets\Spriter2UnityDX\Editor\PrefabBuilder.cs" />
+    <Compile Include="Assets\Spriter2UnityDX\Editor\S2USettings.cs" />
+    <Compile Include="Assets\Spriter2UnityDX\Editor\ScmlImportOptions.cs" />
+    <Compile Include="Assets\Spriter2UnityDX\Editor\ScmlPostProcessor.cs" />
+    <Compile Include="Assets\Spriter2UnityDX\Editor\ScmlSupport.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.14f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
@@ -751,9 +758,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{48F33C69-CEB9-B495-C501-6C21D21D4C4F}</Project>
+      <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
     <ProjectReference Include="Assembly-CSharp.csproj">
       <Project>{02221ACA-0353-04BC-5DED-A34D51B7189F}</Project>
       <Name>Assembly-CSharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="Assembly-CSharp-Editor-firstpass.csproj">
+      <Project>{CE1B5581-08CB-0963-CBCD-0040A26AE204}</Project>
+      <Name>Assembly-CSharp-Editor-firstpass</Name>
     </ProjectReference>
     <ProjectReference Include="spine-unity.csproj">
       <Project>{820231A7-7A1C-0AF1-CC7E-A362FB25D083}</Project>

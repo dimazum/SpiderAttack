@@ -64,12 +64,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Data\scripts\DataRepository.cs" />
+    <Compile Include="Assets\Data\scripts\InventoryData.cs" />
+    <Compile Include="Assets\Data\scripts\ItemTypes\ArrowItemType.cs" />
+    <Compile Include="Assets\Data\scripts\ItemTypes\BallItemType.cs" />
+    <Compile Include="Assets\Data\scripts\ItemTypes\BaseItemType.cs" />
+    <Compile Include="Assets\Data\scripts\ItemTypes\LadderItemType.cs" />
+    <Compile Include="Assets\Data\scripts\ItemTypes\MineralItemType.cs" />
     <Compile Include="Assets\Data\scripts\ItemsData.cs" />
+    <Compile Include="Assets\Data\scripts\ItemsData2.cs" />
+    <Compile Include="Assets\Data\scripts\ShopData.cs" />
+    <Compile Include="Assets\Data\scripts\TestSaver.cs" />
     <Compile Include="Assets\EasyObjectPool\Core\EasyObjectPool.cs" />
     <Compile Include="Assets\EasyObjectPool\Core\PoolObject.cs" />
     <Compile Include="Assets\EasyObjectPool\Example\CubeBehaviour.cs" />
     <Compile Include="Assets\EasyObjectPool\Example\Example.cs" />
+    <Compile Include="Assets\ExtendableSaveSystem\Core\ComponentData.cs" />
+    <Compile Include="Assets\ExtendableSaveSystem\Core\ISavableComponent.cs" />
+    <Compile Include="Assets\ExtendableSaveSystem\Core\SaveMaster.cs" />
+    <Compile Include="Assets\ExtendableSaveSystem\Example\ExtendedComponentData.cs" />
+    <Compile Include="Assets\ExtendableSaveSystem\Example\GameMaster.cs" />
+    <Compile Include="Assets\ExtendableSaveSystem\Example\TransformSaver.cs" />
     <Compile Include="Assets\Joystick Pack\Examples\JoystickPlayerExample.cs" />
     <Compile Include="Assets\Joystick Pack\Examples\JoystickSetterExample.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Base\Joystick.cs" />
@@ -98,6 +112,7 @@
     <Compile Include="Assets\Scripts\EventsManager\IListener.cs" />
     <Compile Include="Assets\Scripts\GateLeft.cs" />
     <Compile Include="Assets\Scripts\GateRightController.cs" />
+    <Compile Include="Assets\Scripts\Inventory\AmmoBoxController.cs" />
     <Compile Include="Assets\Scripts\Inventory\InventoryController.cs" />
     <Compile Include="Assets\Scripts\LadderController.cs" />
     <Compile Include="Assets\Scripts\MainHomeController.cs" />
@@ -107,10 +122,9 @@
     <Compile Include="Assets\Scripts\SceneGenerator.cs" />
     <Compile Include="Assets\Scripts\Shops\GateShop.cs" />
     <Compile Include="Assets\Scripts\Shops\PickShop.cs" />
-    <Compile Include="Assets\Scripts\Shops\ShopsPanelController.cs" />
-    <Compile Include="Assets\Scripts\SpriterToUnityDX\EntityRenderer.cs" />
-    <Compile Include="Assets\Scripts\SpriterToUnityDX\SortingOrderUpdater.cs" />
-    <Compile Include="Assets\Scripts\SpriterToUnityDX\TextureController.cs" />
+    <Compile Include="Assets\Scripts\Shops\ShopPanelController.cs" />
+    <Compile Include="Assets\Scripts\Shops\UpgratesPanelController.cs" />
+    <Compile Include="Assets\Scripts\TestPerformance.cs" />
     <Compile Include="Assets\Scripts\UI\HPSlider.cs" />
     <Compile Include="Assets\Scripts\UI\UIController.cs" />
     <Compile Include="Assets\Scripts\UpgradeController\GateUpgradeController.cs" />
@@ -124,20 +138,23 @@
     <Compile Include="Assets\Scripts\Utils\enums\ItemCategory.cs" />
     <Compile Include="Assets\Scripts\Utils\enums\ItemGroup.cs" />
     <Compile Include="Assets\Scripts\Utils\enums\Layer.cs" />
+    <Compile Include="Assets\Scripts\Utils\enums\ResursType.cs" />
     <Compile Include="Assets\Scripts\Weapons\Balista\BalistaArrow.cs" />
     <Compile Include="Assets\Scripts\Weapons\Balista\Ballista.cs" />
     <Compile Include="Assets\Scripts\Weapons\Balista\BallistaChildArrow.cs" />
     <Compile Include="Assets\Scripts\Weapons\Balista\BallistaMultiArrow.cs" />
-    <Compile Include="Assets\Scripts\Weapons\Balista\Trebuchet\BulletsInventoryController.cs" />
     <Compile Include="Assets\Scripts\Weapons\Balista\Trebuchet\TrebChildBall.cs" />
     <Compile Include="Assets\Scripts\Weapons\Balista\Trebuchet\TrebMultiBall.cs" />
+    <Compile Include="Assets\Scripts\Weapons\Balista\Trebuchet\TrebSuperBomb.cs" />
     <Compile Include="Assets\Scripts\Weapons\Balista\Trebuchet\Trebuchet.cs" />
     <Compile Include="Assets\Scripts\Weapons\Balista\Trebuchet\TrebuchetBullet.cs" />
     <Compile Include="Assets\Scripts\Weapons\Balista\WeaponInventotyController.cs" />
     <Compile Include="Assets\Scripts\Weapons\Bullet.cs" />
     <Compile Include="Assets\Scripts\Weapons\IWeapon.cs" />
+    <Compile Include="Assets\Scripts\blocks\BlockGoundResurs.cs" />
     <Compile Include="Assets\Scripts\blocks\BlockGroundDefault.cs" />
     <Compile Include="Assets\Scripts\blocks\StoneController.cs" />
+    <Compile Include="Assets\Scripts\mainCharakter\ActionController.cs" />
     <Compile Include="Assets\Scripts\mainCharakter\EquipmentController.cs" />
     <Compile Include="Assets\Scripts\mainCharakter\HealthController.cs" />
     <Compile Include="Assets\Scripts\mainCharakter\MoveController.cs" />
@@ -181,6 +198,9 @@
     <Compile Include="Assets\Scripts\old\shopBorderController.cs" />
     <Compile Include="Assets\Scripts\old\stoneDynamic.cs" />
     <Compile Include="Assets\Scripts\old\supportController.cs" />
+    <Compile Include="Assets\Spriter2UnityDX\Runtime\EntityRenderer.cs" />
+    <Compile Include="Assets\Spriter2UnityDX\Runtime\SortingOrderUpdater.cs" />
+    <Compile Include="Assets\Spriter2UnityDX\Runtime\TextureController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
@@ -217,6 +237,7 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
     <None Include="Assets\Spine\version.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\SpaceDepotUI\ReadMe.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\SpriteOutline\Shaders\SpriteOutline.shader" />
     <None Include="Assets\sprites\Trebuchet\trebuchet.atlas.txt" />
@@ -894,6 +915,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{48F33C69-CEB9-B495-C501-6C21D21D4C4F}</Project>
+      <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
     <ProjectReference Include="spine-unity.csproj">
       <Project>{820231A7-7A1C-0AF1-CC7E-A362FB25D083}</Project>
       <Name>spine-unity</Name>

@@ -8,26 +8,22 @@ using UnityEngine.UI;
 
 public class Ballista : MonoBehaviour, IListener,IWeapon
 {
-    //private Animator _animator;
-    public Animation _animation;
+    private Animation _animation;
     public GameObject arrow;
+    public GameObject leftBelt;
+    public GameObject rightBelt;
     public Transform arrowStart;
-    public float _BowBasePower = 200;
-    public float rotatePower = -0.01f;
-    public float _NormTime;
-    private string _currentAnim;
     private bool _isCharging;
     private bool _inBallistaPlace;
 
     public Image sliderBallista;
-    public bool _rotateSmallGearUp;
-    public bool _rotateSmallGearDown;
+    private bool _rotateSmallGearUp;
+    private bool _rotateSmallGearDown;
     public Transform BowBase;
     public Transform SmallGear;
-    public float _BowBaseRotateSpeed = 10;
-    public float _smallGearSpeed = 100;
+    private float _BowBaseRotateSpeed = 5;
+    private float _smallGearSpeed = 100;
     private UIController _uiController;
-    //public ItemCategory itemCategory;
     private EasyObjectPool _easyPool;
 
     private float _counter;
@@ -46,13 +42,9 @@ public class Ballista : MonoBehaviour, IListener,IWeapon
 
     public ItemCategory itemCategory { get ; set; }
 
-    void Awake()
-    {
-        //_animator = GetComponent<Animator>();
-    }
-
     void Start()
     {
+        _animation = GetComponent<Animation>();
         itemCategory = ItemCategory.ArrowX1;
         _easyPool = GetComponent<EasyObjectPool>();
         _uiController = FindObjectOfType<UIController>();
@@ -70,9 +62,7 @@ public class Ballista : MonoBehaviour, IListener,IWeapon
     {
         if (_isCharging && Counter < 100)
         {
-            Counter += 2;
-            //sliderBallista.fillAmount = i / 100;
-            
+            Counter += 2;    
         }
         if (!_isCharging && Counter > 0)
         {
@@ -88,9 +78,7 @@ public class Ballista : MonoBehaviour, IListener,IWeapon
             RotateSmallGearUp();
             RotateSmallGearDown();
         }
-        
     }
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -146,13 +134,13 @@ public class Ballista : MonoBehaviour, IListener,IWeapon
 
                 if (Counter > 99)
                 {
-                    EventManager.Instance.PostNotification(EVENT_TYPE.BallistaShot, this);
+                    
                     SetAnimation("BallistaShot");
                     _isCharging = false;
                     Shot();
                     Counter = 0;
                     sliderBallista.fillAmount = 0;
-
+                    EventManager.Instance.PostNotification(EVENT_TYPE.BallistaShot, this);
                     break;
                 }
 
@@ -196,30 +184,11 @@ public class Ballista : MonoBehaviour, IListener,IWeapon
         }
     }
 
-
     public void Shot()
     {
-        //GameObject arrow_clone = Instantiate(arrow, arrowStart.position, arrowStart.rotation, arrowStart);
-        //arrow_clone.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector3(1, 0, 0) * _BowBasePower);
-        //arrow_clone.GetComponent<Rigidbody2D>().AddTorque(rotatePower, ForceMode2D.Force);
-
-        //Destroy(arrow_clone, 3f);
-
-
-        //var arr = leanGameObjectPool.Spawn(arrowStart.position, arrowStart.rotation, arrowStart);
-        //arr?.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector3(1, 0, 0) * _BowBasePower);
-
 
        _easyPool.GetObjectFromPool(itemCategory.ToString(), arrowStart.position, arrowStart.rotation);
-        //go?.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector3(1, 0, 0) * _BowBasePower);
-
     }
-
-    //public IEnumerator DespawnDelay()
-    //{
-    //    yield return new WaitForSeconds(2);
-
-    //}
 
     private float CorrectTime(float time)
     {
@@ -238,7 +207,7 @@ public class Ballista : MonoBehaviour, IListener,IWeapon
     public void SetAnimation(string nameAnim, float speed = 1, float normTime = 0)
     {
         _animation.Play(nameAnim);
-        _currentAnim = nameAnim;
+        //_currentAnim = nameAnim;
         _animation[nameAnim].speed = speed;
         _animation[nameAnim].normalizedTime = normTime;
     }
@@ -254,6 +223,8 @@ public class Ballista : MonoBehaviour, IListener,IWeapon
             {
                 BowBase.transform.Rotate(-(Vector3.forward) * _BowBaseRotateSpeed * Time.deltaTime);
                 SmallGear.transform.Rotate(-(Vector3.forward) * _smallGearSpeed * Time.deltaTime);
+                leftBelt.GetComponent<SpriteRenderer>().size = new Vector2(leftBelt.GetComponent<SpriteRenderer>().size.x + (-Time.deltaTime), .2f);
+                rightBelt.GetComponent<SpriteRenderer>().size = new Vector2(rightBelt.GetComponent<SpriteRenderer>().size.x + (Time.deltaTime), .2f);
             }
             else
             {
@@ -271,6 +242,8 @@ public class Ballista : MonoBehaviour, IListener,IWeapon
             {
                 BowBase.transform.Rotate((Vector3.forward) * _BowBaseRotateSpeed * Time.deltaTime);
                 SmallGear.transform.Rotate((Vector3.forward) * _smallGearSpeed * Time.deltaTime);
+                leftBelt.GetComponent<SpriteRenderer>().size = new Vector2(leftBelt.GetComponent<SpriteRenderer>().size.x + (Time.deltaTime), .2f);
+                rightBelt.GetComponent<SpriteRenderer>().size = new Vector2(rightBelt.GetComponent<SpriteRenderer>().size.x + (-Time.deltaTime), .2f);
             }
             else
             {

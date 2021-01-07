@@ -5,11 +5,15 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 using System.Linq;
 using System;
+using System.Collections.Generic;
+using NGS.ExtendableSaveSystem;
 
-public class SceneGenerator : MonoBehaviour
+public class SceneGenerator : MonoBehaviour, ISavableComponent
 {
     public Transform sceneContainer;
     public GameObject[] element;
+    //public Dictionary<int,int> saveList;
+    public TestSaver testSaver;
 
     public Tilemap tilemap;
 
@@ -18,12 +22,18 @@ public class SceneGenerator : MonoBehaviour
         tilemap.gameObject.SetActive(false);
         BoundsInt bounds = tilemap.cellBounds;
         TileBase[] allTiles = tilemap.GetTilesBlock(bounds);
-
+        //TestSaver.saveList = new Dictionary<int,int>();
         for (int x = 0; x < bounds.size.x; x++)
         {
             for (int y = 0; y < bounds.size.y; y++)
             {
-                TileBase tile = allTiles[x + y * bounds.size.x];
+                var index = x + y * bounds.size.x;
+                //var val = testSaver.saveList[index];
+                //if (val == 1)
+                //{
+                //    continue;
+                //}
+                TileBase tile = allTiles[index];
 
                 if (tile != null)
                 {
@@ -36,13 +46,51 @@ public class SceneGenerator : MonoBehaviour
 
                     if (element.ElementAtOrDefault(tileNumberInt) != null)
                     {
-                        Instantiate(element[tileNumberInt], newPos, Quaternion.identity, sceneContainer);
+                         Instantiate(element[tileNumberInt], newPos, Quaternion.identity, sceneContainer);
                     }
-                    
                 }
-
             }
         }
 
+    }
+
+    [SerializeField] private int _uniqueID;
+    [SerializeField] private int _executionOrder;
+
+    public int uniqueID
+    {
+        get
+        {
+            return _uniqueID;
+        }
+    }
+    public int executionOrder
+    {
+        get
+        {
+            return _executionOrder;
+        }
+    }
+
+
+    private void Reset()
+    {
+        _uniqueID = GetHashCode();
+    }
+
+    public ComponentData Serialize()
+    {
+        ExtendedComponentData data = new ExtendedComponentData();
+
+        data.SetTransform("transform", transform);
+
+        return data;
+    }
+
+    public void Deserialize(ComponentData data)
+    {
+        ExtendedComponentData unpacked = (ExtendedComponentData)data;
+
+        unpacked.GetTransform("transform", transform);
     }
 }

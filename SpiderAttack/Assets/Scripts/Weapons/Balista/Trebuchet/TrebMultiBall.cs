@@ -37,7 +37,7 @@ public class TrebMultiBall : Bullet
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        //EasyObjectPool.instance.ReturnObjectToPool(gameObject);
+        _easyObjectPool.ReturnObjectToPool(gameObject); ;
     }
 
     private void Awake()

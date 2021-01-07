@@ -67,6 +67,7 @@ public abstract class Spider: MonoBehaviour, IListener
     void Start()
     {
         EventManager.Instance.AddListener(EVENT_TYPE.GateDestroy, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.SuperBomb, this);
         coroutines = new List<Coroutine>();
 
         _speed = speed;
@@ -251,10 +252,11 @@ public abstract class Spider: MonoBehaviour, IListener
                 trackEntryHurt.Complete += AnimHurt_Complete;
             }
 
-            //Destroy(collision.gameObject);
             EventManager.Instance.PostNotification(EVENT_TYPE.SpiderHurt, this, collision.gameObject.GetComponent<Bullet>().Damage);
         }
     }
+
+   
 
     protected void AnimHurt_Complete(TrackEntry trackEntry)
     {
@@ -294,7 +296,7 @@ public abstract class Spider: MonoBehaviour, IListener
 
     protected virtual void Death()
     {
-        gameObject.layer = Layer.Dead;
+        gameObject.layer = Layer.SpiderDead;
         var trackEntryDeath = SetAnimation(death, false, speedDeath);
         _speed = 0;
         trackEntryDeath.Complete += AnimDeath_Complete;
@@ -315,14 +317,6 @@ public abstract class Spider: MonoBehaviour, IListener
         {
             return;
         }
-        //foreach (var coroutine in coroutines)
-        //{
-        //    if (coroutine != null)
-        //    {
-        //        StopCoroutine(coroutine);
-        //        coroutines.Remove(coroutine);
-        //    }
-        //}
 
         for (int i = 0; i < coroutines.Count; i++)
         {
@@ -368,6 +362,29 @@ public abstract class Spider: MonoBehaviour, IListener
         {
             case EVENT_TYPE.GateDestroy:
                 _forceAttack = true;
+                break;
+
+            case EVENT_TYPE.SuperBomb:
+                Debug.Log(Vector2.Distance(transform.position, _spiderAim.position));
+                if (Vector2.Distance(transform.position, _spiderAim.position) > 7)//superbomb range
+                {
+                    return;
+                }
+                if (Param == null) return;
+                var damageValue = (int) Param;
+                _speed = 0;
+                currentBullet = BulletType.Ball;
+                if (hpSlider != null)
+                {
+                    isDeath = ChangeHp(damageValue);
+                }
+                if (!isDeath)
+                {
+                    var trackEntryHurt = SetAnimation(hurt, false, speedHurt);
+                    trackEntryHurt.Complete += AnimHurt_Complete;
+                }
+
+                EventManager.Instance.PostNotification(EVENT_TYPE.SpiderHurt, this, damageValue);
                 break;
         }
     }

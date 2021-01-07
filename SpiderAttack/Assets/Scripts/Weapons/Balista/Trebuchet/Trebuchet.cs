@@ -8,19 +8,29 @@ namespace Assets.Scripts.Weapons
 {
     public class Trebuchet : MonoBehaviour, IListener, IWeapon
     {
-       
-        public Animation _animation;
-        ///public GameObject Bullet;
         public Transform SpoonAim;
         public Transform Spoon;
         public Transform SmallGear;
-        public float _spoonSpeed = 10;
-        public float _smallGearSpeed = 10;
+        public Transform rod;
+        public Transform mockGear;
+        public GameObject topBelt;
+        public GameObject bottomBelt;
+        private Animation _animation;
+        private float _mockGearSpeed = 70f;
+        private float _rodSpeed = .03f;
+        private float _spoonSpeed = 10;
+        private float _smallGearSpeed = 70;
         private float _sila = 500;
         private UIController _uiController;
         private float _i;
-        //public ItemCategory itemCategory;
         private EasyObjectPool _easyObjectPool;
+        public int chargeDuration = 100;
+        public bool _isCharging;
+        public bool _isShot;
+        public bool _rotateSmallGearUp;
+        public bool _rotateSmallGearDown;
+        private bool _inTrebuchetPlace;
+
         public float I
         {
             get => _i;
@@ -36,22 +46,10 @@ namespace Assets.Scripts.Weapons
 
         public ItemCategory itemCategory { get; set; }
 
-        public int chargeDuration = 100;
-
-        public bool _isCharging;
-        public bool _isShot;
-        public bool _rotateSmallGearUp;
-        public bool _rotateSmallGearDown;
-        private bool _inTrebuchetPlace;
-
-
-
-        void Awake()
-        {
-        }
         
         void Start()
         {
+            _animation = GetComponent<Animation>();
             itemCategory = ItemCategory.BallX1;
             _easyObjectPool = GetComponent<EasyObjectPool>();
             _uiController = FindObjectOfType<UIController>();
@@ -89,8 +87,6 @@ namespace Assets.Scripts.Weapons
                 RotateSmallGearUp();
                 RotateSmallGearDown();
             }
-
-
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -229,14 +225,10 @@ namespace Assets.Scripts.Weapons
 
         public void Shot()
         {
-            //GameObject bulletClone = Instantiate(Bullet, SpoonAim.position, SpoonAim.rotation);
+
             GameObject bulletClone = _easyObjectPool.GetObjectFromPool(itemCategory.ToString(), SpoonAim.position, SpoonAim.rotation);
-
             bulletClone.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector3(0, 1, 0) * _sila);
-
             EventManager.Instance.PostNotification(EVENT_TYPE.TrebShot, this);
-
-            //Destroy(bulletClone, 3f);
 
         }
 
@@ -252,6 +244,10 @@ namespace Assets.Scripts.Weapons
                     Spoon.transform.Rotate(-(Vector3.forward) * _spoonSpeed * Time.deltaTime);
                     SpoonAim.transform.Rotate(-(Vector3.forward) * _spoonSpeed * Time.deltaTime);
                     SmallGear.transform.Rotate(-(Vector3.forward) * _smallGearSpeed * Time.deltaTime);
+                    rod.Translate(-Vector3.right * _rodSpeed * Time.deltaTime);
+                    mockGear.Rotate(-(Vector3.forward) * _mockGearSpeed * Time.deltaTime);
+                    topBelt.GetComponent<SpriteRenderer>().size = new Vector2(topBelt.GetComponent<SpriteRenderer>().size.x+(-Time.deltaTime), .2f);
+                    bottomBelt.GetComponent<SpriteRenderer>().size = new Vector2(bottomBelt.GetComponent<SpriteRenderer>().size.x + (Time.deltaTime), .2f);
                 }
                 else
                 {
@@ -267,9 +263,13 @@ namespace Assets.Scripts.Weapons
                 var pos = Spoon.transform.localEulerAngles.z;
                 if (pos < 10 || pos > 349)
                 {
-                    Spoon.transform.Rotate((Vector3.forward) * _spoonSpeed * Time.deltaTime);
-                    SpoonAim.transform.Rotate((Vector3.forward) * _spoonSpeed * Time.deltaTime);
-                    SmallGear.transform.Rotate((Vector3.forward) * _smallGearSpeed * Time.deltaTime);
+                    Spoon.transform.Rotate(Vector3.forward * _spoonSpeed * Time.deltaTime);
+                    SpoonAim.transform.Rotate(Vector3.forward * _spoonSpeed * Time.deltaTime);
+                    SmallGear.transform.Rotate(Vector3.forward * _smallGearSpeed * Time.deltaTime);
+                    rod.Translate(Vector3.right * _rodSpeed * Time.deltaTime);
+                    mockGear.transform.Rotate(Vector3.forward * _mockGearSpeed * Time.deltaTime);
+                    topBelt.GetComponent<SpriteRenderer>().size = new Vector2(topBelt.GetComponent<SpriteRenderer>().size.x + (Time.deltaTime), .2f);
+                    bottomBelt.GetComponent<SpriteRenderer>().size = new Vector2(bottomBelt.GetComponent<SpriteRenderer>().size.x + (-Time.deltaTime), .2f);
                 }
                 else
                 {
@@ -278,68 +278,5 @@ namespace Assets.Scripts.Weapons
             }
 
         }
-
-
-        //public void ShotTest()
-        //{
-        //    GameObject bulletClone = Instantiate(Bullet, SpoonAim.position, SpoonAim.rotation);
-
-        //    bulletClone.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector3(Random.Range(.7f, .9f), 1, 0) * _sila);
-
-        //    EventManager.Instance.PostNotification(EVENT_TYPE.TrebShot, this, bulletClone.transform);
-
-        //    Destroy(bulletClone, 3f);
-
-        //}
-
-        //void BigGearCharge()
-        //{
-        //    if (_rotateBigGearCharge)
-        //    {
-        //        if (!inFirePlace)
-        //        {
-        //            //_animator.Play("PlaceHighlight");
-        //            return;
-        //        }
-        //        var pos =  BigGear.transform.localEulerAngles.z ;
-
-        //        if (pos > 0)
-        //        {
-        //            pos -= 360;
-        //        }
-
-        //        if (pos == 0 || pos > -200)
-        //        {
-        //            BigGear.transform.Rotate(-(Vector3.forward) * _bigGearSpeed * Time.deltaTime);
-        //        }
-
-        //        if (pos < -200)
-        //        {
-        //            _isCharging = true;
-        //        }
-        //    }
-        //}
-
-        //void BigGearDisCharge()
-        //{
-        //    if (_rotateBigGearDischarge)
-        //    {
-        //        var pos2 = BigGear.transform.localEulerAngles.z;
-
-        //        if (pos2 <= 355)
-        //        {
-        //            BigGear.transform.Rotate((Vector3.forward) * _bigGearSpeed * Time.deltaTime);
-        //        }
-
-        //        if (pos2 > 355)
-        //        {
-        //            BigGear.transform.localRotation = Quaternion.Euler(0, 0, 0);
-        //            _rotateBigGearDischarge = false;
-
-        //        } 
-        //    }
-        //}
-
-
     }
 }

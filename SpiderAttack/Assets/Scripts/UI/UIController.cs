@@ -17,8 +17,8 @@ namespace Assets.Scripts.UI
         private Animator _animator;
         public GameObject eventController;
         public Button buttonFire;
-        public Color buttonFireColorCharged;
-        public Color buttonFireColorUncharged;
+        //public Color buttonFireColorCharged;
+        //public Color buttonFireColorUncharged;
         public Image trebSliderCharge;
         public Image ballistaSliderCharge;
         //public static Image sliderChargeStatic;
@@ -85,13 +85,13 @@ namespace Assets.Scripts.UI
                 //case EVENT_TYPE.DisableAllButtons:
                 //    eventController.SetActive(false);
                 //    break;
-                case EVENT_TYPE.BallistaIsCharged:
-                    buttonFire.GetComponent<Image>().color= buttonFireColorCharged;
+                //case EVENT_TYPE.BallistaIsCharged:
+                //    buttonFire.GetComponent<Image>().color= buttonFireColorCharged;
  
-                    break;
-                case EVENT_TYPE.BallistaShot:
-                    buttonFire.GetComponent<Image>().color = buttonFireColorUncharged;
-                    break;
+                //    break;
+                //case EVENT_TYPE.BallistaShot:
+                //    buttonFire.GetComponent<Image>().color = buttonFireColorUncharged;
+                //    break;
 
             }
         }

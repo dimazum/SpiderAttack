@@ -136,7 +136,7 @@ public class SpiderFlyingController : Spider
 
     protected override void Death()
     {
-        gameObject.layer = Layer.Dead;
+        gameObject.layer = Layer.SpiderDead;
         var trackEntryDeath = SetAnimation(death, false, speedDeath);
         StartCoroutine(DropDown(Vector3.down));
         _speed = 0;

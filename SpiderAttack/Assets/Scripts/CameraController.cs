@@ -16,18 +16,26 @@ public class CameraController : MonoBehaviour, IListener
     public Vector3 smoothPos;
     //public float speedOffset = 5;
     public float index;
+    float someValue;
+    private Animator _animator;
 
 
     void Start()
     {
+        _animator = GetComponent<Animator>();
         _camera = Camera.main;
-        EventManager.Instance.AddListener(EVENT_TYPE.TrebShot, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.StartNight, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.StartDay, this);
         EventManager.Instance.AddListener(EVENT_TYPE.GameOver, this);
         EventManager.Instance.AddListener(EVENT_TYPE.CharInCity, this);
     }
 
     public void LateUpdate()
     {
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            StartCoroutine(ChangeSomeValue(255, 0, 100));
+        }
 
         desiredPos = player.position + offset;
         if (transform.position != desiredPos)
@@ -42,11 +50,12 @@ public class CameraController : MonoBehaviour, IListener
     {
         switch (Event_Type)
         {
-            case EVENT_TYPE.TrebShot:
-                //if (Param != null)
-                //{
-                //    bulletPosition = (Transform)Param;
-                //}
+            case EVENT_TYPE.StartNight:
+                _animator.SetTrigger("NightEnable");
+                break;
+
+            case EVENT_TYPE.StartDay:
+                _animator.SetTrigger("DayEnable");
                 break;
 
             case EVENT_TYPE.GameOver:
@@ -70,4 +79,21 @@ public class CameraController : MonoBehaviour, IListener
                 break;
         }
     }
+
+    public IEnumerator ChangeSomeValue(float oldValue, float newValue, float duration)
+    {
+        
+        for (float t = 0f; t < duration; t += Time.deltaTime)
+        {
+            someValue = Mathf.Lerp(oldValue, newValue, t / duration);
+
+            _camera.backgroundColor = new Color(71, someValue, 255, 255);
+            yield return null;
+        }
+        
+        someValue = newValue;
+    }
 }
+
+
+//70 185

@@ -14,7 +14,7 @@ public class Timer : MonoBehaviour, IListener
     private IEnumerator co;
     private readonly WaitForSeconds _secondDelay = new WaitForSeconds(1f);
     private Rounds _rounds;
-    private int _currentTime;
+    public int _currentTime;
     private int tempOldVal;
 
     public int CurrentTime

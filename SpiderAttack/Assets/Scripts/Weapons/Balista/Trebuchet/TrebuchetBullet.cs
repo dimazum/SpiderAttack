@@ -9,7 +9,7 @@ public class TrebuchetBullet : Bullet
     private EasyObjectPool _easyObjectPool;
     public Animation animation;
     public GameObject explosionObj;
-    public float explosionDelay = 1f;
+    public float explosionDelay = 1.5f;
     public bool timerIsRunning = false;
 
     private Vector3 vectorZero = new Vector3(0, 0, 0);
@@ -25,6 +25,7 @@ public class TrebuchetBullet : Bullet
         animation.Play();
         timerIsRunning = true;
         gameObject.layer = Layer.Dead;
+        SpreadDamage();
 
     }
 
@@ -36,15 +37,18 @@ public class TrebuchetBullet : Bullet
             {
                 explosionDelay -= Time.deltaTime;
             }
+
             else
             {
                 _easyObjectPool.ReturnObjectToPool(gameObject);
-                explosionDelay = 1f;
+                explosionDelay = 1.5f;
                 timerIsRunning = false;
                 BackToStartState();
             }
         }
     }
+
+    public virtual void SpreadDamage(){}
 
     private void BackToStartState()
     {

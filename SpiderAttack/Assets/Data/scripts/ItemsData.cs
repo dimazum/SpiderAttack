@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Net.Mime;
 using Assets.Scripts.Utils.enums;
+using NGS.ExtendableSaveSystem;
 using UnityEngine;
+using UnityEngine.Events;
 
 [CreateAssetMenu(menuName = "Inventory/Data", fileName = "data")]
 public class ItemsData : ScriptableObject
@@ -10,12 +12,17 @@ public class ItemsData : ScriptableObject
     public TypeCollection[] collections;
 }
 
+
+
+
 [System.Serializable]
 public class TypeCollection
 {
     public ItemGroup ItemGroup;
     public ItemType[] itemTypes;
 }
+
+
 
 [System.Serializable]
 public class ItemType
@@ -27,19 +34,21 @@ public class ItemType
         get => _qty;
         set
         {
-            if (value > 0)
+            if (value >= 0)
             {
                 _qty = value;
             }
         }
     }
+    public int QtyInStock;
+
+    public string description;
     public bool endlesQty;
     public Sprite image;
+    public UnityEvent action;
     public GameObject prefab;
+
 }
 
-//снаряды: стрелы, бомбы
-//ресурсы:20шт
-//рецепты
-//свитки телепортации, фонари, лестницы, бомбы
+
 
