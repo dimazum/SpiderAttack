@@ -16,8 +16,7 @@ namespace MarchingBytes {
 		public int poolSize;
 		public bool fixedSize;
 		public Transform parent;
-		public ItemCategory itemCategory;
-	}
+    }
 
 	class Pool {
 		private Stack<PoolObject> availableObjStack = new Stack<PoolObject>();
@@ -27,16 +26,14 @@ namespace MarchingBytes {
 		private int poolSize;
 		private string poolName;
 		private Transform parent;
-		private ItemCategory itemCategory;
 
-		public Pool(string poolName, GameObject poolObjectPrefab, int initialCount, bool fixedSize, Transform parent, ItemCategory itemCategory) {
-			this.poolName = itemCategory.ToString();
+        public Pool(string poolName, GameObject poolObjectPrefab, int initialCount, bool fixedSize, Transform parent) {
+			this.poolName = poolName;
 			this.poolObjectPrefab = poolObjectPrefab;
 			this.poolSize = initialCount;
 			this.fixedSize = fixedSize;
 			this.parent = parent;
-			this.itemCategory = itemCategory;
-			//populate the pool
+            //populate the pool
 			for(int index = 0; index < initialCount; index++) {
 				AddObjectToPool(NewObjectInstance());
 			}
@@ -149,7 +146,7 @@ namespace MarchingBytes {
 			foreach (PoolInfo currentPoolInfo in poolInfo) {
 				
 				Pool pool = new Pool(currentPoolInfo.poolName, currentPoolInfo.prefab, 
-				                     currentPoolInfo.poolSize, currentPoolInfo.fixedSize, currentPoolInfo.parent, currentPoolInfo.itemCategory);
+				                     currentPoolInfo.poolSize, currentPoolInfo.fixedSize, currentPoolInfo.parent);
 
 				
 				//Debug.Log("Creating pool: " + currentPoolInfo.poolName);

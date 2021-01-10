@@ -1,15 +1,15 @@
 ﻿using Assets.Scripts.enums;
+using Assets.Scripts.Utils.enums;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class StoneController : MonoBehaviour, IMoveDown
+public class StoneController : MonoBehaviour, IMoveDown, ICheckFallingObj
 {
     public float speed;
     public float delay;
+
     public void MoveObjectDown()
     {
-
         StartCoroutine(Down()); 
     }
 
@@ -17,9 +17,6 @@ public class StoneController : MonoBehaviour, IMoveDown
     private IEnumerator Down()
     {
         yield return new WaitForSeconds(delay);
-
-        Debug.Log("Я лестница! Пытаюсь двигаться!");
-
 
         Vector2 pos = transform.position;
         Vector2 direction = Vector2.up;
@@ -35,6 +32,8 @@ public class StoneController : MonoBehaviour, IMoveDown
             direction = Vector2.down;
             distance = 0.6f;
             RaycastHit2D hit = Physics2D.Raycast(pos, direction, distance, 1 << Layer.Ladders | 1 << Layer.Blocks | 1<< Layer.Stones); //стреляю вниз
+            SaveHelper.Instance.DeleteObjecFromPosition(pos);
+
             if (hit.collider == null) //если внизу свободно, то двигаюсь вниз
             {
                 Debug.Log("Я лестница! Двигаюсь вниз! Свободно!");
@@ -43,7 +42,8 @@ public class StoneController : MonoBehaviour, IMoveDown
             }
             else
             {
-                Debug.Log("Я лестница! Не могу падать, подомной стоит " + hit.collider.tag);
+                Debug.Log("Я лестница! Не могу падать, подомной стоит ");
+                SaveHelper.Instance.PutObjecPosition(pos, ItemGroup.Minerals, 25);
             }
         } while (trigger);
 
@@ -56,5 +56,15 @@ public class StoneController : MonoBehaviour, IMoveDown
                 gm.MoveObjectDown();
             }
 
+    }
+
+    public void CheckMoveDownObject()
+    {
+        var hitTop = Physics2D.Raycast(transform.position, Vector2.up, 1f, 1 << Layer.Ladders | 1 << Layer.Stones);
+        if (hitTop.collider != null)
+        {
+            var moveDownObj = hitTop.collider.GetComponent<IMoveDown>();
+            moveDownObj?.MoveObjectDown();
+        }
     }
 }

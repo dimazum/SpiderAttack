@@ -57,8 +57,6 @@ public class MoveController : MonoBehaviour, IListener
 
     public float testLadderCheck2 = 0.05f;
 
-
-
     public CharState state
     {
         get { return (CharState)animator.GetInteger(State); }
@@ -87,11 +85,13 @@ public class MoveController : MonoBehaviour, IListener
         animator = GetComponent<Animator>();
         richtDirect = false;
 
+        
     }
 
 
     void Start()
     {
+        //CheckIfInVillage();
         fixedJoystick.SnapX = true;
         fixedJoystick.SnapY = true;
         EventManager.Instance.AddListener(EVENT_TYPE.OpenShop, this);
@@ -110,11 +110,17 @@ public class MoveController : MonoBehaviour, IListener
         EventManager.Instance.AddListener(EVENT_TYPE.SpiderWebHitCharacter, this);
         EventManager.Instance.AddListener(EVENT_TYPE.SpiderMeleeHitCharacter, this);
         EventManager.Instance.AddListener(EVENT_TYPE.GameOver, this);
-        EventManager.Instance.AddListener(EVENT_TYPE.CharInCity, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.CheckIfCharInVillage, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.CharInCave, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.CharInVillage, this);
         EventManager.Instance.AddListener(EVENT_TYPE.BallistaShot, this);
         EventManager.Instance.AddListener(EVENT_TYPE.BallistaCharge, this);
-        EventManager.Instance.AddListener(EVENT_TYPE.Teleport, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.StartTeleport, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.FinishTeleport, this);
         EventManager.Instance.AddListener(EVENT_TYPE.SetLadder, this);
+
+        //EventManager.Instance.PostNotification(EVENT_TYPE.CheckIfCharInVillage, this); //check if in the village
+        
     }
 
     public void HorizontalFlip(Vector3 vector3)
@@ -125,7 +131,6 @@ public class MoveController : MonoBehaviour, IListener
 
     void Update()
     {
-
         if (IsHorizontal())
         {
             if (blockAllMoves)
@@ -209,14 +214,15 @@ public class MoveController : MonoBehaviour, IListener
             else if (!isLadder)
             {
                 canMoveUp = false;
-                if (GameStates.Instance.InCity)
-                {
-                    state = CharState.Idle;
-                }
-                else
-                {
-                    state = CharState.IdleKirche;
-                }
+                SetIdleAnimation();
+                //if (GameStates.Instance.InCity)
+                //{
+                //    state = CharState.Idle;
+                //}
+                //else
+                //{
+                //    state = CharState.IdleKirche;
+                //}
             }
 
             if (canMoveUp && isLadder)
@@ -235,19 +241,22 @@ public class MoveController : MonoBehaviour, IListener
 
         else
         {
-            if (GameStates.Instance.InCity)
-            {
-                state = CharState.Idle;
-            }
-            else
-            {
-                state = CharState.IdleKirche;
-            }
-            
+            SetIdleAnimation();
         }
     }
 
-    
+    public bool CheckIfInVillage()
+    {
+        var pos = transform.position;
+        if (-14.5f < pos.x && pos.x < 30)
+        {
+            if (-0.5f < transform.position.y && transform.position.y < 10)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public void GetRaycastHit(Vector2 vector2, float rayRange)
     {
@@ -262,15 +271,44 @@ public class MoveController : MonoBehaviour, IListener
         Vector2 vector2 = vector3 * axisRaw;
         transform.position = Vector2.MoveTowards(transform.position, (Vector2)transform.position + vector2, speed * Time.deltaTime);
 
+        SetWalkAnimation();
+
+    }
+    private void SetWalkAnimation()
+    {
+        if (GameStates.Instance.InCity )
+        {
+            if (state != CharState.Walk)
+            {
+                state = CharState.Walk;
+            }
+        }
+        if (!GameStates.Instance.InCity)
+        {
+            if (state != CharState.WalkKirche)
+            {
+                state = CharState.WalkKirche;
+            }
+        } 
+    }
+
+    private void SetIdleAnimation()
+    {
         if (GameStates.Instance.InCity)
         {
-            state = CharState.Walk;
+            if (state != CharState.Idle)
+            {
+                state = CharState.Idle;
+            }
         }
-        else
+        if (!GameStates.Instance.InCity)
         {
-            state = CharState.WalkKirche;
+            if (state != CharState.IdleKirche)
+            {
+                state = CharState.IdleKirche;
+            }
         }
-        
+
     }
 
     public void SetRigidbodyType2D(bool isLadder)
@@ -290,20 +328,20 @@ public class MoveController : MonoBehaviour, IListener
             checkLadder2 = Physics2D.OverlapPoint(new Vector2(transform.position.x, transform.position.y + 0.03f), 1 << Layer.Ladders);
             if (checkLadder2 == null)//for staying at ladder
             {
-                if (GameStates.Instance.InCity)
-                {
-                    state = CharState.Idle;
-                }
-                else
-                {
-                    state = CharState.IdleKirche;
-                }
+                SetIdleAnimation();
+                //if (GameStates.Instance.InCity)
+                //{
+                //    state = CharState.Idle;
+                //}
+                //else
+                //{
+                //    state = CharState.IdleKirche;
+                //}
                 isLadderAbove = false;
             }
             return true;
         }
 
-        //Debug.Log(temp);
         return false;
     }
 
@@ -314,14 +352,6 @@ public class MoveController : MonoBehaviour, IListener
         {
             BlockGroundDefault blockGroundDefault = currentblock.GetComponent<BlockGroundDefault>();
             blockGroundDefault?.Hit();
-            //--
-            //if (blockGroundDefault != null)
-            //{
-            //    blockGroundDefault.Notify += message => { count++; };
-            //}
-            //count1 = count / 3;
-            //text.text = count1.ToString();
-            //--
         }
     }
 
@@ -385,7 +415,6 @@ public class MoveController : MonoBehaviour, IListener
             case EVENT_TYPE.TrebSpoonDownPointerDown:
                 if (GameStates.Instance.inTrebuchetPlace || GameStates.Instance.inBallistaPlace)
                 {
-                    //animator.SetFloat("WeaponMoveSpeed", 1f);
                     animator.SetBool("WeaponMoveDown", true);
                     HorizontalFlip(-transform.right);
                 }
@@ -407,7 +436,6 @@ public class MoveController : MonoBehaviour, IListener
             case EVENT_TYPE.TrebSpoonUpPointerDown:
                 if (GameStates.Instance.inTrebuchetPlace || GameStates.Instance.inBallistaPlace)
                 {
-                    //animator.SetFloat("WeaponMoveSpeed", 1f);
                     animator.SetBool("WeaponMoveUp", true);
                     HorizontalFlip(-transform.right);
                 }
@@ -427,8 +455,6 @@ public class MoveController : MonoBehaviour, IListener
 
             case EVENT_TYPE.TrebSpoonLimit:
                 animator.SetFloat("WeaponMoveSpeed", 0f);
-                //animator.SetBool("WeaponMoveDown", false);
-                //animator.SetBool("WeaponMoveUp", false);
 
                 break;
 
@@ -450,26 +476,48 @@ public class MoveController : MonoBehaviour, IListener
             case EVENT_TYPE.GameOver:
                 blockAllMoves = true;
                 break;
-                case EVENT_TYPE.Teleport: 
-                    GameStates.Instance.InCity = false; 
-                    state = CharState.IdleKirche;
+
+             case EVENT_TYPE.StartTeleport:
+                animator.SetBool("Teleport", true);
+                blockMove = true;
                 break;
 
-            case EVENT_TYPE.CharInCity:
-                if (Param != null)
+            case EVENT_TYPE.FinishTeleport:
+                animator.SetBool("Teleport", false);
+                EventManager.Instance.PostNotification(EVENT_TYPE.CheckIfCharInVillage, this);
+                blockMove = false;
+                break;
+
+            case EVENT_TYPE.CheckIfCharInVillage:
                 {
-                    var inCity = (bool)Param;
-                    if (inCity)
+                    if (CheckIfInVillage())
                     {
-                        flashlight.SetActive(false);
+                        EventManager.Instance.PostNotification(EVENT_TYPE.CharInVillage, this);
                     }
                     else
                     {
-                        flashlight.SetActive(true);
+                        EventManager.Instance.PostNotification(EVENT_TYPE.CharInCave, this);
                     }
-                    
+                    break;
                 }
-                break;
+
+            case EVENT_TYPE.CharInCave:
+                {
+                    flashlight.SetActive(true);
+
+                    state = CharState.IdleKirche;
+
+                    break;
+                }
+            case EVENT_TYPE.CharInVillage:
+                {
+
+                    flashlight.SetActive(false);
+                    state = CharState.Idle;
+                    
+                    break;
+                }
+
         }
     }
 }

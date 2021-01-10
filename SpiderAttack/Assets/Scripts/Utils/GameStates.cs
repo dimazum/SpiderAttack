@@ -52,15 +52,15 @@ public class GameStates : Singleton<GameStates>, IListener
     public bool inTrebuchetPlace;
     public bool inBallistaPlace;
     private Timer _timer;
-    public bool InCity 
+    public bool InCity
     {
-        get => _inCity;
-        set
+        get 
         {
-            _inCity = value;
-            EventManager.Instance.PostNotification(EVENT_TYPE.CharInCity, this, _inCity);
+            _inCity = _moveController.CheckIfInVillage();
+            return _inCity;
         }
     }
+    private MoveController _moveController;
 
     public float smoothCameraSpeed = 5;
 
@@ -68,17 +68,16 @@ public class GameStates : Singleton<GameStates>, IListener
     public GameObject CurrentPick;
     public GameObject NextPick;
     private GateUpgradeController _gateUpgradeController;
-
+    
     void Awake()
     {
-        
+        _moveController = FindObjectOfType<MoveController>();
         PickLvl = PlayerPrefs.GetInt("PickLvl", 0);
         GateLvl = PlayerPrefs.GetInt("GateLvl", 0);
         CurrentTime = PlayerPrefs.GetInt("CurrentTimeInSeconds", 0);
         round = PlayerPrefs.GetInt("CurrentDay", 0);
         CurrentPick = GetPick(PickLvl);
-        NextPick = GetPick(PickLvl + 1);
-        
+        NextPick = GetPick(PickLvl + 1);   
     }
 
     void Start()
@@ -87,7 +86,6 @@ public class GameStates : Singleton<GameStates>, IListener
         EventManager.Instance.AddListener(EVENT_TYPE.BuyGate, this);
         _timer = FindObjectOfType<Timer>();
         _gateUpgradeController = FindObjectOfType<GateUpgradeController>();
-        InCity = true;
     }
 
     public void OnEvent(EVENT_TYPE Event_Type, Component Sender, object Param = null)
@@ -133,7 +131,6 @@ public class GameStates : Singleton<GameStates>, IListener
         PlayerPrefs.SetInt("CurrentTimeInSeconds", _timer.CurrentTime);
         PlayerPrefs.SetInt("CurrentDay", round);
         PlayerPrefs.SetInt("GateLvl", GateLvl);
-        //Debug.Log("Application ending after " + Time.time + " seconds");
     }
 
     void Update()

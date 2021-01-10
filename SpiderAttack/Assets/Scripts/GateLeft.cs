@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GateLeft : MonoBehaviour
 {
@@ -8,14 +6,13 @@ public class GateLeft : MonoBehaviour
 
     private void Awake()
     {
-        animator = this.gameObject.GetComponent<Animator>();
+        animator = GetComponent<Animator>();
     }
     public void OnTriggerEnter2D(Collider2D coll)
     {
         if (coll.tag == "player")
         {
             animator.Play("gate_left");
-            GameStates.Instance.InCity = true;
             GameStates.Instance.smoothCameraSpeed = 3;
         }
     }
@@ -25,7 +22,6 @@ public class GateLeft : MonoBehaviour
         if (coll.tag == "player")
         {
             animator.Play("gate_left0");
-            //GameStates.Instance.smoothCameraSpeed = 5;
         }
     }
 }

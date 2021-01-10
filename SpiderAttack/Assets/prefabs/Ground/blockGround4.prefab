@@ -123,6 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   crackCount: 0
+  mineralCategory: 23
 --- !u!1 &8224170519186545649
 GameObject:
   m_ObjectHideFlags: 0

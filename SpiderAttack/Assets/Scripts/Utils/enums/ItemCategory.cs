@@ -1,20 +1,5 @@
 ﻿
-public enum ItemCategory
-{
-    ArrowX1,
-    ArrowX2,
-    ArrowX3,
-    ArrowX5,
-    BallX1,
-    BallX3,
-    BallX5,
-    BallSuper,
-    Ladder,
-    LampX1,
-    LampX2,
-    LampX3,
-}
-public enum ArrowCategory
+public enum ArrowCategory : byte
 {
     ArrowX1,
     ArrowX2,
@@ -22,7 +7,7 @@ public enum ArrowCategory
     ArrowX5,
 }
 
-public enum BallCategory
+public enum BallCategory: byte
 {
     BallX1,
     BallX3,
@@ -30,7 +15,7 @@ public enum BallCategory
     BallSuper,
 }
 
-public enum MineralCategory
+public enum MineralCategory :byte
 {
     //1
     Coal,
@@ -56,7 +41,14 @@ public enum MineralCategory
     Paraiba,
     Ruby,
     Taaffeite,
-    Chrysoberil
+    Chrysoberil,
+    //Grounds
+    Ground1,
+    Ground2,
+    Ground3,
+    Ground4,
+    Ground5,
+    BlockDynamic
 
 }
 
@@ -66,7 +58,7 @@ public enum MineralCategory
 //5. ground4 daimont ametist malachite topaz
 //6. ground5 paraiba ruby taaffetite chrysoberil
 
-public enum LampCategory
+public enum LampCategory: byte
 {
     LampX1,
     LampX2,

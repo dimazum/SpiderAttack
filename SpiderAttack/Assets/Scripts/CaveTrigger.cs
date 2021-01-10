@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CaveTrigger : MonoBehaviour
 {
@@ -8,8 +6,8 @@ public class CaveTrigger : MonoBehaviour
     {
         if (coll.tag == "player")
         { 
-            GameStates.Instance.InCity = false;
             GameStates.Instance.smoothCameraSpeed = 3;
+            EventManager.Instance.PostNotification(EVENT_TYPE.CheckIfCharInVillage, this);
 
         }
     }
@@ -19,7 +17,7 @@ public class CaveTrigger : MonoBehaviour
         if (coll.tag == "player")
         {
             GameStates.Instance.smoothCameraSpeed = 5;
-
+            EventManager.Instance.PostNotification(EVENT_TYPE.CheckIfCharInVillage, this);
         }
     }
 

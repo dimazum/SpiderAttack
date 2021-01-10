@@ -11,7 +11,7 @@ public class ShopPanelController : MonoBehaviour
     public TextMeshProUGUI priceText;
     private int _productIndex;
     public ShopData shopData;
-    public InventoryData itemsData;
+    public ItemsData2 itemsData;
 
     public int ProductIndex
     {
@@ -51,6 +51,6 @@ public class ShopPanelController : MonoBehaviour
     {
         var itemGroupIndex = (int) shopData.shopItems[ProductIndex].ItemGroup;
         var itemCategoryIndex =  shopData.shopItems[ProductIndex].ItemCategoryNumber;
-        itemsData.collections[itemGroupIndex].itemTypes[itemCategoryIndex].Qty++;
+        itemsData.collections2[itemGroupIndex].itemTypes[itemCategoryIndex].Qty++;
     }
 }

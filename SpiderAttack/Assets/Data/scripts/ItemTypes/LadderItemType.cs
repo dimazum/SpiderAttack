@@ -3,7 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class LadderItemType : BaseItemType
+public class LadderItemType : ActionItemType, ISavableOnMap
 {
-    public UnityEvent characterAction;
+    [SerializeField] private short _mapIndex;
+    public short MapIndex
+    {
+        get => _mapIndex;
+        set => _mapIndex = value;
+    }
 }

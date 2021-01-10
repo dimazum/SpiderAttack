@@ -6,19 +6,14 @@ namespace Assets.Scripts
     {
         private Animator animator;
         private CameraController cameraController;
-        private float screen;
+        //private float screen;
         public Vector3 DefaultState { get; set; } = new Vector3(0, 1.5f, -10);
-        private Camera _camera;
-
-
-        public float duration = 1f;
-        public float Elapsed { get; set; } = 0.0f;
-
+        private Camera _camera;     
         private int _transition;
-
         public GameObject ballistaButtons;
         public GameObject trebuchetButtons;
-
+        public float duration = 1f;
+        public float Elapsed { get; set; } = 0.0f;
         public int Transition
         {
             get => _transition;
@@ -29,13 +24,12 @@ namespace Assets.Scripts
             }
         }
 
-
         void Awake()
         {
             _camera = Camera.main;
             cameraController = _camera.GetComponent<CameraController>();
             animator = GetComponent<Animator>();
-            screen = (float)Screen.width / 1000;
+            //screen = (float)Screen.width / 1000;
         }
 
         void Start()
@@ -49,7 +43,7 @@ namespace Assets.Scripts
             if (coll.tag == "player")
             {
                 EventManager.Instance.PostNotification(EVENT_TYPE.CharacterEnterFirstFloor, this);
-                cameraController.index = screen;
+                //cameraController.index = screen;
                 animator.Play("SecondBatlePlaceDisappear");
                 cameraController.offset = new Vector3(4f , 1.5f, -10); //offset second floor
                 Transition = 3;
@@ -148,14 +142,17 @@ namespace Assets.Scripts
             switch (Event_Type)
             {
                 case EVENT_TYPE.TrebShot:
-                    Elapsed = 0;
-                    Transition = 1;
-                    break;
+                    {
+                        Elapsed = 0;
+                        Transition = 1;
+                        break;
+                    }
 
                 case EVENT_TYPE.GameOver:
-                    Transition = 4;
-
-                    break;
+                    {
+                        Transition = 4;
+                        break;
+                    }
             }
         }
     }

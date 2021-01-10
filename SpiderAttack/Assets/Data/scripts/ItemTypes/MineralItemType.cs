@@ -3,7 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class MineralItemType : BaseItemType
+public class MineralItemType : BaseItemType, ISavableOnMap
 {
     public MineralCategory mineralCategory;
+
+    [SerializeField] private short _mapIndex;
+    public short MapIndex
+    {
+        get => _mapIndex;
+        set => _mapIndex = value;
+    }
 }

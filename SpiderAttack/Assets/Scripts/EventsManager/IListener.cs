@@ -15,9 +15,12 @@ public enum EVENT_TYPE
     BuyGate, //buy Pick Button
     GateUp, //buy Pick Button
     SuperBomb, //buy Pick Button
-    Teleport,
+    StartTeleport,
+    FinishTeleport,
     SetLadder,
     GetResurs,
+    HitResurs,
+    
 
     OpenShop, //click Open Shop Button
     CloseShop, //click Close Shop
@@ -59,7 +62,9 @@ public enum EVENT_TYPE
     CharacterExitFirstFloor,
     CharacterEnterSecondFloor,
     CharacterExitSecondFloor,
-    CharInCity,
+    CheckIfCharInVillage,
+    CharInVillage,
+    CharInCave,
 
     BallistaShot, //start
     BallistaIsCharged,//заряжена

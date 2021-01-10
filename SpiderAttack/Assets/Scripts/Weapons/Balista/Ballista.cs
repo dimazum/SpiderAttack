@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class Ballista : MonoBehaviour, IListener,IWeapon
+public class Ballista : MonoBehaviour, IListener, IArrowUsingWeapon
 {
     private Animation _animation;
     public GameObject arrow;
@@ -40,12 +40,13 @@ public class Ballista : MonoBehaviour, IListener,IWeapon
         }
     }
 
-    public ItemCategory itemCategory { get ; set; }
+    public ArrowCategory ArrowCategory { get ; set; }
+
 
     void Start()
     {
         _animation = GetComponent<Animation>();
-        itemCategory = ItemCategory.ArrowX1;
+        ArrowCategory = ArrowCategory.ArrowX1;
         _easyPool = GetComponent<EasyObjectPool>();
         _uiController = FindObjectOfType<UIController>();
         sliderBallista.fillAmount = 0;
@@ -187,7 +188,7 @@ public class Ballista : MonoBehaviour, IListener,IWeapon
     public void Shot()
     {
 
-       _easyPool.GetObjectFromPool(itemCategory.ToString(), arrowStart.position, arrowStart.rotation);
+       _easyPool.GetObjectFromPool(ArrowCategory.ToString(), arrowStart.position, arrowStart.rotation);
     }
 
     private float CorrectTime(float time)

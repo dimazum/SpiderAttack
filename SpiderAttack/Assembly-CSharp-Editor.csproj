@@ -68,6 +68,7 @@
     <Compile Include="Assets\Joystick Pack\Scripts\Editor\FloatingJoystickEditor.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Editor\JoystickEditor.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Editor\VariableJoystickEditor.cs" />
+    <Compile Include="Assets\Scripts\Editor\ArrayGUI.cs" />
     <Compile Include="Assets\Spriter2UnityDX\Editor\AnimationBuilder.cs" />
     <Compile Include="Assets\Spriter2UnityDX\Editor\CustomEditors.cs" />
     <Compile Include="Assets\Spriter2UnityDX\Editor\PrefabBuilder.cs" />

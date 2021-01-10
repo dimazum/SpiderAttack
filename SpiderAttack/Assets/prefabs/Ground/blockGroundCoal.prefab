@@ -123,8 +123,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   crackCount: 0
-  itemGroup: 2
-  resursType: 0
+  _mapIndex: 80
+  mineralCategory: 0
 --- !u!1 &8224170519186545649
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,9 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine;
 
-public class BallItemType : BaseItemType
+public class BaseItemType : MonoBehaviour
 {
-    public BallCategory ballCategory;
+    [SerializeField] 
+    private int _qty;
+    private int _id;
+    public int Qty
+    {
+        get => _qty;
+        set
+        {
+            if (value >= 0)
+            {
+                _qty = value;
+                SaveManager.InventoryItems[_id] = _qty;
+            }
+        }
+    }
+    public bool endlesQty;
+    public Sprite image;
+
+    private void Start()
+    {
+        _id = GetInstanceID();
+        if (SaveManager.InventoryItems.ContainsKey(_id))
+        {
+            Qty = SaveManager.InventoryItems[_id];
+        }
+    }
 }

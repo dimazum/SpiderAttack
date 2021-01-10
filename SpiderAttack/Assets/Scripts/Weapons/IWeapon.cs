@@ -1,6 +1,12 @@
 ﻿
 
-public interface IWeapon
+public interface IArrowUsingWeapon
 {
-    ItemCategory itemCategory { get; set; }
+    ArrowCategory ArrowCategory { get; set; }
+}
+
+
+public interface IBallUsingWeapon
+{
+    BallCategory BallCategory { get; set; }
 }

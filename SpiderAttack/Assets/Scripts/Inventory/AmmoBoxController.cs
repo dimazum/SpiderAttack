@@ -9,14 +9,14 @@ using UnityEngine.UI;
 public class AmmoBoxController : MonoBehaviour
 {
     public GameObject ammoBoxPanel;
-    public List<ItemType> ammoList;
+    public List<BaseItemType> ammoList;
     public List<ItemGroup> ammoGroups;
-    public InventoryData itemsData;
+    public ItemsData2 itemsData;
     public Transform cellsContainer;
     void Start()
     {
 
-        ammoList = new List<ItemType>();
+        ammoList = new List<BaseItemType>();
         RenderAmmoCells();
     }
     // Start is called before the first frame update
@@ -25,14 +25,14 @@ public class AmmoBoxController : MonoBehaviour
         ammoList.Clear();
         foreach (var group in ammoGroups)
         {
-            var col = itemsData.collections[(int)group];
-            ammoList.AddRange(col.itemTypes.Where(x => !x.endlesQty || x.QtyInStock > 0));
+            var col = itemsData.collections2[(int)group];
+            ammoList.AddRange(col.itemTypes.Where(x => !x.endlesQty || (x as ICanBeInStock)?.QtyInStock > 0));
         }
 
         for (int i = 0; i < cellsContainer.childCount && i < ammoList.Count; i++)
         {
 
-            var ammoQty = ammoList.ElementAtOrDefault(i)?.QtyInStock;
+            var ammoQty = (ammoList.ElementAtOrDefault(i) as ICanBeInStock)?.QtyInStock;
             if (ammoQty > 0)
             {
                 cellsContainer.GetChild(i).GetChild(0).gameObject.SetActive(true);
@@ -55,11 +55,11 @@ public class AmmoBoxController : MonoBehaviour
         {
             foreach (var group in ammoGroups)
             {
-                var col = itemsData.collections[(int)group];
+                var col = itemsData.collections2[(int)group];
 
                 foreach (var itemType in col.itemTypes)
                 {
-                    itemType.QtyInStock = itemType.Qty;
+                    ((ICanBeInStock)itemType).QtyInStock = itemType.Qty;
                 }
             }
 

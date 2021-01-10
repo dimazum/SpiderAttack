@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   crackCount: 0
-  itemGroup: 2
+  _mapIndex: 260
   mineralCategory: 16
 --- !u!1 &8224170519186545649
 GameObject:

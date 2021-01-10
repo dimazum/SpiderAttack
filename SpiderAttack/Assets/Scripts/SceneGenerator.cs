@@ -6,34 +6,102 @@ using UnityEngine.Tilemaps;
 using System.Linq;
 using System;
 using System.Collections.Generic;
-using NGS.ExtendableSaveSystem;
 
-public class SceneGenerator : MonoBehaviour, ISavableComponent
+//[ExecuteInEditMode]
+public class SceneGenerator : MonoBehaviour
 {
+    private TileBase tile;
+    private BoundsInt bounds;
+    private TileBase[] allTiles;
+
     public Transform sceneContainer;
     public GameObject[] element;
-    //public Dictionary<int,int> saveList;
-    public TestSaver testSaver;
-
+    public SaveManager saveManager;
     public Tilemap tilemap;
 
     private void Awake()
     {
-        tilemap.gameObject.SetActive(false);
-        BoundsInt bounds = tilemap.cellBounds;
-        TileBase[] allTiles = tilemap.GetTilesBlock(bounds);
-        //TestSaver.saveList = new Dictionary<int,int>();
+
+        Debug.Log("StartGeneration");
+        saveManager = FindObjectOfType<SaveManager>();
+        //tilemap.gameObject.SetActive(false);
+        bounds = tilemap.cellBounds;
+        allTiles = tilemap.GetTilesBlock(bounds);
+
+        //for (int x = 0; x < bounds.size.x; x++)
+        //{
+        //    for (int y = 0; y < bounds.size.y; y++)
+        //    {
+        //        var index = x + y * bounds.size.x;
+
+        //        tile = allTiles[index];
+
+        //        if (tile != null)
+        //        {
+        //            float spawnX = bounds.position.x + 0.5f + x;
+        //            float spawnY = bounds.position.y + 0.5f + y;
+        //            Vector2 newPos = new Vector2(spawnX, spawnY);
+        //            var tileNumberStr = tile.name.Split('_').Last();
+        //            var tileNumberInt = Int32.Parse(tileNumberStr);
+        //            //var count = Random.Range(0, element.Length);
+
+        //            if (element.ElementAtOrDefault(tileNumberInt) != null)
+        //            {
+        //                saveManager.map[index] = (short)(tileNumberInt * 10);
+        //                //Instantiate(element[tileNumberInt], newPos, Quaternion.identity, sceneContainer);
+        //            }
+        //        }
+        //    }
+        //}
+        GenerateMap();
+        //GenerateBorders();
+    }
+
+    private void GenerateMap()
+    {
         for (int x = 0; x < bounds.size.x; x++)
         {
             for (int y = 0; y < bounds.size.y; y++)
             {
                 var index = x + y * bounds.size.x;
-                //var val = testSaver.saveList[index];
-                //if (val == 1)
-                //{
-                //    continue;
-                //}
-                TileBase tile = allTiles[index];
+
+                float spawnX = bounds.position.x + 0.5f + x;
+                float spawnY = bounds.position.y + 0.5f + y;
+                Vector2 newPos = new Vector2(spawnX, spawnY);
+                //var tileNumberStr = tile.name.Split('_').Last();
+                //var tileNumberInt = Int32.Parse(tileNumberStr);
+
+                var mapIndex = saveManager.map[index] / 10;
+
+                if (element.ElementAtOrDefault(mapIndex) == null)
+                {
+                    continue;
+
+
+                }
+                //saveManager.map[index] = (short)(tileNumberInt * 10);
+
+                var gameObject = Instantiate(element[mapIndex], newPos, Quaternion.identity, sceneContainer);
+                var indexx = saveManager.map[index];
+                var crackIndex = GetRemainderOfDivision(indexx);
+                if (crackIndex > 0)
+                {
+                    gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = SpriteData.Instance.cracks[crackIndex - 1];
+                    gameObject.GetComponent<BlockGroundDefault>().crackCount = (byte)crackIndex;
+                }
+            }
+        }
+    }
+
+    private void GenerateBorders()
+    {
+        for (int x = 0; x < bounds.size.x; x++)
+        {
+            for (int y = 0; y < bounds.size.y; y++)
+            {
+                var index = x + y * bounds.size.x;
+
+                tile = allTiles[index];
 
                 if (tile != null)
                 {
@@ -42,55 +110,26 @@ public class SceneGenerator : MonoBehaviour, ISavableComponent
                     Vector2 newPos = new Vector2(spawnX, spawnY);
                     var tileNumberStr = tile.name.Split('_').Last();
                     var tileNumberInt = Int32.Parse(tileNumberStr);
-                    //var count = Random.Range(0, element.Length);
 
-                    if (element.ElementAtOrDefault(tileNumberInt) != null)
+                    if (element.ElementAtOrDefault(tileNumberInt) != null && tileNumberInt == 0)
                     {
-                         Instantiate(element[tileNumberInt], newPos, Quaternion.identity, sceneContainer);
+                        Instantiate(element[0], newPos, Quaternion.identity, sceneContainer);
                     }
                 }
             }
         }
-
     }
 
-    [SerializeField] private int _uniqueID;
-    [SerializeField] private int _executionOrder;
-
-    public int uniqueID
+    private int GetRemainderOfDivision(int val)
     {
-        get
+        if (val < 100)
         {
-            return _uniqueID;
+            return val % 10;
         }
-    }
-    public int executionOrder
-    {
-        get
+        if (val < 1000)
         {
-            return _executionOrder;
+            return (val % 100) % 10;
         }
-    }
-
-
-    private void Reset()
-    {
-        _uniqueID = GetHashCode();
-    }
-
-    public ComponentData Serialize()
-    {
-        ExtendedComponentData data = new ExtendedComponentData();
-
-        data.SetTransform("transform", transform);
-
-        return data;
-    }
-
-    public void Deserialize(ComponentData data)
-    {
-        ExtendedComponentData unpacked = (ExtendedComponentData)data;
-
-        unpacked.GetTransform("transform", transform);
+        return 0;
     }
 }

@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Assets.Scripts.enums;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class GateRightController : MonoBehaviour, IListener
 {
     private Animator _animator;
-    public Slider gateHpSlider;
+    public Slider gateHpSlider;//??
     public int gateRightHp = 10000;
     public GameObject door;
     private bool _isDestroyed;
@@ -59,7 +56,5 @@ public class GateRightController : MonoBehaviour, IListener
             door.SetActive(false);
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
         }
-
     }
-
 }

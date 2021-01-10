@@ -1,26 +1,12 @@
 ﻿using Assets.Scripts.enums;
+using Assets.Scripts.Utils.enums;
 using System.Collections;
 using UnityEngine;
 
-public class LadderController : MonoBehaviour, IMoveDown
+public class LadderController : MonoBehaviour, IMoveDown, ICheckFallingObj
 {
-
     public float speed;
     public float delay;
-
-    
-
-    public void OnTriggerStay2D(Collider2D coll)
-    {
-
-    }
-
-
-    public void OnTriggerExit2D(Collider2D coll)
-    {
-
-    }
-
 
     public void MoveObjectDown()
     {
@@ -41,7 +27,8 @@ public class LadderController : MonoBehaviour, IMoveDown
         float distance = 0.6f;
         //стреляем вверх и запоиманем в hit_up что сверху
         RaycastHit2D hit_up = Physics2D.Raycast(pos, direction, distance, 1 << Layer.Ladders);
-
+        //delete obj from scene
+        SaveHelper.Instance.DeleteObjecFromPosition(pos);
         bool trigger;
         do
         {
@@ -49,7 +36,7 @@ public class LadderController : MonoBehaviour, IMoveDown
             pos = transform.position;
             direction = Vector2.down;
             distance = 0.6f;
-            RaycastHit2D hit = Physics2D.Raycast(pos, direction, distance, 1 << Layer.Ladders | 1 << Layer.Blocks); //стреляю вниз
+            RaycastHit2D hit = Physics2D.Raycast(pos, direction, distance, 1 << Layer.Ladders | 1 << Layer.Blocks | 1 << Layer.Stones); //стреляю вниз
             if (hit.collider == null) //если внизу свободно, то двигаюсь вниз
             {
                 Debug.Log("Я лестница! Двигаюсь вниз! Свободно!");
@@ -59,6 +46,7 @@ public class LadderController : MonoBehaviour, IMoveDown
             else
             {
                 Debug.Log("Я лестница! Не могу падать, подомной стоит " + hit.collider.tag);
+                SaveHelper.Instance.PutObjecPosition(pos, ItemGroup.Ladders);
             }
         } while (trigger);
 
@@ -70,7 +58,15 @@ public class LadderController : MonoBehaviour, IMoveDown
                 IMoveDown gm = hit_up.collider.GetComponent<IMoveDown>();
                 gm.MoveObjectDown();
             }
-
     }
 
+    public void CheckMoveDownObject()
+    {
+        var hitTop = Physics2D.Raycast(transform.position, Vector2.up, 1f, 1 << Layer.Ladders | 1 << Layer.Stones);
+        if (hitTop.collider != null)
+        {
+            var moveDownObj = hitTop.collider.GetComponent<IMoveDown>();
+            moveDownObj?.MoveObjectDown();
+        }
+    }
 }
