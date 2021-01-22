@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Utils.enums;
 using TMPro;
@@ -9,16 +8,22 @@ using UnityEngine.UI;
 public class InventoryController : MonoBehaviour
 {
     private int _activeInventoryIndex;
-    public ItemsData2 itemsData;
-    public Transform notActiveCells;
-    public Transform activeCells;
-    public List<ItemGroup> activeGroup;
-    public List<ItemGroup> notActiveGroup; 
+    [SerializeField]
+    private ItemsData2 itemsData;
+    [SerializeField]
+    private Transform notActiveCells;
+    [SerializeField]
+    private Transform activeCells;
+    [SerializeField]
+    private List<ItemGroup> activeGroup;
+    [SerializeField]
+    private List<ItemGroup> notActiveGroup; 
     private List<BaseItemType> activeItems;
     private List<BaseItemType> notActiveItems;
-
-    public Button backpackBtn;
-    public Transform outline;
+    [SerializeField]
+    private Button backpackBtn;
+    [SerializeField]
+    private Transform outline;
 
     public int ActiveInventoryIndex
     {

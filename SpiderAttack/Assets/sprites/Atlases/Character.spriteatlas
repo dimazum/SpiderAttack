@@ -41,10 +41,37 @@ SpriteAtlas:
       enableRotation: 1
       enableTightPacking: 1
     variantMultiplier: 1
-    packables: []
+    packables:
+    - {fileID: 102900000, guid: 36504e446cfd918459474af91a68c515, type: 3}
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
-  m_PackedSprites: []
-  m_PackedSpriteNamesToIndex: []
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 2c2a7ad1d99b5ba49a0d65bab9050cd2, type: 3}
+  - {fileID: 21300000, guid: d7a70412ed7ff6c43ad32a24e6cd7593, type: 3}
+  - {fileID: 21300000, guid: 7c106ba20d0a194448eb7972c00910c9, type: 3}
+  - {fileID: 21300000, guid: 015a09543b8513242ad7ab65aab17593, type: 3}
+  - {fileID: 21300000, guid: 6f413525615ee534880c684d28222ef1, type: 3}
+  - {fileID: 21300000, guid: 4f01e9569f4d45441979d7235f045b2e, type: 3}
+  - {fileID: 21300000, guid: 60bd1e0812cfe9e4d94f739f329cb3ff, type: 3}
+  - {fileID: 21300000, guid: 3acdd248da720d34fae50e306a8f2d6e, type: 3}
+  - {fileID: 21300000, guid: b15c9cc859400bf4fbca1295f2cd27e4, type: 3}
+  - {fileID: 21300000, guid: a0c2670989e9b104882cc8a89f52ad6f, type: 3}
+  - {fileID: 21300000, guid: a01767fdc7442ae459390b4b3e65e6e1, type: 3}
+  - {fileID: 21300000, guid: 11eac73e1c325d24eb255f4b2745e703, type: 3}
+  - {fileID: 21300000, guid: 6b88f1de8be2b0b4dbc178938186c128, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - head4
+  - girl_web
+  - hand 1
+  - head5
+  - thigh
+  - sleeve
+  - head2
+  - head1
+  - hand 2
+  - body
+  - head3
+  - arm
+  - foot
   m_Tag: Character
   m_IsVariant: 0

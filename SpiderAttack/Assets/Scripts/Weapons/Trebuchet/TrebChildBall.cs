@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Assets.Scripts.enums;
+﻿using Assets.Scripts.enums;
 using UnityEngine;
 
 public class TrebChildBall : Bullet

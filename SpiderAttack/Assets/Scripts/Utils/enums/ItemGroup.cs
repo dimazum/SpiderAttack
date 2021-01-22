@@ -7,6 +7,7 @@
         Minerals,
         Ladders,
         Teleports,
-        Bombs
+        Bombs,
+        Grounds
     }
 }

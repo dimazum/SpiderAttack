@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4438242591651086}
   - component: {fileID: 61321573145703352}
   - component: {fileID: 7446770821569112492}
+  - component: {fileID: 188337932516927122}
   m_Layer: 18
   m_Name: StaticBlock
   m_TagString: Untagged
@@ -108,3 +109,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &188337932516927122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1443624561525846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56204b79a170d8a44abd491f63a5657f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -1,12 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SpriteData : Singleton<SpriteData>
 {
     public Sprite[] cracks;
     public Sprite[] blockBackground;
-
-    //public Sprite[] kirches;
 
 }

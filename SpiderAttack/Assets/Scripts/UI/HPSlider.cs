@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class HPSlider : MonoBehaviour
@@ -12,9 +10,5 @@ public class HPSlider : MonoBehaviour
         gameObject.GetComponent<Slider>().value = 1;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
 
-    }
 }

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class TrebMultiBall : Bullet
 {
+    [SerializeField]
     public TrebChildBall[] replicates;
     private Rigidbody2D[] replicatesRbs;
     public Vector3[] directions;

@@ -43,7 +43,7 @@ public class StoneController : MonoBehaviour, IMoveDown, ICheckFallingObj
             else
             {
                 Debug.Log("Я лестница! Не могу падать, подомной стоит ");
-                SaveHelper.Instance.PutObjecPosition(pos, ItemGroup.Minerals, 25);
+                SaveHelper.Instance.PutObjecPosition(pos, ItemGroup.Grounds, (int)GroundCategory.BlockDynamic);
             }
         } while (trigger);
 

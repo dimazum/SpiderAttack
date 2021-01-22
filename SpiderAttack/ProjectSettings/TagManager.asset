@@ -11,6 +11,9 @@ TagManager:
   - BulletStone
   - spiderWeb
   - mainHouse
+  - tileMap
+  - borderContainer
+  - spider
   layers:
   - Default
   - TransparentFX

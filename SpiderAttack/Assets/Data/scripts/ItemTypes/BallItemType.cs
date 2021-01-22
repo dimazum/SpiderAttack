@@ -1,12 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
-using UnityEngine.Events;
 
-public class BallItemType : BaseItemType, ICanBeInStock
+public class BallItemType : BaseItemType, ICanBeInStock, ISavableOnMap
 {
-    //public int QtyInStock;
     public BallCategory ballCategory;
-
     public int QtyInStock { get ; set ; }
+
+    [SerializeField] private short _mapIndex;
+    public short MapIndex
+    {
+        get => _mapIndex;
+        set => _mapIndex = value;
+    }
 }

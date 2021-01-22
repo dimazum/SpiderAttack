@@ -13,18 +13,13 @@ public enum CharState
     //IdleBlink
 }
 
-
 public class MoveController : MonoBehaviour, IListener
 {
-    private const string State = "State";
     private const string Block = "block";
-    private const string Stone = "Stone";
-    private const string Ladder = "Ladder";
-        
+    private const string Stone = "Stone";  
     public Text text;
     public int count;
     public int count1;
-
     private Rigidbody2D rb;
     private float move;                   //перемещение из инпута
     public bool richtDirect;         //направление
@@ -32,18 +27,15 @@ public class MoveController : MonoBehaviour, IListener
     RaycastHit2D hit;
     private float horizontalRayRange = 0.4f;
     private float verticalRayRange = 0.6f;
-
     public bool isLadderAbove;
     private bool isLadder;
     public bool blockAllMoves;
-
     public FixedJoystick fixedJoystick;
-
     Animator animator;
-    public bool blockMove = false;
+    public bool blockMove;
     public bool canMove;
-    public bool canMoveUp; //есть ли сверху препятствие
-    //public bool inBase = true;
+    public bool canMoveUp; 
+
 
     //for Android and Editor
     public Func<bool> IsHorizontal;
@@ -54,15 +46,13 @@ public class MoveController : MonoBehaviour, IListener
     private Collider2D checkLadder;
     private Collider2D checkLadder2;
     public GameObject flashlight;
-
     public float testLadderCheck2 = 0.05f;
 
-    public CharState state
+    public CharState State
     {
-        get { return (CharState)animator.GetInteger(State); }
-        set { animator.SetInteger(State, (int)value); }
+        get => (CharState)animator.GetInteger("State"); 
+        set => animator.SetInteger("State", (int)value); 
     }
-
 
     void Awake()
     {
@@ -83,15 +73,11 @@ public class MoveController : MonoBehaviour, IListener
 
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        richtDirect = false;
-
-        
+        richtDirect = false;      
     }
-
 
     void Start()
     {
-        //CheckIfInVillage();
         fixedJoystick.SnapX = true;
         fixedJoystick.SnapY = true;
         EventManager.Instance.AddListener(EVENT_TYPE.OpenShop, this);
@@ -119,8 +105,7 @@ public class MoveController : MonoBehaviour, IListener
         EventManager.Instance.AddListener(EVENT_TYPE.FinishTeleport, this);
         EventManager.Instance.AddListener(EVENT_TYPE.SetLadder, this);
 
-        //EventManager.Instance.PostNotification(EVENT_TYPE.CheckIfCharInVillage, this); //check if in the village
-        
+        flashlight.SetActive(!CheckIfInVillage());
     }
 
     public void HorizontalFlip(Vector3 vector3)
@@ -150,7 +135,7 @@ public class MoveController : MonoBehaviour, IListener
                 canMove = false;
                 if (hit.collider.name.Contains(Block))
                 {
-                    state = CharState.Rubilovo;
+                    State = CharState.Rubilovo;
                 }
             }
             else
@@ -194,11 +179,10 @@ public class MoveController : MonoBehaviour, IListener
             {
                 GetRaycastHit(directionHit, verticalRayRange);
             }
-
             
             if (hit.collider?.name.Contains(Block) == true)
             {
-                state = CharState.Rubilovo;
+                State = CharState.Rubilovo;
                 canMoveUp = false;
             }
             else if (hit.collider?.name.Contains(Stone) == true)
@@ -215,14 +199,6 @@ public class MoveController : MonoBehaviour, IListener
             {
                 canMoveUp = false;
                 SetIdleAnimation();
-                //if (GameStates.Instance.InCity)
-                //{
-                //    state = CharState.Idle;
-                //}
-                //else
-                //{
-                //    state = CharState.IdleKirche;
-                //}
             }
 
             if (canMoveUp && isLadder)
@@ -235,7 +211,6 @@ public class MoveController : MonoBehaviour, IListener
                 {
                     Move(move, transform.up);
                 }
-
             }
         }
 
@@ -272,22 +247,21 @@ public class MoveController : MonoBehaviour, IListener
         transform.position = Vector2.MoveTowards(transform.position, (Vector2)transform.position + vector2, speed * Time.deltaTime);
 
         SetWalkAnimation();
-
     }
     private void SetWalkAnimation()
     {
         if (GameStates.Instance.InCity )
         {
-            if (state != CharState.Walk)
+            if (State != CharState.Walk)
             {
-                state = CharState.Walk;
+                State = CharState.Walk;
             }
         }
         if (!GameStates.Instance.InCity)
         {
-            if (state != CharState.WalkKirche)
+            if (State != CharState.WalkKirche)
             {
-                state = CharState.WalkKirche;
+                State = CharState.WalkKirche;
             }
         } 
     }
@@ -296,19 +270,18 @@ public class MoveController : MonoBehaviour, IListener
     {
         if (GameStates.Instance.InCity)
         {
-            if (state != CharState.Idle)
+            if (State != CharState.Idle)
             {
-                state = CharState.Idle;
+                State = CharState.Idle;
             }
         }
         if (!GameStates.Instance.InCity)
         {
-            if (state != CharState.IdleKirche)
+            if (State != CharState.IdleKirche)
             {
-                state = CharState.IdleKirche;
+                State = CharState.IdleKirche;
             }
         }
-
     }
 
     public void SetRigidbodyType2D(bool isLadder)
@@ -320,8 +293,6 @@ public class MoveController : MonoBehaviour, IListener
     {
         checkLadder = Physics2D.OverlapPoint(new Vector2(transform.position.x, transform.position.y + 0.00f), 1<<Layer.Ladders| 1 << Layer.Static );
 
-
-        //if (checkLadder != null && checkLadder.name.Contains(Ladder))
         if (checkLadder != null && checkLadder.CompareTag("stairs"))
         {
             //{
@@ -329,14 +300,6 @@ public class MoveController : MonoBehaviour, IListener
             if (checkLadder2 == null)//for staying at ladder
             {
                 SetIdleAnimation();
-                //if (GameStates.Instance.InCity)
-                //{
-                //    state = CharState.Idle;
-                //}
-                //else
-                //{
-                //    state = CharState.IdleKirche;
-                //}
                 isLadderAbove = false;
             }
             return true;
@@ -350,8 +313,16 @@ public class MoveController : MonoBehaviour, IListener
         GameObject currentblock = hit.collider?.gameObject;
         if (currentblock != null)
         {
-            BlockGroundDefault blockGroundDefault = currentblock.GetComponent<BlockGroundDefault>();
-            blockGroundDefault?.Hit();
+            var blockGroundDefault = currentblock.GetComponent<IHitableBlock>();
+            if (blockGroundDefault.MinPickLvl <= GameStates.Instance.PickLvl)
+            {
+                blockGroundDefault?.Hit();
+            }
+            else
+            {
+                EventManager.Instance.PostNotification(EVENT_TYPE.NeedNextPick, this, blockGroundDefault.MinPickLvl);
+            }
+
         }
     }
 
@@ -391,11 +362,11 @@ public class MoveController : MonoBehaviour, IListener
 
             case EVENT_TYPE.TrebFireButtonUp:
                 animator.SetBool("WeaponCharge", false);
-                state = CharState.Idle;
+                State = CharState.Idle;
                 break;
 
             case EVENT_TYPE.BallistaShot:
-                state = CharState.Idle;
+                State = CharState.Idle;
                 HorizontalFlip(transform.right);
                 break;
 
@@ -504,17 +475,13 @@ public class MoveController : MonoBehaviour, IListener
             case EVENT_TYPE.CharInCave:
                 {
                     flashlight.SetActive(true);
-
-                    state = CharState.IdleKirche;
-
+                    State = CharState.IdleKirche;
                     break;
                 }
             case EVENT_TYPE.CharInVillage:
                 {
-
                     flashlight.SetActive(false);
-                    state = CharState.Idle;
-                    
+                    State = CharState.Idle;       
                     break;
                 }
 

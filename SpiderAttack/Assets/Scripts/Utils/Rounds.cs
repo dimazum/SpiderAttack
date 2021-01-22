@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Monetization;
 
 public class Rounds : MonoBehaviour, IListener
 {
@@ -34,7 +33,6 @@ public class Rounds : MonoBehaviour, IListener
                 _enemyList.Remove(deathSpider);
                 if (!_enemyList.Any())
                 {
-                    Debug.Log("You win");
                     EventManager.Instance.PostNotification(EVENT_TYPE.StartDay,this, GameStates.Instance.round++);
                 }
 

@@ -7,20 +7,16 @@ using UnityEngine.UI;
 
 public class ActionController : MonoBehaviour
 {
-    public GameObject ladder;
-    public GameObject bomb;
-    public Transform sceneContainer;
-    public Transform camera;
+    [SerializeField]
+    private GameObject ladder;
+    [SerializeField]
+    private GameObject bomb;
+    private Transform sceneContainer;
+    [SerializeField]
+    private Transform _camera;
     private float teleportTime = 2.5f;
-
-    //public Slider Slider;
-    Coroutine teleportCo;
-
-    void Start()
-    {
-        
-    }
-
+    private Coroutine teleportCo;
+    private int _layerMaskBomb = 1 << Layer.Blocks | 1 << Layer.Ladders | 1 << Layer.Stones;
 
     public void SetLadder()
     {
@@ -41,7 +37,7 @@ public class ActionController : MonoBehaviour
 
         if (check == null) //если место свободно, проверяем не на воздухе ли ставим лестницу
         {
-            if (Physics2D.Raycast(pos, Vector2.down, 1f, 1 << Layer.Blocks | 1 << Layer.Ladders | 1 << Layer.Stones).collider != null)//стреляем вниз
+            if (Physics2D.Raycast(pos, Vector2.down, 1f, _layerMaskBomb).collider != null)//стреляем вниз
             {
                 Instantiate(ladder, pos, Quaternion.identity, sceneContainer); //если ничего не нашли внизу не пусто, то ставим лестницу
                 EventManager.Instance.PostNotification(EVENT_TYPE.SetLadder, this);
@@ -92,7 +88,7 @@ public class ActionController : MonoBehaviour
 
         if (check == null) //если место свободно, проверяем не на воздухе ли ставим лестницу
         {
-            if (Physics2D.Raycast(pos, Vector2.down, 1f, 1 << Layer.Blocks | 1 << Layer.Ladders | 1 << Layer.Stones).collider != null)//стреляем вниз
+            if (Physics2D.Raycast(pos, Vector2.down, 1f, _layerMaskBomb).collider != null)//стреляем вниз
             {
                 var bombObj = Instantiate(bomb, pos, Quaternion.identity, sceneContainer);
 
@@ -104,30 +100,39 @@ public class ActionController : MonoBehaviour
         else
         {
             Debug.Log("Место занято, не могу поставить лестницу! Стоит: ");
-        }
-
-        
+        } 
     }
 
     private IEnumerator CoStartTeleport()
     {
         yield return new WaitForSeconds(teleportTime);
-        camera.SetParent(gameObject.transform);
+        _camera.SetParent(gameObject.transform);
         transform.position = new Vector3(-18, 0, 0);
-        camera.SetParent(null);
+        _camera.SetParent(null);
         EventManager.Instance.PostNotification(EVENT_TYPE.FinishTeleport, this);
     }
 
     private IEnumerator BombDestroy( Vector2 mousePos, GameObject bomb, Vector2 explosionDir)
     {
         yield return new WaitForSeconds(2.7f);
-        GameObject block = Physics2D.Raycast(mousePos, -explosionDir, 1f, 1 << Layer.Blocks | 1 << Layer.Ladders | 1 << Layer.Stones).collider?.gameObject;
+        var block = Physics2D.Raycast(mousePos, -explosionDir, 1f, _layerMaskBomb).collider?.gameObject;
         
         if (block != null) {
            block.GetComponent<ICheckFallingObj>().CheckMoveDownObject();
+           SaveHelper.Instance.DeleteObjecFromPosition(block.transform.position);
            Destroy(block);
+           
+        }
+
+        var block2 = Physics2D.OverlapPoint(mousePos, _layerMaskBomb)?.gameObject;
+
+
+        if (block2 != null)
+        {
+            block2.GetComponent<ICheckFallingObj>().CheckMoveDownObject();
+            SaveHelper.Instance.DeleteObjecFromPosition(block2.transform.position);
+            Destroy(block2);
         }
         Destroy(bomb);
     }
-
 }

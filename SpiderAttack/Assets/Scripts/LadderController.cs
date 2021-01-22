@@ -26,7 +26,7 @@ public class LadderController : MonoBehaviour, IMoveDown, ICheckFallingObj
         Vector2 direction = Vector2.up;
         float distance = 0.6f;
         //стреляем вверх и запоиманем в hit_up что сверху
-        RaycastHit2D hit_up = Physics2D.Raycast(pos, direction, distance, 1 << Layer.Ladders);
+        RaycastHit2D hit_up = Physics2D.Raycast(pos, direction, distance, 1 << Layer.Ladders | 1 << Layer.Stones);
         //delete obj from scene
         SaveHelper.Instance.DeleteObjecFromPosition(pos);
         bool trigger;

@@ -1,16 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine;
 
-public class ArrowItemType : BaseItemType, ICanBeInStock
+public class ArrowItemType : BaseItemType, ICanBeInStock, ISavableOnMap
 {
-    public ArrowCategory arrowCategory;
     [SerializeField]private int _qtyInStock;
+    [SerializeField] private short _mapIndex;
+    public ArrowCategory arrowCategory;
 
     public int QtyInStock 
     {
-        get { return _qtyInStock; }
-        set { _qtyInStock = value; } 
+        get => _qtyInStock; 
+        set => _qtyInStock = value;  
+    }
+    
+    public short MapIndex
+    {
+        get => _mapIndex;
+        set => _mapIndex = value;
     }
 }

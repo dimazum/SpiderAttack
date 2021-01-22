@@ -31,8 +31,6 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 2800000, guid: 1b488387a932d9644a6595e12d4e0a9a, type: 3}
-    - {fileID: 2800000, guid: f44a3e1be2a7239489ae05ee34f2c64d, type: 3}
-    - {fileID: 2800000, guid: a4b91bcab577af94cad680ea731724a1, type: 3}
     - {fileID: 2800000, guid: 5de93dfb27207ef4c9e44e27c070bed5, type: 3}
     - {fileID: 2800000, guid: ec89ba1e5b7abe24b9bddd4a7f04c86d, type: 3}
     - {fileID: 2800000, guid: c9630e94f95c74c4baaf9c95bde2f9d1, type: 3}
@@ -40,6 +38,7 @@ SpriteAtlas:
     - {fileID: 2800000, guid: edb1dddb9afb6f1408700d3213ced3f7, type: 3}
     - {fileID: 2800000, guid: 657771a3991b8b84ca20b0387356f524, type: 3}
     - {fileID: 2800000, guid: 370bb99ad666dc746a54fa0fb4558929, type: 3}
+    - {fileID: 2800000, guid: d9ac642c91890a1408a5f8d0b6f5115d, type: 3}
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -72,8 +71,6 @@ SpriteAtlas:
   - {fileID: -2323108650218199375, guid: 370bb99ad666dc746a54fa0fb4558929, type: 3}
   - {fileID: 3100555359788709948, guid: 370bb99ad666dc746a54fa0fb4558929, type: 3}
   - {fileID: -6339916947688098301, guid: 370bb99ad666dc746a54fa0fb4558929, type: 3}
-  - {fileID: 21300000, guid: a4b91bcab577af94cad680ea731724a1, type: 3}
-  - {fileID: 21300000, guid: f44a3e1be2a7239489ae05ee34f2c64d, type: 3}
   - {fileID: -628316152014009622, guid: edb1dddb9afb6f1408700d3213ced3f7, type: 3}
   - {fileID: -3302849623311378386, guid: edb1dddb9afb6f1408700d3213ced3f7, type: 3}
   - {fileID: 5616016343302997465, guid: edb1dddb9afb6f1408700d3213ced3f7, type: 3}
@@ -89,6 +86,7 @@ SpriteAtlas:
   - {fileID: -1221372358737652863, guid: edb1dddb9afb6f1408700d3213ced3f7, type: 3}
   - {fileID: -1661993755153071834, guid: edb1dddb9afb6f1408700d3213ced3f7, type: 3}
   - {fileID: 21300000, guid: 5de93dfb27207ef4c9e44e27c070bed5, type: 3}
+  - {fileID: 21300000, guid: d9ac642c91890a1408a5f8d0b6f5115d, type: 3}
   - {fileID: 21300000, guid: ec89ba1e5b7abe24b9bddd4a7f04c86d, type: 3}
   m_PackedSpriteNamesToIndex:
   - Shop3_3
@@ -120,8 +118,6 @@ SpriteAtlas:
   - Shop4_5
   - Shop4_6
   - Shop4_7
-  - sky1
-  - quadBlack
   - mainHouse_9
   - mainHouse_8
   - mainHouse_1
@@ -137,6 +133,7 @@ SpriteAtlas:
   - mainHouse_6
   - mainHouse_13
   - grass_6
+  - ammoBox
   - stone_0
   m_Tag: Ground
   m_IsVariant: 0

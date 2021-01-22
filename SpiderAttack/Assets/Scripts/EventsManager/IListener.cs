@@ -24,8 +24,9 @@ public enum EVENT_TYPE
 
     OpenShop, //click Open Shop Button
     CloseShop, //click Close Shop
-    StartDay, //Start New Day
-    StartNight, //Start New Night
+    StartDay, //start New Day
+    StartNight, //start New Night
+    ResetTime, // waiting for the night
 
     //Trebuchet
     TrebFireButtonUp,
@@ -71,6 +72,15 @@ public enum EVENT_TYPE
     BallistaFireButtonUp,
     BallistaFireButtonDown,
     BallistaCharge,
+    ArrowHitTarget,
+    ArrowMissedTarget,
+
+    //UI
+    ChangeRating,
+
+    //Thougts
+    FullBackpack,
+    NeedNextPick,
 
 
 

@@ -6,12 +6,14 @@ using UnityEngine.UI;
 public class WeaponInventotyController : MonoBehaviour
 {
     private int _typeCounter;
-    protected TypeCollection _bulletCollection;
     public ItemGroup ItemGroup;
-    public Image arrowTypeSelectImage;
-    public ItemsData2 itemsData;
+    [SerializeField]
+    private Image arrowTypeSelectImage;
+    [SerializeField]
+    private ItemsData2 itemsData;
+    protected TypeCollection _bulletCollection;
 
-    public int typeCounter
+    public int TypeCounter
     {
         get => _typeCounter;
         set
@@ -37,14 +39,14 @@ public class WeaponInventotyController : MonoBehaviour
 
     public void NextArrowType()
     {
-        typeCounter++;
-        while (_bulletCollection.itemTypes[typeCounter].Qty < 1)
+        TypeCounter++;
+        while (_bulletCollection.itemTypes[TypeCounter].Qty < 1)
         {
-            typeCounter++;
+            TypeCounter++;
         }
 
-        SetItemCategoryToPool(typeCounter);
-        RenderArrowTypeIcon(typeCounter);
+        SetItemCategoryToPool(TypeCounter);
+        RenderArrowTypeIcon(TypeCounter);
     }
 
 
@@ -65,19 +67,19 @@ public class WeaponInventotyController : MonoBehaviour
     }
     protected void ChangeQty()
     {
-        if (_bulletCollection.itemTypes[typeCounter].endlesQty) 
+        if (_bulletCollection.itemTypes[TypeCounter].endlesQty) 
         {
             return;
         }
 
-        _bulletCollection.itemTypes[typeCounter].Qty--;
+        _bulletCollection.itemTypes[TypeCounter].Qty--;
 
-        if (_bulletCollection.itemTypes[typeCounter].Qty < 1)
+        if (_bulletCollection.itemTypes[TypeCounter].Qty < 1)
         {
-            typeCounter = 0;
+            TypeCounter = 0;
             SetItemCategoryToPool(0);
             RenderArrowTypeIcon(0);
         }
-        RenderArrowTypeIcon(typeCounter);
+        RenderArrowTypeIcon(TypeCounter);
     }
 }

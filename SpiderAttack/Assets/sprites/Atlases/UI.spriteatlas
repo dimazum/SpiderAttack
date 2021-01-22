@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 1
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 8
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: b40eef7ce1470ed44b50a5459e6f5800, type: 3}
+    - {fileID: 2800000, guid: b40eef7ce1470ed44b50a5459e6f5800, type: 3}
+    - {fileID: 2800000, guid: d254aba5a35e84a4f87cca5182e1a3d8, type: 3}
+    - {fileID: 2800000, guid: 5e85ca2cdc092934eb12a0a41dec7ee9, type: 3}
+    - {fileID: 2800000, guid: 6dd16c0eefe63ea4eb086dae83d95a31, type: 3}
+    - {fileID: 2800000, guid: 6415fb260a4f2164f9c4a90651605f65, type: 3}
+    - {fileID: 2800000, guid: bb2467a733915b944b8df3c52bcd98ae, type: 3}
+    - {fileID: 2800000, guid: b601fe5e059af1d47a98c4f0d7083542, type: 3}
+    - {fileID: 2800000, guid: 48e391c9f3b169442b11a093885bf5b8, type: 3}
+    - {fileID: 2800000, guid: 6e00d2a4e5fbcc143ab2ed200b5df7fb, type: 3}
+    - {fileID: 2800000, guid: 1a4a7022ed87e414b98239d0af89a645, type: 3}
+    - {fileID: 2800000, guid: 68bee9ffa8b16d94ba29969f6adfdf20, type: 3}
+    - {fileID: 2800000, guid: a2d09249b04d117408b883da64338cb8, type: 3}
+    - {fileID: 2800000, guid: fb1ecded663405648b9398d69f212ad9, type: 3}
+    - {fileID: 2800000, guid: 045da2289846c1840bbf949757965fad, type: 3}
+    - {fileID: 2800000, guid: 8c2a3a9940c30e542b46316fa44755d2, type: 3}
+    - {fileID: 2800000, guid: 56c0f7c55a9eb0b47990d9ae0cd5b5aa, type: 3}
+    - {fileID: 2800000, guid: 777934976ecf42e4d84b47c55a1bd7b2, type: 3}
+    - {fileID: 2800000, guid: b0e013f5588a231479c21f4c19e0e8fb, type: 3}
+    - {fileID: 2800000, guid: baf4cd2663adcf348bc5d39ff267f634, type: 3}
+    - {fileID: 2800000, guid: 70b8fcb597d23974394f21e102a5b8b4, type: 3}
+    - {fileID: 2800000, guid: 73be9dd861bc7c247b178e69847d4e16, type: 3}
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 1a4a7022ed87e414b98239d0af89a645, type: 3}
+  - {fileID: 21300000, guid: 6e00d2a4e5fbcc143ab2ed200b5df7fb, type: 3}
+  - {fileID: 21300000, guid: d254aba5a35e84a4f87cca5182e1a3d8, type: 3}
+  - {fileID: 21300000, guid: 70b8fcb597d23974394f21e102a5b8b4, type: 3}
+  - {fileID: 21300000, guid: 56c0f7c55a9eb0b47990d9ae0cd5b5aa, type: 3}
+  - {fileID: 21300000, guid: b0e013f5588a231479c21f4c19e0e8fb, type: 3}
+  - {fileID: 21300000, guid: 6415fb260a4f2164f9c4a90651605f65, type: 3}
+  - {fileID: 21300000, guid: baf4cd2663adcf348bc5d39ff267f634, type: 3}
+  - {fileID: 21300000, guid: 777934976ecf42e4d84b47c55a1bd7b2, type: 3}
+  - {fileID: 21300000, guid: bb2467a733915b944b8df3c52bcd98ae, type: 3}
+  - {fileID: 21300000, guid: 045da2289846c1840bbf949757965fad, type: 3}
+  - {fileID: 21300000, guid: 73be9dd861bc7c247b178e69847d4e16, type: 3}
+  - {fileID: 21300000, guid: a2d09249b04d117408b883da64338cb8, type: 3}
+  - {fileID: 21300000, guid: 8c2a3a9940c30e542b46316fa44755d2, type: 3}
+  - {fileID: 21300000, guid: 48e391c9f3b169442b11a093885bf5b8, type: 3}
+  - {fileID: 21300000, guid: 5e85ca2cdc092934eb12a0a41dec7ee9, type: 3}
+  - {fileID: 21300000, guid: b40eef7ce1470ed44b50a5459e6f5800, type: 3}
+  - {fileID: 21300000, guid: fb1ecded663405648b9398d69f212ad9, type: 3}
+  - {fileID: 21300000, guid: 6dd16c0eefe63ea4eb086dae83d95a31, type: 3}
+  - {fileID: 21300000, guid: b601fe5e059af1d47a98c4f0d7083542, type: 3}
+  - {fileID: 21300000, guid: 68bee9ffa8b16d94ba29969f6adfdf20, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - BtnSetItem_2
+  - BtnSetItem7
+  - BtnChangeAmmo
+  - pgGreenfill
+  - IconPB2
+  - pg2back
+  - BtnFireBal_2
+  - pg2fill
+  - outline
+  - BtnFireTreb_2
+  - Icon1
+  - pgYellBg
+  - explosion_5_1
+  - IconGate
+  - BtnNext 1
+  - BtnChangeAmmoPB
+  - BtnBackpack 1
+  - gateIcon
+  - BtnClose
+  - BtnMenu
+  - el_05_01
+  m_Tag: UI
+  m_IsVariant: 0

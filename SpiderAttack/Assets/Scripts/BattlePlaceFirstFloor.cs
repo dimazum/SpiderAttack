@@ -45,7 +45,7 @@ namespace Assets.Scripts
                 EventManager.Instance.PostNotification(EVENT_TYPE.CharacterEnterFirstFloor, this);
                 //cameraController.index = screen;
                 animator.Play("SecondBatlePlaceDisappear");
-                cameraController.offset = new Vector3(4f , 1.5f, -10); //offset second floor
+                cameraController.offset = new Vector3(5f , 1.5f, -10); //offset first floor
                 Transition = 3;
                 Elapsed = 0;
                 trebuchetButtons.SetActive(true);

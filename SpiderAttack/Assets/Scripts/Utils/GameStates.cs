@@ -1,14 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Assets.Scripts.UpgradeController;
+﻿using Assets.Scripts.UpgradeController;
 using UnityEngine;
 
 public class GameStates : Singleton<GameStates>, IListener
 {
+    [SerializeField]
     private int _pickLvl; //current pick lvl
     private int _gateLvl; //current pick lvl
     private int _currentTime;
     public bool _inCity;
+    public int rating;
     private bool _savesReset;
     public int PickLvl
     {
@@ -67,7 +67,6 @@ public class GameStates : Singleton<GameStates>, IListener
     public Transform Picks;
     public GameObject CurrentPick;
     public GameObject NextPick;
-    private GateUpgradeController _gateUpgradeController;
     
     void Awake()
     {
@@ -85,7 +84,6 @@ public class GameStates : Singleton<GameStates>, IListener
         EventManager.Instance.AddListener(EVENT_TYPE.BuyPick, this);
         EventManager.Instance.AddListener(EVENT_TYPE.BuyGate, this);
         _timer = FindObjectOfType<Timer>();
-        _gateUpgradeController = FindObjectOfType<GateUpgradeController>();
     }
 
     public void OnEvent(EVENT_TYPE Event_Type, Component Sender, object Param = null)

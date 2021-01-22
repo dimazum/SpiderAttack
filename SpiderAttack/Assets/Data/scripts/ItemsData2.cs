@@ -29,15 +29,22 @@ public class ItemsData2 : MonoBehaviour, IListener
                     {
                         return;
                     }
-                    var resursInfo = (ResursInfo)Param;
-                    var item = collections2[(int)resursInfo.ItemGroup].itemTypes[(int)resursInfo.MineralCategory];
-                    if (!item.endlesQty)
+                    var resourceBlockInfo = (ResourceBlockInfo)Param;
+
+                    foreach (var resourceInfo in resourceBlockInfo.ResourceInfos)
                     {
-                        item.Qty++;
+                        var item = collections2[resourceInfo.ItemGroup].itemTypes[resourceInfo.Category];
+                        if (!item.endlesQty)
+                        {
+                            item.Qty+= resourceInfo.Qty;
+                        }
                     }
-                    var tilePos = tilemap.WorldToCell(resursInfo.Position);
-                    var index = tilePos.x - bounds.x + (tilePos.y - bounds.y) * bounds.size.x;
-                    saveManager.map[index] = 0;
+
+                   
+                    var tilePos = tilemap.WorldToCell(resourceBlockInfo.Position);
+                    //var index = tilePos.x - bounds.x + (tilePos.y - bounds.y) * bounds.size.x;
+                    //saveManager.Map[index] = -1;
+                    SaveHelper.Instance.DeleteObjecFromPosition(tilePos);
                 }
                 break;
 
@@ -47,13 +54,22 @@ public class ItemsData2 : MonoBehaviour, IListener
                     {
                         return;
                     }
-                    var resursInfo = (ResursInfo)Param;
+                    var resourceBlockInfo = (ResourceBlockInfo)Param;
+                    short mapIndex = 0;
+                    if (resourceBlockInfo.ResourceInfos.Count == 1)//single resource
+                    {
+                        var item = collections2[resourceBlockInfo.ResourceInfos[0].ItemGroup].itemTypes[resourceBlockInfo.ResourceInfos[0].Category] as ISavableOnMap; 
+                        mapIndex = item.MapIndex;
+                    }
 
-                    var item = collections2[(int)resursInfo.ItemGroup].itemTypes[(int)resursInfo.MineralCategory] as ISavableOnMap;
-                    var mapIndex = item.MapIndex;
-                    var tilePos = tilemap.WorldToCell(resursInfo.Position);
+                    if (resourceBlockInfo.ResourceInfos.Count > 1)//multi resource
+                    {
+                        mapIndex = resourceBlockInfo.ResourceInfos[0].MapIndex;
+                    }
+                   
+                    var tilePos = tilemap.WorldToCell(resourceBlockInfo.Position);
                     var index = tilePos.x - bounds.x + (tilePos.y - bounds.y) * bounds.size.x;
-                    saveManager.map[index] = (short)(mapIndex + resursInfo.CrackCount);
+                    saveManager.Map[index] = (short)(mapIndex + resourceBlockInfo.CrackCount);
                 }
                 break;
         }
@@ -68,20 +84,5 @@ public class TypeCollection
     public BaseItemType[] itemTypes;
 }
 
-//снаряды: стрелы, бомбы
-//ресурсы:20шт
-//рецепты
-//свитки телепортации, фонари, лестницы, бомбы
-
-//бомбы:
-//1.Бросаешь  и 5 секунд лежит, потом взпывается
-// супер бомба
-// 0.static stone
-//1. stone
-//2. ground1 coal amber copper gold
-//3. ground2 benetiod opal radolit ore 
-//4. ground3 pomegranate emerald  agat demantoit 
-//5. ground4 daimont ametist malachite topaz
-//6. ground5 paraiba ruby taaffetite chrysoberil
 
 

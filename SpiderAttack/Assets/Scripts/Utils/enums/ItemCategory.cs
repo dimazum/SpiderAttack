@@ -14,6 +14,15 @@ public enum BallCategory: byte
     BallX5,
     BallSuper,
 }
+public enum GroundCategory : byte
+{
+    Ground1,
+    Ground2,
+    Ground3,
+    Ground4,
+    Ground5,
+    BlockDynamic
+}
 
 public enum MineralCategory :byte
 {
@@ -42,14 +51,6 @@ public enum MineralCategory :byte
     Ruby,
     Taaffeite,
     Chrysoberil,
-    //Grounds
-    Ground1,
-    Ground2,
-    Ground3,
-    Ground4,
-    Ground5,
-    BlockDynamic
-
 }
 
 //2. ground1 coal amber copper gold

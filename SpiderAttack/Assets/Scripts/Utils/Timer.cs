@@ -8,27 +8,30 @@ public class Timer : MonoBehaviour, IListener
 {
     private int defaultDayDuration = 600;
     private int _sec;
-    public TextMeshProUGUI textMinuteTime;
-    public TextMeshProUGUI textSecTimePart1;
-    public TextMeshProUGUI textSecTimePart2;
+    [SerializeField]
+    private TextMeshProUGUI textMinuteTime;
+    [SerializeField]
+    private TextMeshProUGUI textSecTimePart1;
+    [SerializeField]
+    private TextMeshProUGUI textSecTimePart2;
     private IEnumerator co;
     private readonly WaitForSeconds _secondDelay = new WaitForSeconds(1f);
     private Rounds _rounds;
-    public int _currentTime;
+    [SerializeField]
+    private int _currentTime;
     private int tempOldVal;
 
+    private Dictionary<int, string> Seconds { get; set; } = new Dictionary<int, string>() { };
     public int CurrentTime
     {
-        get { return _currentTime; }
-        set { _currentTime = value; }
+        get => _currentTime; 
+        set => _currentTime = value; 
     }
-
-
-    private Dictionary<int, string> seconds = new Dictionary<int, string>(){};
-
+    
     void Start()
     {
         EventManager.Instance.AddListener(EVENT_TYPE.StartDay, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.ResetTime, this);
         _rounds = FindObjectOfType<Rounds>();
         if (co != null)
         {
@@ -47,7 +50,7 @@ public class Timer : MonoBehaviour, IListener
     {
         for (int i = 0; i < 10; i++)
         {
-            seconds.Add(i, i.ToString());
+            Seconds.Add(i, i.ToString());
         }
     }
 
@@ -82,8 +85,8 @@ public class Timer : MonoBehaviour, IListener
             tempOldVal = CurrentTime / 60;
         }
         
-        textSecTimePart1.text = seconds[sec / 10];
-        textSecTimePart2.text = seconds[sec % 10];
+        textSecTimePart1.text = Seconds[sec / 10];
+        textSecTimePart2.text = Seconds[sec % 10];
 
 
     }
@@ -92,24 +95,33 @@ public class Timer : MonoBehaviour, IListener
         switch (Event_Type)
         {
             case EVENT_TYPE.StartDay:
-
-                if (co != null)
                 {
-                    StopCoroutine(co);
+                    if (co != null)
+                    {
+                        StopCoroutine(co);
+                    }
+                    co = StartTimer(GameStates.Instance.round);
+                    StartCoroutine(co);
+                    break;
                 }
-                co = StartTimer(GameStates.Instance.round);
-                StartCoroutine(co);
 
-                break;
+            case EVENT_TYPE.ResetTime:
+                {
+                    if (CurrentTime > 10)
+                    {
+                        CurrentTime = 10;
+                    }
+                    break;
+                }
         }
     }
 
-    public void WaitForNight()
-    {
-        if (CurrentTime > 10)
-        {
-            CurrentTime = 10;
-        }
-    }
+    //public void WaitForNight()
+    //{
+    //    if (CurrentTime > 10)
+    //    {
+    //        CurrentTime = 10;
+    //    }
+    //}
 }
 

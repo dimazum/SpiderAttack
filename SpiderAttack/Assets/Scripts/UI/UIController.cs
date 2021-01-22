@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +13,7 @@ namespace Assets.Scripts.UI
         public GameObject timerText;
         public TextMeshProUGUI roundText;
         public TextMeshProUGUI winText;
+        public TextMeshProUGUI raitingText;
         public GameObject spiderSmallImage;
         public Image trebSliderCharge; //call from treb
         public Image ballistaSliderCharge; //call from ballista
@@ -22,6 +22,7 @@ namespace Assets.Scripts.UI
         void Start()
         {
             roundText.text = $"Round: {GameStates.Instance.round+1}";
+            raitingText.text = GameStates.Instance.rating.ToString();
             EventManager.Instance.AddListener(EVENT_TYPE.GameOver, this);
             EventManager.Instance.AddListener(EVENT_TYPE.StartDay, this);
             EventManager.Instance.AddListener(EVENT_TYPE.StartNight, this);
@@ -31,6 +32,7 @@ namespace Assets.Scripts.UI
             EventManager.Instance.AddListener(EVENT_TYPE.CharacterExitSecondFloor, this);
             EventManager.Instance.AddListener(EVENT_TYPE.StartTeleport, this);
             EventManager.Instance.AddListener(EVENT_TYPE.FinishTeleport, this);
+            EventManager.Instance.AddListener(EVENT_TYPE.ChangeRating, this);
             _animator = GetComponent<Animator>();
         }
 
@@ -83,6 +85,12 @@ namespace Assets.Scripts.UI
                 case EVENT_TYPE.FinishTeleport:
                     teleportPanel.SetActive(false);
                     break;
+
+                case EVENT_TYPE.ChangeRating:
+                    {
+                        raitingText.text = GameStates.Instance.rating.ToString();
+                        break;
+                    }
 
             }
         }

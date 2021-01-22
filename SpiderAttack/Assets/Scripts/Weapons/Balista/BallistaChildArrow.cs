@@ -11,7 +11,12 @@ public class BallistaChildArrow : BalistaArrow
     public void OnCollisionEnter2D(Collision2D collision)
     {
         gameObject.SetActive(false);
-        ballistaTripleArrow.ChildCounter++;   
+        if (collision.collider.CompareTag("spider"))
+        {
+            ballistaTripleArrow._hitSpiderCounter++;
+        }
+        ballistaTripleArrow.ChildCounter++;
+        
     }
 
     public void StartArrow()

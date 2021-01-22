@@ -1,11 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Net.Mime;
-using Assets.Scripts.Utils.enums;
-using UnityEditor;
+﻿using Assets.Scripts.Utils.enums;
 using UnityEngine;
-using UnityEngine.UI;
 
 [CreateAssetMenu(menuName = "Shop/Data", fileName = "shoData")]
 public class ShopData : ScriptableObject
@@ -21,6 +15,3 @@ public class ShopItem
     public ItemGroup ItemGroup;
     public int ItemCategoryNumber;
 }
-
-
-
