@@ -10,9 +10,6 @@ public enum EVENT_TYPE
     GameOver,
     EnableAllButtons,
     DisableAllButtons,
-    BuyPick, //buy Pick Button
-    PickUp, //upgrade Pick
-    BuyGate, //buy Pick Button
     GateUp, //buy Pick Button
     SuperBomb, //buy Pick Button
     StartTeleport,
@@ -64,8 +61,6 @@ public enum EVENT_TYPE
     CharacterEnterSecondFloor,
     CharacterExitSecondFloor,
     CheckIfCharInVillage,
-    CharInVillage,
-    CharInCave,
 
     BallistaShot, //start
     BallistaIsCharged,//заряжена
@@ -77,6 +72,9 @@ public enum EVENT_TYPE
 
     //UI
     ChangeRating,
+    ChangeMoney,
+    Buy,
+    NotEnoughMoney,
 
     //Thougts
     FullBackpack,

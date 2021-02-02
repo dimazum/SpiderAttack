@@ -1,4 +1,5 @@
-﻿using UnityEngine.Events;
+﻿using System;
+using UnityEngine.Events;
 
 public class ActionItemType : BaseItemType
 {

@@ -20,7 +20,7 @@ namespace Assets.Scripts.UpgradeController
         void Start()
         {
             EventManager.Instance.AddListener(EVENT_TYPE.GateUp, this);
-            SetSprites(GameStates.Instance.GateLvl);
+            SetSprites(GameStates.GateLvl);
         }
 
         public void SetSprites(int gateLvl)
@@ -41,7 +41,7 @@ namespace Assets.Scripts.UpgradeController
             switch (Event_Type)
             {
                 case EVENT_TYPE.GateUp:
-                    SetSprites(GameStates.Instance.GateLvl);
+                    SetSprites(GameStates.GateLvl);
                     break;
             }
         }

@@ -1,7 +1,7 @@
 ﻿using MarchingBytes;
 using UnityEngine;
 
-public class TrebMultiBall : Bullet
+public class TrebMultiBall : BaseBall
 {
     [SerializeField]
     public TrebChildBall[] replicates;
@@ -12,6 +12,8 @@ public class TrebMultiBall : Bullet
     public int speed;
     public float explosionDelay = 1.7f;
     private SpriteRenderer _bulletSpriteRenderer;
+    [SerializeField]
+    private SpriteRenderer[] mockSprites;
     private Rigidbody2D _rb;
     public Animation animation;
     public bool timerIsRunning ;
@@ -35,7 +37,13 @@ public class TrebMultiBall : Bullet
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        _easyObjectPool.ReturnObjectToPool(gameObject); ;
+        //_easyObjectPool.ReturnObjectToPool(gameObject); 
+        Duplication();
+        _bulletSpriteRenderer.enabled = false;
+        UpdateMockSprites(false);
+
+        animation.Play();
+        _rb.bodyType = RigidbodyType2D.Static;
     }
 
     private void Awake()
@@ -61,11 +69,14 @@ public class TrebMultiBall : Bullet
             if (explosionDelayCounter > 0)
             {
                 explosionDelayCounter -= Time.deltaTime;
+                transform.Rotate(0, 0, -.5f, Space.Self);
             }
             else
             {
                 Duplication();
                 _bulletSpriteRenderer.enabled = false;
+                UpdateMockSprites(false);
+
                 animation.Play();
                 _rb.bodyType = RigidbodyType2D.Static;
 
@@ -73,12 +84,22 @@ public class TrebMultiBall : Bullet
                 timerIsRunning = false;
             }
         }
+       
+    }
+
+    private void UpdateMockSprites(bool isEnabled)
+    {
+        for (int i = 0; i < mockSprites.Length; i++)
+        {
+            mockSprites[i].enabled = isEnabled;
+        }
     }
 
     private void Duplication()
     {
         for (int i = 0; i < replicates.Length; i++)
         {
+            replicates[i].GetComponent<SpriteRenderer>().sprite = _bulletSpriteRenderer.sprite;
             replicates[i].gameObject.transform.localPosition = vectorZero;
             replicates[i].gameObject.transform.localRotation = quatZero;
 
@@ -100,5 +121,6 @@ public class TrebMultiBall : Bullet
         gameObject.transform.localRotation = quatZero;
         _rb.bodyType = RigidbodyType2D.Dynamic;
         _bulletSpriteRenderer.enabled = true;
+        UpdateMockSprites(true);
     }
 }

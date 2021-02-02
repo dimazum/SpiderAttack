@@ -2,6 +2,6 @@
 
 public class Bullet : MonoBehaviour
 {
-    public int Damage = 100;
+    public int Damage;
     public BulletType bulletType;
 }

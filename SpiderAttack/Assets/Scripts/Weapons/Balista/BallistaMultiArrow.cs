@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallistaMultiArrow : MonoBehaviour
+public class BallistaMultiArrow : BaseArrow
 {
     public BallistaChildArrow[] replicates;
     private Rigidbody2D[] replicatesRbs;

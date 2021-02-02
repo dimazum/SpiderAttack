@@ -1,7 +1,7 @@
 ﻿
 using UnityEngine;
 
-public class BalistaArrow : Bullet
+public class BalistaArrow : BaseArrow
 {
     public Transform centerOfMass;
     protected Rigidbody2D rb;

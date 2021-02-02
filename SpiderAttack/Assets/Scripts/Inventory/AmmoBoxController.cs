@@ -13,6 +13,8 @@ public class AmmoBoxController : MonoBehaviour
     public List<ItemGroup> ammoGroups;
     public ItemsData2 itemsData;
     public Transform cellsContainer;
+    [SerializeField]
+    private Transform boxBtn;
     void Start()
     {
 
@@ -26,7 +28,7 @@ public class AmmoBoxController : MonoBehaviour
         foreach (var group in ammoGroups)
         {
             var col = itemsData.collections2[(int)group];
-            ammoList.AddRange(col.itemTypes.Where(x => !x.endlesQty || (x as ICanBeInStock)?.QtyInStock > 0));
+            ammoList.AddRange(col.itemTypes.Where(x => (x as ICanBeInStock)?.QtyInStock > 0));
         }
 
         for (int i = 0; i < cellsContainer.childCount && i < ammoList.Count; i++)
@@ -53,16 +55,43 @@ public class AmmoBoxController : MonoBehaviour
     {
         if (coll.tag == "player")
         {
-            foreach (var group in ammoGroups)
-            {
-                var col = itemsData.collections2[(int)group];
-
-                foreach (var itemType in col.itemTypes)
-                {
-                    ((ICanBeInStock)itemType).QtyInStock = itemType.Qty;
-                }
-            }
-
+            StartCoroutine(ReplaceResources());
+            boxBtn.localPosition = Vector3.zero;
         }
+    }
+
+    public void OnTriggerExit2D(Collider2D coll)
+    {
+        if (coll.tag == "player")
+        {
+
+            boxBtn.localPosition = new Vector3(0, 0, -500);
+        }
+    }
+
+    private IEnumerator ReplaceResources()
+    {
+        foreach (var group in ammoGroups)
+        {
+            var col = itemsData.collections2[(int)group];
+
+            foreach (var itemType in col.itemTypes)
+            {
+                if(itemType is MineralItemType type)
+                {
+                    if (type.Qty> 0 && type.mineralCategory == MineralCategory.Gold && type.Qty > 0 )
+                    {
+                        GameStates.Money += 500 * type.Qty;
+                        EventManager.Instance.PostNotification(EVENT_TYPE.ChangeMoney, this, GameStates.Money);
+                        itemType.Qty = 0;
+                        continue;
+                    }
+                        
+                }
+                ((ICanBeInStock)itemType).QtyInStock += itemType.Qty;
+                itemType.Qty = 0;
+            }
+        }
+        yield return null;
     }
 }

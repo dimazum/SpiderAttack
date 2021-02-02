@@ -26,6 +26,7 @@ public class ES3ReferenceMgr : ES3ReferenceMgrBase
         AddDependencies(this.gameObject.scene.GetRootGameObjects());
         AddPrefabsToManager();
         RemoveNullOrInvalidValues();
+
         ES3ReferenceMgrBase.isEnteringPlayMode = false;
     }
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,15 +15,24 @@ namespace Assets.Scripts.UI
         public TextMeshProUGUI roundText;
         public TextMeshProUGUI winText;
         public TextMeshProUGUI raitingText;
+        [SerializeField]
+        private TextMeshProUGUI moneyText;
         public GameObject spiderSmallImage;
         public Image trebSliderCharge; //call from treb
         public Image ballistaSliderCharge; //call from ballista
         public GameObject teleportPanel;
         public Slider teleportSlider;
+        private Coroutine AnimateSliderOverTimeCo;
+        private WaitForSeconds scoredDelay = new WaitForSeconds(.05f);
+        private int _oldMoneyValue;
+        [SerializeField]
+        private Animator _moneyAnimator;
+
         void Start()
         {
-            roundText.text = $"Round: {GameStates.Instance.round+1}";
-            raitingText.text = GameStates.Instance.rating.ToString();
+            roundText.text = $"{GameStates.Round + 1}";
+            raitingText.text = GameStates.rating.ToString();
+            moneyText.text = GameStates.Money.ToString();
             EventManager.Instance.AddListener(EVENT_TYPE.GameOver, this);
             EventManager.Instance.AddListener(EVENT_TYPE.StartDay, this);
             EventManager.Instance.AddListener(EVENT_TYPE.StartNight, this);
@@ -33,7 +43,10 @@ namespace Assets.Scripts.UI
             EventManager.Instance.AddListener(EVENT_TYPE.StartTeleport, this);
             EventManager.Instance.AddListener(EVENT_TYPE.FinishTeleport, this);
             EventManager.Instance.AddListener(EVENT_TYPE.ChangeRating, this);
+            EventManager.Instance.AddListener(EVENT_TYPE.ChangeMoney, this);
+            EventManager.Instance.AddListener(EVENT_TYPE.NotEnoughMoney, this);
             _animator = GetComponent<Animator>();
+            _oldMoneyValue = GameStates.Money;
         }
 
         public void OnEvent(EVENT_TYPE Event_Type, Component Sender, object Param = null)
@@ -47,7 +60,7 @@ namespace Assets.Scripts.UI
                 case EVENT_TYPE.StartDay:
                     timerText.SetActive(true);
                     spiderSmallImage.SetActive(false);
-                    roundText.text = $"Round: {GameStates.Instance.round+1}";
+                    roundText.text = $"{GameStates.Round + 1}";
                     StartCoroutine(YouWinText());
 
                     break;
@@ -78,28 +91,68 @@ namespace Assets.Scripts.UI
                         if (Param == null) return;
 
                         teleportPanel.SetActive(true);
-                        StartCoroutine(AnimateSliderOverTime((float)Param));
+                        AnimateSliderOverTimeCo = StartCoroutine(AnimateSliderOverTime((float)Param));
                         break;
                     }
 
                 case EVENT_TYPE.FinishTeleport:
                     teleportPanel.SetActive(false);
+                    StopCoroutine(AnimateSliderOverTimeCo);
+                    teleportSlider.value = 0;
                     break;
 
                 case EVENT_TYPE.ChangeRating:
                     {
-                        raitingText.text = GameStates.Instance.rating.ToString();
+                        raitingText.text = GameStates.rating.ToString();
                         break;
                     }
 
+                case EVENT_TYPE.ChangeMoney:
+                    {
+                        // object test = Param;
+                        //var obj = Cast(test, new { _money = 0, oldValue = 0 });
+                        var currentMoney = (int)Param;
+                        StartCoroutine(Scored(_oldMoneyValue, currentMoney));
+                        _oldMoneyValue = currentMoney;
+                        //moneyText.text = obj._money.ToString();
+                        break;
+                    }
+
+                case EVENT_TYPE.NotEnoughMoney:
+                    {
+                        _moneyAnimator.Play("NotEnoughMoney");
+                        break;
+                    }
             }
+        }
+
+        //T Cast<T>(object obj, T type) { return (T)obj; }
+
+        private IEnumerator Scored(int oldVal, int newVal)
+        {
+           if(oldVal > newVal)
+           {
+               moneyText.text = newVal.ToString();
+           }
+           else if(oldVal < newVal)
+           {
+                _moneyAnimator.Play("GettingMoney");
+                while (oldVal < newVal)
+                {
+                    oldVal += 100;
+                    StringBuilder moneyTextSB = new StringBuilder();
+                    moneyTextSB.Append(oldVal.ToString());
+                    moneyText.text = moneyTextSB.ToString();
+                    yield return scoredDelay;
+                }
+            }          
         }
 
         public IEnumerator YouWinText()
         {
             winText.enabled = true;
             winText.text = $"Hooray!!!\n" +
-                           $"Round: {GameStates.Instance.round + 1}";
+                           $"Round: {GameStates.Round + 1}";
             yield return _youWinTextDelay;
             winText.enabled = false;
         }

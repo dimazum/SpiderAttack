@@ -35,7 +35,7 @@ namespace Assets.Scripts
         void Start()
         {
             EventManager.Instance.AddListener(EVENT_TYPE.TrebShot, this);
-            EventManager.Instance.AddListener(EVENT_TYPE.GameOver, this);
+            //EventManager.Instance.AddListener(EVENT_TYPE.GameOver, this);
         }
 
         public void OnTriggerEnter2D(Collider2D coll)
@@ -148,11 +148,11 @@ namespace Assets.Scripts
                         break;
                     }
 
-                case EVENT_TYPE.GameOver:
-                    {
-                        Transition = 4;
-                        break;
-                    }
+                //case EVENT_TYPE.GameOver:
+                //    {
+                //        Transition = 4;
+                //        break;
+                //    }
             }
         }
     }

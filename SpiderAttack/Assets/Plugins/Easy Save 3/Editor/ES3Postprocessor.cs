@@ -65,9 +65,7 @@ public class ES3Postprocessor : UnityEditor.AssetModificationProcessor
     {
         // Add all GameObjects and Components to the reference manager before we enter play mode.
         if (state == PlayModeStateChange.ExitingEditMode && ES3Settings.defaultSettingsScriptableObject.autoUpdateReferences)
-        {
             RefreshReferences(true);
-        }
     }
 #else
     public static void PlaymodeStateChanged()
@@ -82,7 +80,7 @@ public class ES3Postprocessor : UnityEditor.AssetModificationProcessor
     public static string[] OnWillSaveAssets(string[] paths)
     {
         // Don't refresh references when the application is playing.
-        if (!Application.isPlaying && ES3Settings.defaultSettingsScriptableObject.autoUpdateReferences)
+        if (!EditorApplication.isUpdating && !Application.isPlaying && ES3Settings.defaultSettingsScriptableObject.autoUpdateReferences)
             RefreshReferences();
         return paths;
     }

@@ -64,7 +64,7 @@ Material:
     - _OutlineSoftness: 0
     - _OutlineUVSpeedX: 0
     - _OutlineUVSpeedY: 0
-    - _OutlineWidth: 0.1
+    - _OutlineWidth: 0.2
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
     - _ScaleRatioA: 0.8333333
@@ -95,7 +95,7 @@ Material:
     - _FaceColor: {r: 1, g: 1, b: 1, a: 1}
     - _GlowColor: {r: 0, g: 1, b: 0, a: 0.5}
     - _MaskCoord: {r: 0, g: 0, b: 32767, a: 32767}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor: {r: 0.18867922, g: 0.18867922, b: 0.18867922, a: 1}
     - _ReflectFaceColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectOutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
@@ -114,7 +114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hashCode: -2111981431
   material: {fileID: -6901518962566570819}
-  materialHashCode: -1481407134
+  materialHashCode: 938506633
   m_Version: 1.1.0
   m_SourceFontFileGUID: 5c4420a6f72e31a4a9665762c37b17b9
   m_SourceFontFile_EditorRef: {fileID: 0}
@@ -1859,6 +1859,7 @@ MonoBehaviour:
   m_AtlasTextures:
   - {fileID: 6832737689424298787}
   m_AtlasTextureIndex: 0
+  m_IsMultiAtlasTexturesEnabled: 0
   m_UsedGlyphRects:
   - m_X: 0
     m_Y: 0

@@ -3,6 +3,8 @@
 public class BallistaInventoryController : WeaponInventotyController, IListener
 {
     private IArrowUsingWeapon _arrowUsingWeapon;
+    [SerializeField]
+    private GameObject[] imageSprites;
 
     new void Start()
     {
@@ -27,4 +29,27 @@ public class BallistaInventoryController : WeaponInventotyController, IListener
         }
     }
 
+    public override void RenderArrowTypeIcon(int counter)
+    {
+        var category = ((ArrowItemType)_bulletCollection.itemTypes[TypeCounter]).arrowCategory;
+
+        DisableObjects(imageSprites);
+        if (category == ArrowCategory.ArrowX1)
+        {
+            imageSprites[0].SetActive(true);
+
+        }
+        if (category == ArrowCategory.ArrowX2)
+        {
+            imageSprites[1].SetActive(true);
+        }
+        if (category == ArrowCategory.ArrowX3)
+        {
+            imageSprites[2].SetActive(true);
+        }
+        if (category == ArrowCategory.ArrowX5)
+        {
+            imageSprites[3].SetActive(true);
+        }
+    }
 }

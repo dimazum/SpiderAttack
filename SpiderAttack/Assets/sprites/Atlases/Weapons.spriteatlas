@@ -37,9 +37,11 @@ SpriteAtlas:
   m_PackedSprites:
   - {fileID: 21300000, guid: a52d245064c8e9a4fbcb8de2607be921, type: 3}
   - {fileID: 21300000, guid: f4b9af50606362b47a395911cbdb2452, type: 3}
+  - {fileID: 21300000, guid: 3689fe80073a86641b7cb2d878610ab9, type: 3}
+  - {fileID: 21300000, guid: f1947941273e0e342a961bb66c949388, type: 3}
   - {fileID: 21300000, guid: 5379046206812e243929726dfabecf25, type: 3}
+  - {fileID: 21300000, guid: 643654e2a02b64c4a9c2227e09387771, type: 3}
   - {fileID: 21300000, guid: 65ebdb93be1840344b06ea92bfc37596, type: 3}
-  - {fileID: 21300000, guid: 3a9845c3dfbee3d43a9f33594998430e, type: 3}
   - {fileID: 21300000, guid: ce4c61e3663fd63449e08e800a27df96, type: 3}
   - {fileID: 21300000, guid: 48bbaaf3c4227764cb94fc788958e8a2, type: 3}
   - {fileID: 21300000, guid: 854e3614c50293049b694cfcba042419, type: 3}
@@ -49,6 +51,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 267fd426395024643a7d003eaff2eb4e, type: 3}
   - {fileID: 21300000, guid: 77db0257a19f96e4684fe6095f5a8de4, type: 3}
   - {fileID: 21300000, guid: 0d2fc0d81abd109448a71b85ae12075f, type: 3}
+  - {fileID: 21300000, guid: dbb145f80941f5947b2f964d55bdbd80, type: 3}
   - {fileID: 21300000, guid: ac7f2879ae91b2246a3aa53f8362d92e, type: 3}
   - {fileID: 21300000, guid: 2d89d5a9e0f71614e91c5b425528d94c, type: 3}
   - {fileID: 21300000, guid: 93f0ca8a89b3afe49abbb5c7b03872a2, type: 3}
@@ -57,6 +60,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 5862706d5e65de0409d244ecb167a522, type: 3}
   - {fileID: 21300000, guid: 726863cd91d58344a9a16f4ca35b4a68, type: 3}
   - {fileID: 21300000, guid: cd3f8b9e2a3579b4c8deb9ed075fced4, type: 3}
+  - {fileID: 21300000, guid: 1e01b0de467735e42b44789f8bdf4053, type: 3}
   - {fileID: 21300000, guid: 129e7dee89d793342b3e254aaa029287, type: 3}
   - {fileID: 21300000, guid: 87c3dbfe49a0f1b4494abf7f7425eb79, type: 3}
   - {fileID: 21300000, guid: 3fe79d8faf5eca64b81a046e4abf8abb, type: 3}
@@ -64,9 +68,11 @@ SpriteAtlas:
   m_PackedSpriteNamesToIndex:
   - angle_box
   - angle_wheel
+  - bow_base4
+  - bow_base5
   - arrow
+  - bow_base3_2
   - bow_mid
-  - string_bot
   - arm
   - shovel
   - Layer 77
@@ -76,6 +82,7 @@ SpriteAtlas:
   - rod
   - base_chain_box
   - charging_wheel
+  - bow_base2
   - belt
   - belt_bot2
   - gear
@@ -84,6 +91,7 @@ SpriteAtlas:
   - bow_base
   - bow_bot
   - base
+  - bow_base3
   - Layer 78
   - core
   - ballista_detail

@@ -27,7 +27,7 @@ public class RatingController : MonoBehaviour, IListener
             case EVENT_TYPE.ArrowHitTarget:
                 {
                     _arrowHitTarget = true;
-                    GameStates.Instance.rating += rating;
+                    GameStates.rating += rating;
                     EventManager.Instance.PostNotification(EVENT_TYPE.ChangeRating, this);
                     CalculateRating();
                     

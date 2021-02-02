@@ -2,7 +2,7 @@
 using MarchingBytes;
 using UnityEngine;
 
-public class TrebuchetBullet : Bullet
+public class TrebuchetBullet : BaseBall
 {
     private EasyObjectPool _easyObjectPool;
     [SerializeField]
@@ -45,6 +45,8 @@ public class TrebuchetBullet : Bullet
                 BackToStartState();
             }
         }
+
+        transform.Rotate(0, 0, 1,Space.Self);
     }
 
     public virtual void SpreadDamage(){}
@@ -59,3 +61,4 @@ public class TrebuchetBullet : Bullet
         explosionObj.transform.localRotation = quatZero;
     }
 }
+

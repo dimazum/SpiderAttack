@@ -3,27 +3,30 @@ using System.Linq;
 using Assets.Scripts.Utils.enums;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class InventoryController : MonoBehaviour
+public class InventoryController : MonoBehaviour, IListener
 {
+    [SerializeField]
+    private GameObject _inventoryPanel;
+    private InventoryNotActiveItemsController _inventoryNotActiveItemsController;
     private int _activeInventoryIndex;
     [SerializeField]
     private ItemsData2 itemsData;
     [SerializeField]
-    private Transform notActiveCells;
-    [SerializeField]
     private Transform activeCells;
     [SerializeField]
     private List<ItemGroup> activeGroup;
-    [SerializeField]
-    private List<ItemGroup> notActiveGroup; 
-    private List<BaseItemType> activeItems;
-    private List<BaseItemType> notActiveItems;
+    public List<BaseItemType> activeItems;
     [SerializeField]
     private Button backpackBtn;
     [SerializeField]
     private Transform outline;
+    [SerializeField]
+    private TextMeshProUGUI qtyText;
+    [SerializeField]
+    private Sprite transparentMock;
 
     public int ActiveInventoryIndex
     {
@@ -42,60 +45,14 @@ public class InventoryController : MonoBehaviour
 
     void Start()
     {
+        _inventoryNotActiveItemsController = FindObjectOfType<InventoryNotActiveItemsController>();
+        EventManager.Instance.AddListener(EVENT_TYPE.Buy, this);
         activeItems = new List<BaseItemType>();
-        notActiveItems = new List<BaseItemType>();
-        RenderNotActiveCells();
         RenderActiveCells();
-        if (activeItems.Count != 0)
-        {
-            backpackBtn.onClick.AddListener(((ActionItemType)activeItems.First()).characterAction.Invoke);
-        }
+        RenderQtyText(activeItems.ElementAtOrDefault(ActiveInventoryIndex)?.Qty.ToString());
 
         SetActiveItem(0);
-        gameObject.SetActive(false);
-    }
-
-    private void RenderNotActiveCells()
-    {
-        notActiveItems.Clear();
-        foreach (var group in notActiveGroup)
-        {
-            var col = itemsData.collections2[(int)group];
-
-            foreach (var itemType in col.itemTypes)
-            {
-                if (itemType is ICanBeInStock type)
-                {
-                    if (!itemType.endlesQty && (itemType.Qty - type.QtyInStock) > 0)
-                    {
-                        notActiveItems.Add(itemType);
-                    }
-                }
-                else
-                {
-                    notActiveItems.Add(itemType);
-                }
-            }
-        }
-
-        for (int i = 0; i < notActiveCells.childCount && i < notActiveItems.Count; i++)
-        {
-            var qtyInStock = (notActiveItems.ElementAtOrDefault(i) as ICanBeInStock)?.QtyInStock;
-            var qty = notActiveItems.ElementAtOrDefault(i)?.Qty;
-            var inventoryQty = qty;
-            if (qtyInStock.HasValue)
-            {
-                inventoryQty = qty.Value - qtyInStock.Value;
-            }
-
-            if (inventoryQty > 0)
-            {
-                notActiveCells.GetChild(i).GetChild(0).gameObject.SetActive(true);
-                notActiveCells.GetChild(i).GetChild(0).GetComponent<Image>().sprite =
-                    notActiveItems.ElementAtOrDefault(i)?.image;
-                notActiveCells.GetChild(i).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = inventoryQty.ToString();
-            }
-        }
+        //gameObject.SetActive(false);
     }
 
     private void RenderActiveCells()
@@ -104,7 +61,12 @@ public class InventoryController : MonoBehaviour
         foreach (var group in activeGroup)
         {
             var col = itemsData.collections2[(int)group];
-            activeItems.AddRange(col.itemTypes.Where(x=>!x.endlesQty));
+            activeItems.AddRange(col.itemTypes.Where(x => x.Qty > 0));
+        }
+
+        for (int i = 0; i < activeCells.childCount; i++)
+        {
+            activeCells.GetChild(i).GetChild(0).gameObject.SetActive(false);
         }
 
         for (int i = 0; i < activeCells.childCount && i < activeItems.Count; i++)
@@ -120,30 +82,75 @@ public class InventoryController : MonoBehaviour
     {
         ActiveInventoryIndex++;
         SetActiveItem(ActiveInventoryIndex);
+        
     }
 
     private void SetActiveItem(int index)
     {
+        if(activeItems.Count < 1)
+        {
+            backpackBtn.transform.GetChild(0).GetComponent<Image>().sprite = transparentMock;
+            SetActionToBtn(null);
+            RenderQtyText(string.Empty);
+            return;
+        }
+
+
         outline.SetParent(activeCells.GetChild(index));
         outline.transform.localPosition = Vector3.zero;
         backpackBtn.transform.GetChild(0).GetComponent<Image>().sprite = activeItems[index].image;
-        SetActionToBtn();
+        SetActionToBtn(((ActionItemType)activeItems[index]).characterAction);
+        RenderQtyText(activeItems[index].Qty.ToString());
     }
 
-    private void SetActionToBtn()
+    private void SetActionToBtn(UnityEvent unityEvent)
     {
         backpackBtn.onClick.RemoveAllListeners();
-        backpackBtn.onClick.AddListener(((ActionItemType)activeItems[ActiveInventoryIndex]).characterAction.Invoke);
+
+        if(unityEvent!= null)
+        {
+            backpackBtn.onClick.AddListener(unityEvent.Invoke);
+        }
+    }
+
+    private void RenderQtyText(string text)
+    {
+        qtyText.text = text;
+    }
+
+    public void UseItem()
+    {
+        activeItems[ActiveInventoryIndex].Qty--;
+        RenderQtyText(activeItems[ActiveInventoryIndex].Qty.ToString());
+
+        if(activeItems[ActiveInventoryIndex].Qty < 1)
+        {
+            activeItems.Remove(activeItems[ActiveInventoryIndex]);
+            ActiveInventoryIndex = 0;
+            SetActiveItem(ActiveInventoryIndex);
+        }
     }
 
     public void InventoryToggle()
     {
-        gameObject.SetActive(!gameObject.activeSelf);
-        if (gameObject.activeSelf)
+        _inventoryPanel.SetActive(!_inventoryPanel.activeSelf);
+        if (_inventoryPanel.activeSelf)
         {
-            RenderNotActiveCells();
+            _inventoryNotActiveItemsController.RenderNotActiveCells();
             RenderActiveCells();
-            gameObject.transform.localPosition = Vector3.zero;
+            RenderQtyText(activeItems.ElementAtOrDefault(ActiveInventoryIndex)?.Qty.ToString());
+            //gameObject.transform.localPosition = Vector3.zero;
+        }
+    }
+
+    public void OnEvent(EVENT_TYPE Event_Type, Component Sender, object Param = null)
+    {
+        switch (Event_Type)
+        {
+            case EVENT_TYPE.Buy:
+                RenderActiveCells();
+                RenderQtyText(activeItems[ActiveInventoryIndex].Qty.ToString());
+                break;
         }
     }
 }

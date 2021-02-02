@@ -229,7 +229,6 @@ namespace Assets.Scripts.Weapons
             GameObject bulletClone = _easyObjectPool.GetObjectFromPool(BallCategory.ToString(), SpoonAim.position, SpoonAim.rotation);
             bulletClone.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector3(0, 1, 0) * _sila);
             EventManager.Instance.PostNotification(EVENT_TYPE.TrebShot, this);
-
         }
 
         public void RotateSmallGearUp()
@@ -246,8 +245,8 @@ namespace Assets.Scripts.Weapons
                     SmallGear.transform.Rotate(-(Vector3.forward) * _smallGearSpeed * Time.deltaTime);
                     rod.Translate(-Vector3.right * _rodSpeed * Time.deltaTime);
                     mockGear.Rotate(-(Vector3.forward) * _mockGearSpeed * Time.deltaTime);
-                    topBelt.GetComponent<SpriteRenderer>().size = new Vector2(topBelt.GetComponent<SpriteRenderer>().size.x+(-Time.deltaTime), .2f);
-                    bottomBelt.GetComponent<SpriteRenderer>().size = new Vector2(bottomBelt.GetComponent<SpriteRenderer>().size.x + (Time.deltaTime), .2f);
+                    topBelt.GetComponent<SpriteRenderer>().size = new Vector2(topBelt.GetComponent<SpriteRenderer>().size.x+(-Time.deltaTime), .1f);
+                    bottomBelt.GetComponent<SpriteRenderer>().size = new Vector2(bottomBelt.GetComponent<SpriteRenderer>().size.x + (Time.deltaTime), .1f);
                 }
                 else
                 {
@@ -268,8 +267,8 @@ namespace Assets.Scripts.Weapons
                     SmallGear.transform.Rotate(Vector3.forward * _smallGearSpeed * Time.deltaTime);
                     rod.Translate(Vector3.right * _rodSpeed * Time.deltaTime);
                     mockGear.transform.Rotate(Vector3.forward * _mockGearSpeed * Time.deltaTime);
-                    topBelt.GetComponent<SpriteRenderer>().size = new Vector2(topBelt.GetComponent<SpriteRenderer>().size.x + (Time.deltaTime), .2f);
-                    bottomBelt.GetComponent<SpriteRenderer>().size = new Vector2(bottomBelt.GetComponent<SpriteRenderer>().size.x + (-Time.deltaTime), .2f);
+                    topBelt.GetComponent<SpriteRenderer>().size = new Vector2(topBelt.GetComponent<SpriteRenderer>().size.x + (Time.deltaTime), .1f);
+                    bottomBelt.GetComponent<SpriteRenderer>().size = new Vector2(bottomBelt.GetComponent<SpriteRenderer>().size.x + (-Time.deltaTime), .1f);
                 }
                 else
                 {

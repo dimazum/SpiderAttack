@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class MainHomeController : MonoBehaviour, IListener
 {
-    public int webHits;
+    [SerializeField]
+    private Transform _mainHouseBtn;
     public GameObject[] webs;
+    public int webHits;
 
     void Start()
     {
@@ -19,6 +21,23 @@ public class MainHomeController : MonoBehaviour, IListener
 
                 webs.ElementAtOrDefault(webHits - 1)?.SetActive(true);
                 break;
+        }
+    }
+
+    public void OnTriggerEnter2D(Collider2D coll)
+    {
+        if (coll.tag == "player")
+        {
+            _mainHouseBtn.localPosition = Vector3.zero;
+        }
+    }
+
+    public void OnTriggerExit2D(Collider2D coll)
+    {
+        if (coll.tag == "player")
+        {
+
+            _mainHouseBtn.localPosition = new Vector3(0, 0, -500);
         }
     }
 }

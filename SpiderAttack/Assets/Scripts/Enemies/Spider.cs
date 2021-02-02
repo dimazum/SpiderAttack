@@ -68,6 +68,7 @@ public abstract class Spider: MonoBehaviour, IListener
     {
         EventManager.Instance.AddListener(EVENT_TYPE.GateDestroy, this);
         EventManager.Instance.AddListener(EVENT_TYPE.SuperBomb, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.MainHouseDestroy, this);
         coroutines = new List<Coroutine>();
 
         _speed = speed;
@@ -386,6 +387,10 @@ public abstract class Spider: MonoBehaviour, IListener
 
                 EventManager.Instance.PostNotification(EVENT_TYPE.SpiderHurt, this, damageValue);
                 break;
+
+            case EVENT_TYPE.MainHouseDestroy:
+                    SetAnimation(idle, true);
+                break;
         }
     }
 
@@ -406,14 +411,33 @@ public abstract class Spider: MonoBehaviour, IListener
         {
             return null;
         }
-        //_spiderAim = battleController.allTargets?.OrderBy(x => Vector2.Distance(transform.position, x.position)).ElementAtOrDefault(0);
-        _spiderAim = battleController.allTargets?.ElementAtOrDefault(0);
+
+        _spiderAim = GetClosestEnemy(battleController.allTargets);
+
 
         battleController.spiderTarget = _spiderAim;
         spiderTarget = _spiderAim;
 
         return _spiderAim;
     }
+
+    private Transform GetClosestEnemy(Transform[] enemies)
+    {
+        Transform tMin = null;
+        float minDist = Mathf.Infinity;
+        foreach (Transform t in enemies)
+        {
+            if (t == null) continue;
+            float dist = Vector2.Distance(t.position, transform.position);
+            if (dist < minDist)
+            {
+                tMin = t;
+                minDist = dist;
+            }
+        }
+        return tMin;
+    }
+
 
 }
 

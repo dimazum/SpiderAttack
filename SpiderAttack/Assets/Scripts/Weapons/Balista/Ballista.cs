@@ -224,8 +224,8 @@ public class Ballista : MonoBehaviour, IListener, IArrowUsingWeapon
             {
                 BowBase.transform.Rotate(-(Vector3.forward) * _BowBaseRotateSpeed * Time.deltaTime);
                 SmallGear.transform.Rotate(-(Vector3.forward) * _smallGearSpeed * Time.deltaTime);
-                leftBelt.GetComponent<SpriteRenderer>().size = new Vector2(leftBelt.GetComponent<SpriteRenderer>().size.x + (-Time.deltaTime), .2f);
-                rightBelt.GetComponent<SpriteRenderer>().size = new Vector2(rightBelt.GetComponent<SpriteRenderer>().size.x + (Time.deltaTime), .2f);
+                leftBelt.GetComponent<SpriteRenderer>().size = new Vector2(leftBelt.GetComponent<SpriteRenderer>().size.x + (-Time.deltaTime), .1f);
+                rightBelt.GetComponent<SpriteRenderer>().size = new Vector2(rightBelt.GetComponent<SpriteRenderer>().size.x + (Time.deltaTime), .1f);
             }
             else
             {
@@ -243,8 +243,8 @@ public class Ballista : MonoBehaviour, IListener, IArrowUsingWeapon
             {
                 BowBase.transform.Rotate((Vector3.forward) * _BowBaseRotateSpeed * Time.deltaTime);
                 SmallGear.transform.Rotate((Vector3.forward) * _smallGearSpeed * Time.deltaTime);
-                leftBelt.GetComponent<SpriteRenderer>().size = new Vector2(leftBelt.GetComponent<SpriteRenderer>().size.x + (Time.deltaTime), .2f);
-                rightBelt.GetComponent<SpriteRenderer>().size = new Vector2(rightBelt.GetComponent<SpriteRenderer>().size.x + (-Time.deltaTime), .2f);
+                leftBelt.GetComponent<SpriteRenderer>().size = new Vector2(leftBelt.GetComponent<SpriteRenderer>().size.x + (Time.deltaTime), .1f);
+                rightBelt.GetComponent<SpriteRenderer>().size = new Vector2(rightBelt.GetComponent<SpriteRenderer>().size.x + (-Time.deltaTime), .1f);
             }
             else
             {

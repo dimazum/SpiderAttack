@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class ActionController : MonoBehaviour
 {
+    private InventoryController _inventoryController;
     [SerializeField]
     private GameObject ladder;
     [SerializeField]
@@ -17,6 +18,12 @@ public class ActionController : MonoBehaviour
     private float teleportTime = 2.5f;
     private Coroutine teleportCo;
     private int _layerMaskBomb = 1 << Layer.Blocks | 1 << Layer.Ladders | 1 << Layer.Stones;
+    private bool isTeleporting;
+
+    private void Start()
+    {
+        _inventoryController = FindObjectOfType<InventoryController>();
+    }
 
     public void SetLadder()
     {
@@ -42,6 +49,7 @@ public class ActionController : MonoBehaviour
                 Instantiate(ladder, pos, Quaternion.identity, sceneContainer); //если ничего не нашли внизу не пусто, то ставим лестницу
                 EventManager.Instance.PostNotification(EVENT_TYPE.SetLadder, this);
                 SaveHelper.Instance.PutObjecPosition(pos, ItemGroup.Ladders);
+                _inventoryController.UseItem();
             }
         }
         else
@@ -52,18 +60,20 @@ public class ActionController : MonoBehaviour
 
     public void StartTeleport()
     {
+        if (isTeleporting) return;
         EventManager.Instance.PostNotification(EVENT_TYPE.StartTeleport, this, teleportTime);
         teleportCo =  StartCoroutine(CoStartTeleport());
+        _inventoryController.UseItem();
     }
 
     public void StopTeleport()
     {
+        isTeleporting = false;
         if (teleportCo == null) return;
         StopCoroutine(teleportCo);
         EventManager.Instance.PostNotification(EVENT_TYPE.FinishTeleport, this);
     }
 
-   
 
     public void SetBomb()
     {
@@ -92,9 +102,9 @@ public class ActionController : MonoBehaviour
             {
                 var bombObj = Instantiate(bomb, pos, Quaternion.identity, sceneContainer);
 
-                //EventManager.Instance.PostNotification(EVENT_TYPE.SetLadder, this);
                 Vector2 explosionDir = new Vector2(transform.localScale.x, 0);
                 StartCoroutine(BombDestroy(pos, bombObj, explosionDir));
+                _inventoryController.UseItem();
             }
         }
         else
@@ -105,11 +115,13 @@ public class ActionController : MonoBehaviour
 
     private IEnumerator CoStartTeleport()
     {
+        isTeleporting = true;
         yield return new WaitForSeconds(teleportTime);
         _camera.SetParent(gameObject.transform);
-        transform.position = new Vector3(-18, 0, 0);
+        transform.position = new Vector3(-18, 0.36f, 0);
         _camera.SetParent(null);
         EventManager.Instance.PostNotification(EVENT_TYPE.FinishTeleport, this);
+        isTeleporting = false;
     }
 
     private IEnumerator BombDestroy( Vector2 mousePos, GameObject bomb, Vector2 explosionDir)

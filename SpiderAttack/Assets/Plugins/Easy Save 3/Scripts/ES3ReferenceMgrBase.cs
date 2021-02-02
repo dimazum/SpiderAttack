@@ -301,7 +301,7 @@ namespace ES3Internal
 
         public void RemoveNullOrInvalidValues()
         {
-            var nullKeys = idRef.Where(pair => pair.Value == null || CanBeSaved(pair.Value))
+            var nullKeys = idRef.Where(pair => pair.Value == null || !CanBeSaved(pair.Value))
                                 .Select(pair => pair.Key).ToList();
             foreach (var key in nullKeys)
                 idRef.Remove(key);

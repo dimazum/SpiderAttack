@@ -22,7 +22,7 @@ public class Rounds : MonoBehaviour, IListener
         switch (Event_Type)
         {
             case EVENT_TYPE.StartNight:
-                GameObject[] spiders = rounds[GameStates.Instance.round].Enemies;
+                GameObject[] spiders = rounds[GameStates.Round].Enemies;
 
                 StartCoroutine(SpiderInstantiate(spiders));
                 break;
@@ -33,7 +33,7 @@ public class Rounds : MonoBehaviour, IListener
                 _enemyList.Remove(deathSpider);
                 if (!_enemyList.Any())
                 {
-                    EventManager.Instance.PostNotification(EVENT_TYPE.StartDay,this, GameStates.Instance.round++);
+                    EventManager.Instance.PostNotification(EVENT_TYPE.StartDay,this, GameStates.Round++);
                 }
 
 

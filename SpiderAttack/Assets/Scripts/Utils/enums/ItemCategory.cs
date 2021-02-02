@@ -65,3 +65,13 @@ public enum LampCategory: byte
     LampX2,
     LampX3
 }
+
+public enum LadderCategory : byte
+{
+    LadderX1
+}
+
+public enum BombCategory : byte
+{
+    BombX1
+}

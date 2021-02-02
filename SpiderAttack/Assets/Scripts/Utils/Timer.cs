@@ -30,7 +30,9 @@ public class Timer : MonoBehaviour, IListener
     
     void Start()
     {
+        GameStates.isDay = true;
         EventManager.Instance.AddListener(EVENT_TYPE.StartDay, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.StartNight, this);
         EventManager.Instance.AddListener(EVENT_TYPE.ResetTime, this);
         _rounds = FindObjectOfType<Rounds>();
         if (co != null)
@@ -38,7 +40,7 @@ public class Timer : MonoBehaviour, IListener
             StopCoroutine(co);
         }
 
-        var day = GameStates.Instance.round;
+        var day = GameStates.Round;
         _sec = GameStates.Instance.CurrentTime;
         co = StartTimer(day, _sec);
 
@@ -100,16 +102,24 @@ public class Timer : MonoBehaviour, IListener
                     {
                         StopCoroutine(co);
                     }
-                    co = StartTimer(GameStates.Instance.round);
+                    co = StartTimer(GameStates.Round);
                     StartCoroutine(co);
+
+                    GameStates.isDay = true;
+                    break;
+                }
+
+            case EVENT_TYPE.StartNight:
+                {
+                    GameStates.isDay = false;
                     break;
                 }
 
             case EVENT_TYPE.ResetTime:
                 {
-                    if (CurrentTime > 10)
+                    if (CurrentTime > 6)
                     {
-                        CurrentTime = 10;
+                        CurrentTime = 6;
                     }
                     break;
                 }

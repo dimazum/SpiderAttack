@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class TrebChildBall : Bullet
 {
-    public TrebMultiBall ballistaTripleArrow;
+    public TrebMultiBall trebMiltyBall;
     public Animation animation;
     public GameObject explosionObj;
     public float explosionDelay = 1f;
@@ -15,7 +15,9 @@ public class TrebChildBall : Bullet
 
     public void StartArrow()
     {
+        Damage = trebMiltyBall.Damage;
         gameObject.SetActive(true);
+        //gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
@@ -46,12 +48,13 @@ public class TrebChildBall : Bullet
     private void BackToStartState()
     {
         gameObject.SetActive(false);
+        //gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
         gameObject.layer = Layer.BulletStone;
         gameObject.transform.localPosition = vectorZero;
         gameObject.transform.localRotation = quatZero;
         explosionObj.transform.SetParent(gameObject.transform);
         explosionObj.transform.localPosition = vectorZero;
         explosionObj.transform.localRotation = quatZero;
-        ballistaTripleArrow.ChildCounter++;
+        trebMiltyBall.ChildCounter++;
     }
 }

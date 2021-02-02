@@ -3,15 +3,15 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WeaponInventotyController : MonoBehaviour
+public abstract class WeaponInventotyController : MonoBehaviour
 {
-    private int _typeCounter;
+    public int _typeCounter;
     public ItemGroup ItemGroup;
-    [SerializeField]
-    private Image arrowTypeSelectImage;
     [SerializeField]
     private ItemsData2 itemsData;
     protected TypeCollection _bulletCollection;
+    [SerializeField]
+    private TextMeshProUGUI textQty;
 
     public int TypeCounter
     {
@@ -30,41 +30,48 @@ public class WeaponInventotyController : MonoBehaviour
         }
     }
 
-
     protected void Start()
     {
         _bulletCollection = itemsData.collections2[(int)ItemGroup];
-        arrowTypeSelectImage.sprite = _bulletCollection.itemTypes[0].image;
     }
 
     public void NextArrowType()
     {
         TypeCounter++;
-        while (_bulletCollection.itemTypes[TypeCounter].Qty < 1)
+        while (((ICanBeInStock)_bulletCollection.itemTypes[TypeCounter]).QtyInStock < 1)
         {
             TypeCounter++;
         }
 
         SetItemCategoryToPool(TypeCounter);
         RenderArrowTypeIcon(TypeCounter);
+        RenderQty(TypeCounter);
     }
-
 
     protected virtual void SetItemCategoryToPool(int typeIndex) { }
 
-
-    public void RenderArrowTypeIcon(int counter)
+    protected void DisableObjects(GameObject[] objects)
     {
-        arrowTypeSelectImage.sprite = _bulletCollection.itemTypes[counter].image;
+        foreach (var obj in objects)
+        {
+            obj.SetActive(false);
+        }
+    }
+
+    private void RenderQty(int counter)
+    {
         if (!(_bulletCollection.itemTypes[counter].endlesQty))
         {
-            arrowTypeSelectImage.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _bulletCollection.itemTypes[counter].Qty.ToString();
+            textQty.text = ((ICanBeInStock)_bulletCollection.itemTypes[counter]).QtyInStock.ToString();
         }
         else
         {
-            arrowTypeSelectImage.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = string.Empty;
+            textQty.text = string.Empty;
         }
     }
+
+    public abstract void RenderArrowTypeIcon(int counter);
+
     protected void ChangeQty()
     {
         if (_bulletCollection.itemTypes[TypeCounter].endlesQty) 
@@ -72,14 +79,16 @@ public class WeaponInventotyController : MonoBehaviour
             return;
         }
 
-        _bulletCollection.itemTypes[TypeCounter].Qty--;
+        ((ICanBeInStock)_bulletCollection.itemTypes[TypeCounter]).QtyInStock--;
 
-        if (_bulletCollection.itemTypes[TypeCounter].Qty < 1)
+        if (((ICanBeInStock)_bulletCollection.itemTypes[TypeCounter]).QtyInStock < 1)
         {
             TypeCounter = 0;
             SetItemCategoryToPool(0);
             RenderArrowTypeIcon(0);
+            
         }
         RenderArrowTypeIcon(TypeCounter);
+        RenderQty(TypeCounter);
     }
 }

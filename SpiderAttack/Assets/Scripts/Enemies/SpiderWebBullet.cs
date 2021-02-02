@@ -50,8 +50,7 @@ public class SpiderWebBullet : MonoBehaviour, IListener
             EventManager.Instance.PostNotification(EVENT_TYPE.SpiderWebHitCharacter, this);
             transform.SetParent(webContainer);
             transform.localPosition = zeroPos;
-            battleController.allTargets.Remove(battleController.allTargets.FirstOrDefault(x => x.name.Contains("Character")));
-
+            battleController.allTargets[1] = null;
             spiderTarget = spiderController.FindTarget();
         }
 
@@ -66,7 +65,8 @@ public class SpiderWebBullet : MonoBehaviour, IListener
             if (mainHomeController.webHits == 4)
             {
                 EventManager.Instance.PostNotification(EVENT_TYPE.GameOver, this);
-                battleController.allTargets.Remove(battleController.allTargets.FirstOrDefault(x=>x.name.Contains("SpidertargetHouse")));
+                EventManager.Instance.PostNotification(EVENT_TYPE.MainHouseDestroy, this);
+                battleController.allTargets[2] = null;
                 spiderTarget = spiderController.FindTarget();
             }
         }
@@ -108,8 +108,9 @@ public class SpiderWebBullet : MonoBehaviour, IListener
                     transform.localPosition = zeroPos;
 
                     {
-                        var spiderTargetGate = battleController.allTargets.FirstOrDefault(x => x.gameObject.name.Contains("spiderTargetGate"));
-                        battleController.allTargets.Remove(spiderTargetGate);
+                    //var spiderTargetGate = battleController.allTargets.FirstOrDefault(x => x.gameObject.name.Contains("spiderTargetGate"));
+                    //battleController.allTargets.Remove(spiderTargetGate);
+                    battleController.allTargets[0] = null;
                     }
 
                     spiderTarget = spiderController.FindTarget();

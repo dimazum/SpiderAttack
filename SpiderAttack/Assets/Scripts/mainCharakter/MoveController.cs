@@ -27,14 +27,15 @@ public class MoveController : MonoBehaviour, IListener
     RaycastHit2D hit;
     private float horizontalRayRange = 0.4f;
     private float verticalRayRange = 0.6f;
-    public bool isLadderAbove;
+    public bool isLadderAbove = true;
     private bool isLadder;
     public bool blockAllMoves;
     public FixedJoystick fixedJoystick;
     Animator animator;
     public bool blockMove;
     public bool canMove;
-    public bool canMoveUp; 
+    public bool canMoveUp;
+
 
 
     //for Android and Editor
@@ -80,8 +81,8 @@ public class MoveController : MonoBehaviour, IListener
     {
         fixedJoystick.SnapX = true;
         fixedJoystick.SnapY = true;
-        EventManager.Instance.AddListener(EVENT_TYPE.OpenShop, this);
-        EventManager.Instance.AddListener(EVENT_TYPE.CloseShop, this);
+        //EventManager.Instance.AddListener(EVENT_TYPE.OpenShop, this);
+        //EventManager.Instance.AddListener(EVENT_TYPE.CloseShop, this);
         EventManager.Instance.AddListener(EVENT_TYPE.TrebFireButtonDown, this);
         EventManager.Instance.AddListener(EVENT_TYPE.TrebFireButtonUp, this);
         EventManager.Instance.AddListener(EVENT_TYPE.BallistaFireButtonDown, this);
@@ -97,15 +98,15 @@ public class MoveController : MonoBehaviour, IListener
         EventManager.Instance.AddListener(EVENT_TYPE.SpiderMeleeHitCharacter, this);
         EventManager.Instance.AddListener(EVENT_TYPE.GameOver, this);
         EventManager.Instance.AddListener(EVENT_TYPE.CheckIfCharInVillage, this);
-        EventManager.Instance.AddListener(EVENT_TYPE.CharInCave, this);
-        EventManager.Instance.AddListener(EVENT_TYPE.CharInVillage, this);
         EventManager.Instance.AddListener(EVENT_TYPE.BallistaShot, this);
         EventManager.Instance.AddListener(EVENT_TYPE.BallistaCharge, this);
         EventManager.Instance.AddListener(EVENT_TYPE.StartTeleport, this);
         EventManager.Instance.AddListener(EVENT_TYPE.FinishTeleport, this);
         EventManager.Instance.AddListener(EVENT_TYPE.SetLadder, this);
 
-        flashlight.SetActive(!CheckIfInVillage());
+        CheckIfInVillage();
+        SetRigidbodyType2D(CheckLadder());
+        //flashlight.SetActive(!);
     }
 
     public void HorizontalFlip(Vector3 vector3)
@@ -185,10 +186,10 @@ public class MoveController : MonoBehaviour, IListener
                 State = CharState.Rubilovo;
                 canMoveUp = false;
             }
-            else if (hit.collider?.name.Contains(Stone) == true)
-            {
-                canMoveUp = false;
-            }
+            //else if (hit.collider?.name.Contains(Stone) == true)
+            //{
+            //    canMoveUp = false;
+            //}
 
             else if (hit.collider == null && isLadder)
             {
@@ -216,11 +217,28 @@ public class MoveController : MonoBehaviour, IListener
 
         else
         {
-            SetIdleAnimation();
+
+                SetIdleAnimation();
+
+            }
         }
-    }
 
     public bool CheckIfInVillage()
+    {
+        var pos = transform.position;
+        if (-4f < pos.x && pos.x < 30)
+        {
+            if (-0.5f < transform.position.y && transform.position.y < 10)
+            {
+                GameStates.Instance.InCity = true;
+                return true;
+            }
+        }
+        GameStates.Instance.InCity = false;
+        return false;
+    }
+
+    public bool CheckIfNearByCave()
     {
         var pos = transform.position;
         if (-14.5f < pos.x && pos.x < 30)
@@ -236,7 +254,7 @@ public class MoveController : MonoBehaviour, IListener
     public void GetRaycastHit(Vector2 vector2, float rayRange)
     {
 
-        hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + 0.45f), vector2 , rayRange, 1<<Layer.Blocks|1<<Layer.Stones);
+        hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + 0.45f), vector2 , rayRange, 1<<Layer.Blocks | 1<<Layer.Stones | 1 << Layer.Static);
         //Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + 0.5f), vector2 , Color.red, rayRange);
 
     }
@@ -246,7 +264,10 @@ public class MoveController : MonoBehaviour, IListener
         Vector2 vector2 = vector3 * axisRaw;
         transform.position = Vector2.MoveTowards(transform.position, (Vector2)transform.position + vector2, speed * Time.deltaTime);
 
-        SetWalkAnimation();
+
+           SetWalkAnimation();
+
+        
     }
     private void SetWalkAnimation()
     {
@@ -314,7 +335,7 @@ public class MoveController : MonoBehaviour, IListener
         if (currentblock != null)
         {
             var blockGroundDefault = currentblock.GetComponent<IHitableBlock>();
-            if (blockGroundDefault.MinPickLvl <= GameStates.Instance.PickLvl)
+            if (blockGroundDefault.MinPickLvl <= GameStates.PickLvl)
             {
                 blockGroundDefault?.Hit();
             }
@@ -430,9 +451,10 @@ public class MoveController : MonoBehaviour, IListener
                 break;
 
             case EVENT_TYPE.SpiderWebHitCharacter:
-                animator.Play("webDie");
+                animator.SetBool("WebDie", true);
                 EventManager.Instance.PostNotification(EVENT_TYPE.GameOver,this);
                 blockAllMoves = true;
+                rb.bodyType = RigidbodyType2D.Dynamic;
                 break;
 
             case EVENT_TYPE.SpiderMeleeHitCharacter:
@@ -457,32 +479,21 @@ public class MoveController : MonoBehaviour, IListener
                 animator.SetBool("Teleport", false);
                 EventManager.Instance.PostNotification(EVENT_TYPE.CheckIfCharInVillage, this);
                 blockMove = false;
+                SetRigidbodyType2D(CheckLadder());
                 break;
 
             case EVENT_TYPE.CheckIfCharInVillage:
                 {
                     if (CheckIfInVillage())
                     {
-                        EventManager.Instance.PostNotification(EVENT_TYPE.CharInVillage, this);
+                        State = CharState.Idle;
+                        break;
                     }
                     else
                     {
-                        EventManager.Instance.PostNotification(EVENT_TYPE.CharInCave, this);
+                        State = CharState.IdleKirche;
+                        break;
                     }
-                    break;
-                }
-
-            case EVENT_TYPE.CharInCave:
-                {
-                    flashlight.SetActive(true);
-                    State = CharState.IdleKirche;
-                    break;
-                }
-            case EVENT_TYPE.CharInVillage:
-                {
-                    flashlight.SetActive(false);
-                    State = CharState.Idle;       
-                    break;
                 }
 
         }
