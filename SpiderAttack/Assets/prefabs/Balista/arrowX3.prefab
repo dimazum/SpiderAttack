@@ -71,7 +71,12 @@ PrefabInstance:
         type: 3}
       propertyPath: centerOfMass
       value: 
-      objectReference: {fileID: 6032878967572986735}
+      objectReference: {fileID: 2560476960226083091}
+    - target: {fileID: 4878545281621306033, guid: 65933bb7b93eb474095da287b85a6817,
+        type: 3}
+      propertyPath: ballistaMultiArrow
+      value: 
+      objectReference: {fileID: 3746837835706537753}
     - target: {fileID: 4878545281621306033, guid: 65933bb7b93eb474095da287b85a6817,
         type: 3}
       propertyPath: ballistaTripleArrow
@@ -157,9 +162,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f58dad5f6cb3d1443b4e6413f43bfcbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &6032878967572986735 stripped
+--- !u!4 &2560476960226083091 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 8028691418130119793, guid: 65933bb7b93eb474095da287b85a6817,
+  m_CorrespondingSourceObject: {fileID: 2259143457116947981, guid: 65933bb7b93eb474095da287b85a6817,
     type: 3}
   m_PrefabInstance: {fileID: 4382762455781312286}
   m_PrefabAsset: {fileID: 0}
@@ -174,7 +179,12 @@ PrefabInstance:
         type: 3}
       propertyPath: centerOfMass
       value: 
-      objectReference: {fileID: 3093450172670293931}
+      objectReference: {fileID: 6548119257709268439}
+    - target: {fileID: 4878545281621306033, guid: 65933bb7b93eb474095da287b85a6817,
+        type: 3}
+      propertyPath: ballistaMultiArrow
+      value: 
+      objectReference: {fileID: 3746837835706537753}
     - target: {fileID: 4878545281621306033, guid: 65933bb7b93eb474095da287b85a6817,
         type: 3}
       propertyPath: ballistaTripleArrow
@@ -260,9 +270,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f58dad5f6cb3d1443b4e6413f43bfcbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &3093450172670293931 stripped
+--- !u!4 &6548119257709268439 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 8028691418130119793, guid: 65933bb7b93eb474095da287b85a6817,
+  m_CorrespondingSourceObject: {fileID: 2259143457116947981, guid: 65933bb7b93eb474095da287b85a6817,
     type: 3}
   m_PrefabInstance: {fileID: 5009551740974746586}
   m_PrefabAsset: {fileID: 0}
@@ -277,7 +287,12 @@ PrefabInstance:
         type: 3}
       propertyPath: centerOfMass
       value: 
-      objectReference: {fileID: 1990750766527525769}
+      objectReference: {fileID: 7751013859991767541}
+    - target: {fileID: 4878545281621306033, guid: 65933bb7b93eb474095da287b85a6817,
+        type: 3}
+      propertyPath: ballistaMultiArrow
+      value: 
+      objectReference: {fileID: 3746837835706537753}
     - target: {fileID: 4878545281621306033, guid: 65933bb7b93eb474095da287b85a6817,
         type: 3}
       propertyPath: ballistaTripleArrow
@@ -363,9 +378,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f58dad5f6cb3d1443b4e6413f43bfcbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &1990750766527525769 stripped
+--- !u!4 &7751013859991767541 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 8028691418130119793, guid: 65933bb7b93eb474095da287b85a6817,
+  m_CorrespondingSourceObject: {fileID: 2259143457116947981, guid: 65933bb7b93eb474095da287b85a6817,
     type: 3}
   m_PrefabInstance: {fileID: 8415878640501968888}
   m_PrefabAsset: {fileID: 0}

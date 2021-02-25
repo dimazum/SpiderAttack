@@ -22,10 +22,10 @@ public class BallistaMultiArrow : BaseArrow
             if(_childCounter > replicates.Length - 1)
             {
                 EasyObjectPool.instance.ReturnObjectToPool(gameObject);
-                if(_hitSpiderCounter > 0)
-                {
-                    EventManager.Instance.PostNotification(EVENT_TYPE.ArrowHitTarget, this);
-                }
+                //if(_hitSpiderCounter > 0)
+                //{
+                //    EventManager.Instance.PostNotification(EVENT_TYPE.ArrowHitTarget, this);
+                //}
                 if(_hitSpiderCounter == 0)
                 {
                     EventManager.Instance.PostNotification(EVENT_TYPE.ArrowMissedTarget, this);
@@ -45,12 +45,13 @@ public class BallistaMultiArrow : BaseArrow
 
     private void Dublication()
     {
+        _childCounter = 0;
+        _hitSpiderCounter = 0;
+
         for (int i = 0; i < replicates.Length; i++)
         {
             replicates[i].gameObject.transform.localPosition = vectorZero;
             replicates[i].gameObject.transform.localRotation = quatZero;
-            _childCounter = 0;
-            _hitSpiderCounter = 0;
             replicates[i].StartArrow();
             replicatesRbs[i].AddRelativeForce(directions[i] * speed);
         }

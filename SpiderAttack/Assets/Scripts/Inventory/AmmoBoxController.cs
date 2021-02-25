@@ -28,7 +28,7 @@ public class AmmoBoxController : MonoBehaviour
         foreach (var group in ammoGroups)
         {
             var col = itemsData.collections2[(int)group];
-            ammoList.AddRange(col.itemTypes.Where(x => (x as ICanBeInStock)?.QtyInStock > 0));
+            ammoList.AddRange(col.itemTypes.Where(x => (x as ICanBeInStock)?.QtyInStock > 0 && !x.endlesQty));
         }
 
         for (int i = 0; i < cellsContainer.childCount && i < ammoList.Count; i++)
@@ -55,7 +55,7 @@ public class AmmoBoxController : MonoBehaviour
     {
         if (coll.tag == "player")
         {
-            StartCoroutine(ReplaceResources());
+            StartCoroutine(ReplaceResourcesWithMoney());
             boxBtn.localPosition = Vector3.zero;
         }
     }
@@ -66,10 +66,11 @@ public class AmmoBoxController : MonoBehaviour
         {
 
             boxBtn.localPosition = new Vector3(0, 0, -500);
+            ammoBoxPanel.SetActive(false);
         }
     }
 
-    private IEnumerator ReplaceResources()
+    private IEnumerator ReplaceResourcesWithMoney()
     {
         foreach (var group in ammoGroups)
         {

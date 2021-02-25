@@ -38,8 +38,8 @@ public class BattlePlaceSecondFloor : MonoBehaviour
             _battlePlaceFirstFloor.Elapsed = 0;
             _battlePlaceFirstFloor.Transition = 6;
             _cameraController.offset = _battlePlaceFirstFloor.DefaultState;
-            ballistaButtons.SetActive(false);
-            trebuchetButtons.SetActive(true);
+            //ballistaButtons.SetActive(false);
+            //trebuchetButtons.SetActive(true);
         }
     }
 }

@@ -1,11 +1,17 @@
 ﻿using Assets.Scripts.enums;
-using Assets.Scripts.Utils.enums;
 using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class BaseGroundBlock : MonoBehaviour, ICheckFallingObj, IHitableBlock
 {
     [SerializeField] private byte _minPickLvl;
+    [SerializeField] private bool _isGround;
+
+    public bool IsGround
+    {
+        get => _isGround;
+        set => _isGround = value;
+    }
 
     public byte MinPickLvl
     {

@@ -7,6 +7,8 @@ public class MainHomeController : MonoBehaviour, IListener
     private Transform _mainHouseBtn;
     public GameObject[] webs;
     public int webHits;
+    [SerializeField] 
+    private GameObject _mainHousePanel;
 
     void Start()
     {
@@ -36,8 +38,8 @@ public class MainHomeController : MonoBehaviour, IListener
     {
         if (coll.tag == "player")
         {
-
             _mainHouseBtn.localPosition = new Vector3(0, 0, -500);
+            _mainHousePanel.SetActive(false);
         }
     }
 }

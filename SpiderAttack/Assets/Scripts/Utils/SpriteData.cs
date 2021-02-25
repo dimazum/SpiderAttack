@@ -4,5 +4,5 @@ public class SpriteData : Singleton<SpriteData>
 {
     public Sprite[] cracks;
     public Sprite[] blockBackground;
-
+    public Sprite[] grounds;
 }

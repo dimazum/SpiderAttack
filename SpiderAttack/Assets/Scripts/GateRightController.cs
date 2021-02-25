@@ -18,6 +18,7 @@ public class GateRightController : MonoBehaviour, IListener
 
     void Start()
     {
+        Debug.Log(GameStates.GateCurrentHP);
         _animator = GetComponent<Animator>();
         SetMaxGateHP(GameStates.GateMaxHP);
         SetCurrentGateHP(GameStates.GateCurrentHP);
@@ -74,6 +75,13 @@ public class GateRightController : MonoBehaviour, IListener
             EventManager.Instance.PostNotification(EVENT_TYPE.NotEnoughMoney, this);
             return;
         }
+
+        if (!door.activeSelf)
+        {
+            door.SetActive(true);
+            GetComponent<BoxCollider2D>().enabled = true;
+        }
+
         var fixValue = GameStates.GateMaxHP - GameStates.GateCurrentHP;
         int div;
         //= GameStates.Money >= fixValue ? fixValue : fixValue - GameStates.Money;

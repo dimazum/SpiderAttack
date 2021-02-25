@@ -1,5 +1,5 @@
 ﻿
-public struct SaveInfo
+public class SaveInfo
 {
     [ES3Serializable]
     public int QtyInStock { get; set; }

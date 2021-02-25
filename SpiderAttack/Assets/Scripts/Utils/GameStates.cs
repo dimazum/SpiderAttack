@@ -7,6 +7,7 @@ public class GameStates : Singleton<GameStates>
     private static int _gateLvl; //current pick lvl
     private static int _ballLvl;
     private static int _arrowLvl;
+    private static int _backpackLvl;
     private int _currentTime;
     public static int _gateCurrentHp;
     public bool _inCity;
@@ -34,6 +35,19 @@ public class GameStates : Singleton<GameStates>
             }
         }
     }
+    public static int BackpackLvl
+    {
+        get => _backpackLvl;
+        set
+        {
+            if (_backpackLvl < 4)
+            {
+                _backpackLvl = value;
+            }
+        }
+    }
+    public static int BackpackCurrentQty { get; set; }
+    public static int BackpackCapacity { get; set; }
     public static int GateMaxHP { get; set; }
     public static int GateCurrentHP {
         get => _gateCurrentHp;
@@ -42,6 +56,10 @@ public class GameStates : Singleton<GameStates>
             if (value >= 0)
             {
                 _gateCurrentHp = value;
+            }
+            else
+            {
+                _gateCurrentHp = 0;
             }
         }
     }

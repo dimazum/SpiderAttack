@@ -95,14 +95,25 @@ public class SceneGenerator : MonoBehaviour
 
                 if (tile != null)
                 {
-                    var tileNumberStr = tile.name.Split('_').Last();
+                    string tileNumberStr = string.Empty;
+                    try
+                    {
+                        tileNumberStr = tile.name.Split('_')[1];
+                    }
+
+                    catch (Exception)
+                    {
+
+                    }
+                    
                     var tileNumberInt = Int32.Parse(tileNumberStr);
-                    if(tileNumberInt == -1)//if nothing
+                    if(tileNumberInt == 1)//if nothing
                     {
                         saveManager.Map[index] = (short)(tileNumberInt);
                         continue;
                     }
-                    saveManager.Map[index] = (short)(tileNumberInt * 10);
+                    //saveManager.Map[index] = (short)(tileNumberInt * 10);
+                    saveManager.Map[index] = (short)(tileNumberInt);
                 }
             }
         }
@@ -126,13 +137,13 @@ public class SceneGenerator : MonoBehaviour
                 var newPos = new Vector2(spawnX, spawnY);
                 var mapIndex = saveManager.Map[index];
 
-                if (mapIndex == -1 || mapIndex == 70) //empty or ladder
+                if (mapIndex == 1 || mapIndex == 4) //empty or ladder
                 {
                     var obj2 = Instantiate(blackQuad, blackQuadContainer);
                     obj2.transform.localPosition = newPos / 32;
                 }
 
-                if (mapIndex == -2)
+                if (mapIndex == -1) //static block
                 {
                     var obj2 = Instantiate(greenQuad, blackQuadContainer);
                     obj2.transform.localPosition = newPos / 32;
@@ -144,10 +155,6 @@ public class SceneGenerator : MonoBehaviour
         var mainCharIconObj = Instantiate(mainCharIcon, blackQuadContainer);
         mainCharIconObj.transform.localPosition = mainChar.transform.position / 32;
 
-
-
-        //var index2 = mainCharPos.x - bounds.x + (mainCharPos.y - bounds.y) * bounds.size.x;
-        //saveManager.Map[index2] = ;
     }
 
     private void GenerateMap()
@@ -161,7 +168,8 @@ public class SceneGenerator : MonoBehaviour
                 float spawnX = bounds.position.x + 0.5f + x;
                 float spawnY = bounds.position.y + 0.5f + y;
                 Vector2 newPos = new Vector2(spawnX, spawnY);
-                var mapIndex = saveManager.Map[index]/10;
+                //var mapIndex = saveManager.Map[index]/10;
+                var mapIndex = saveManager.Map[index];
 
 
                 if (element.ElementAtOrDefault(mapIndex) == null)
@@ -169,14 +177,18 @@ public class SceneGenerator : MonoBehaviour
                     continue;
                 }
 
-                var gameObject = Instantiate(element[mapIndex], newPos, Quaternion.identity, sceneContainer);
-                var mapValue = saveManager.Map[index];
-                var crackIndex = GetRemainderOfDivision(mapValue);
-                if (crackIndex > 0)
-                {
-                    gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = SpriteData.Instance.cracks[crackIndex - 1];
-                    gameObject.GetComponent<IHitableBlock>().CrackCount = (byte)crackIndex;
-                }
+                var gameObj = Instantiate(element[mapIndex], newPos, Quaternion.identity, sceneContainer);
+                var groundIndex = saveManager.Map[index] / 100;
+                if(saveManager.Map[index] % 100 == 0 || groundIndex == 0) continue;
+
+                gameObj.GetComponent<SpriteRenderer>().sprite = SpriteData.Instance.grounds[groundIndex - 1];
+                gameObj.GetComponent<BaseGroundBlock>().MinPickLvl = (byte)(groundIndex - 1);
+                //var crackIndex = GetRemainderOfDivision(mapValue);
+                //if (crackIndex > 0)
+                //{
+                //    gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = SpriteData.Instance.cracks[crackIndex - 1];
+                //    gameObject.GetComponent<IHitableBlock>().CrackCount = (byte)crackIndex;
+                //}
             }
         }
     }
@@ -191,16 +203,16 @@ public class SceneGenerator : MonoBehaviour
         }
     }
 
-    private int GetRemainderOfDivision(int val)
-    {
-        if (val < 100)
-        {
-            return val % 10;
-        }
-        if (val < 1000)
-        {
-            return (val % 100) % 10;
-        }
-        return 0;
-    }
+    //private int GetRemainderOfDivision(int val)
+    //{
+    //    if (val < 100)
+    //    {
+    //        return val % 10;
+    //    }
+    //    if (val < 1000)
+    //    {
+    //        return (val % 100) % 10;
+    //    }
+    //    return 0;
+    //}
 }

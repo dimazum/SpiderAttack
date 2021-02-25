@@ -11,7 +11,7 @@ public enum EVENT_TYPE
     EnableAllButtons,
     DisableAllButtons,
     GateUp, //buy Pick Button
-    SuperBomb, //buy Pick Button
+    SuperBomb,
     StartTeleport,
     FinishTeleport,
     SetLadder,
@@ -35,7 +35,8 @@ public enum EVENT_TYPE
     TrebSpoonLimit,
     TrebShot,
     TrebCharge,
-    TrebSetup,// end of spoon move
+    TrebSetup,
+    BallHitTarget,
 
     //Spider
     SpiderMeleeAttackGate,
@@ -61,6 +62,8 @@ public enum EVENT_TYPE
     CharacterEnterSecondFloor,
     CharacterExitSecondFloor,
     CheckIfCharInVillage,
+    CharMoveToTarget,
+    CharCanvasLeftArrow,
 
     BallistaShot, //start
     BallistaIsCharged,//заряжена
@@ -72,14 +75,15 @@ public enum EVENT_TYPE
 
     //UI
     ChangeRating,
+    RatingAdditionUp,
+    MaxRatingAddition,
     ChangeMoney,
     Buy,
     NotEnoughMoney,
 
     //Thougts
-    FullBackpack,
     NeedNextPick,
+    NeedNextBackpack,
 
-
-
+    DynamiteHurtChar
 }

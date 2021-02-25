@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
-public class ArrowItemType : BaseItemType, ICanBeInStock, ISavableOnMap
+public class ArrowItemType : BaseItemType, ICanBeInStock//, ISavableOnMap
 {
     [SerializeField]private int _qtyInStock;
-    [SerializeField] private short _mapIndex;
+    //[SerializeField] private short _mapIndex;
     public ArrowCategory arrowCategory;
 
     public int QtyInStock 
@@ -28,12 +28,12 @@ public class ArrowItemType : BaseItemType, ICanBeInStock, ISavableOnMap
         }
     }
     
-    public short MapIndex
-    {
-        get => _mapIndex;
-        set => _mapIndex = value;
+    //public short MapIndex
+    //{
+    //    get => _mapIndex;
+    //    set => _mapIndex = value;
        
-    }
+    //}
 
     new void Awake()
     {

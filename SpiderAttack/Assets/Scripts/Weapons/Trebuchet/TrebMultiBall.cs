@@ -20,6 +20,9 @@ public class TrebMultiBall : BaseBall
     public int _childCounter;
     private float explosionDelayCounter;
     private EasyObjectPool _easyObjectPool;
+    private bool _dublicationRun;
+
+    public int _hitSpiderCounter;
 
     public int ChildCounter
     {
@@ -31,6 +34,15 @@ public class TrebMultiBall : BaseBall
             {
                 _easyObjectPool.ReturnObjectToPool(gameObject);
                 BackToStartState();
+
+                //if (_hitSpiderCounter > 0)
+                //{
+                //    EventManager.Instance.PostNotification(EVENT_TYPE.BallHitTarget, this);
+                //}
+                if (_hitSpiderCounter == 0)
+                {
+                    EventManager.Instance.PostNotification(EVENT_TYPE.ArrowMissedTarget, this);
+                }
             }
         }
     }
@@ -82,6 +94,7 @@ public class TrebMultiBall : BaseBall
 
                 explosionDelayCounter = explosionDelay;
                 timerIsRunning = false;
+                _dublicationRun = false;
             }
         }
        
@@ -97,15 +110,21 @@ public class TrebMultiBall : BaseBall
 
     private void Duplication()
     {
+        if (_dublicationRun) return;
+        _dublicationRun = true;
+        //_childCounter = 0;
+        _hitSpiderCounter = 0;
         for (int i = 0; i < replicates.Length; i++)
         {
-            replicates[i].GetComponent<SpriteRenderer>().sprite = _bulletSpriteRenderer.sprite;
+            //replicates[i].GetComponent<SpriteRenderer>().sprite = _bulletSpriteRenderer.sprite;
             replicates[i].gameObject.transform.localPosition = vectorZero;
             replicates[i].gameObject.transform.localRotation = quatZero;
 
             replicates[i].StartArrow();
             replicatesRbs[i].AddRelativeForce(directions[i] * speed);
         }
+
+        
     }
 
     public void OnEnable()

@@ -14,6 +14,8 @@ public class ShopPanelController : MonoBehaviour
     private List<PurchaseModel> _purchaseList = new List<PurchaseModel>();
     [SerializeField]
     private Transform openShopBtn;
+    [SerializeField]
+    private GameObject _shopPanel;
 
     public int ProductIndex
     {
@@ -37,6 +39,7 @@ public class ShopPanelController : MonoBehaviour
         if (coll.tag == "player")
         {
             openShopBtn.localPosition = new Vector3(0, 0, -500);
+            _shopPanel.SetActive(false);
         }
     }
 
@@ -95,6 +98,6 @@ public class ShopPanelController : MonoBehaviour
         itemsData.collections2[itemGroupIndex].itemTypes[itemCategoryIndex].Qty++;
         GameStates.Money -= purchase.price;
         EventManager.Instance.PostNotification(EVENT_TYPE.ChangeMoney, this, GameStates.Money);
-        EventManager.Instance.PostNotification(EVENT_TYPE.Buy, this);
+        EventManager.Instance.PostNotification(EVENT_TYPE.Buy, this, purchase);
     }
 }

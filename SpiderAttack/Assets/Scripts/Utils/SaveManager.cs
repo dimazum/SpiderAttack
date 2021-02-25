@@ -13,6 +13,8 @@ public class SaveManager : MonoBehaviour, IListener
     private ES3Settings _settings;
     private Timer _timer;
     public static Dictionary<int, SaveInfo> InventoryItems { get; set; } = new Dictionary<int, SaveInfo>();
+    [SerializeField]
+    private GateUpgradeModel _gateUpgradeModel;
 
     public List<short> Map
     {
@@ -23,6 +25,7 @@ public class SaveManager : MonoBehaviour, IListener
 
     private void Update()
     {
+        //Debug.Log(GameStates.Instance.InCity);
         if (Input.GetKeyDown(KeyCode.R))
         {
             Debug.Log("Clean savings");
@@ -101,6 +104,7 @@ public class SaveManager : MonoBehaviour, IListener
         }
 
     }
+
     private void LoadGame(string path = "SaveGame.es3")
     {
         InventoryItems = EncryptedLoad<Dictionary<int, SaveInfo>>("inventoryItemsDictionary", path, InventoryItems);
@@ -110,9 +114,10 @@ public class SaveManager : MonoBehaviour, IListener
         GameStates.BallLvl = EncryptedLoad<int>("ballLvl", path);
         GameStates.ArrowLvl = EncryptedLoad<int>("arrowLvl", path);
         GameStates.PickLvl = EncryptedLoad<int>("pickLvl", path);
+        GameStates.BackpackLvl = EncryptedLoad<int>("backpackLvl", path);
         GameStates.Money = EncryptedLoad<int>("money", path, 5000);
         GameStates.Round = EncryptedLoad<int>("round", path);
-        GameStates.GateCurrentHP = EncryptedLoad<int>("gateCurrentHp", path, 5000);
+        GameStates.GateCurrentHP = EncryptedLoad<int>("gateCurrentHp", path, _gateUpgradeModel.hp);
 
         if (path == "SaveGame.es3")
         {
@@ -147,6 +152,7 @@ public class SaveManager : MonoBehaviour, IListener
         EncryptedSaveValue("ballLvl", GameStates.BallLvl, path);
         EncryptedSaveValue("arrowLvl", GameStates.ArrowLvl, path);
         EncryptedSaveValue("pickLvl", GameStates.PickLvl, path);
+        EncryptedSaveValue("backpackLvl", GameStates.PickLvl, path);
         EncryptedSaveValue("money", GameStates.Money, path);
         EncryptedSaveValue("round", GameStates.Round, path);
         EncryptedSaveValue("gateCurrentHp", GameStates.GateCurrentHP, path);
@@ -185,12 +191,12 @@ public class SaveManager : MonoBehaviour, IListener
                     float spawnX = bounds.position.x + 0.5f + x;
                     float spawnY = bounds.position.y + 0.5f + y;
                     Vector2 newPos = new Vector2(spawnX, spawnY);
-                    var tileNumberStr = tile.name.Split('_').Last();
+                    var tileNumberStr = tile.name.Split('_')[1];
                     var tileNumberInt = Int32.Parse(tileNumberStr);
 
-                    if (tileNumberInt == 0)//static block in palette
+                    if (tileNumberInt == 2)//static block in palette
                     {
-                        Instantiate(sceneGenerator.element[29], newPos, Quaternion.identity, container);
+                        Instantiate(sceneGenerator.element[2], newPos, Quaternion.identity, container);
                     }
                 }
             }

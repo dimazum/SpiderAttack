@@ -30,13 +30,13 @@ public class SaveHelper : Singleton<SaveHelper>
     {
         var tilePos = tilemap.WorldToCell(position);
         var index = tilePos.x - bounds.x + (tilePos.y - bounds.y) * bounds.size.x;
-        saveManager.Map[index] = -1;
+        saveManager.Map[index] = 1;
     }
 
     public void PutStaticBlockPosition(Vector3 position)
     {
         var tilePos = tilemap.WorldToCell(position);
         var index = tilePos.x - bounds.x + (tilePos.y - bounds.y) * bounds.size.x;
-        saveManager.Map[index] = -2;
+        saveManager.Map[index] = -1;
     }
 }

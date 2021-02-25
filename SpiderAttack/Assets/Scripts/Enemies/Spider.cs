@@ -366,27 +366,35 @@ public abstract class Spider: MonoBehaviour, IListener
                 break;
 
             case EVENT_TYPE.SuperBomb:
-                Debug.Log(Vector2.Distance(transform.position, _spiderAim.position));
-                if (Vector2.Distance(transform.position, _spiderAim.position) > 7)//superbomb range
-                {
-                    return;
-                }
+            {
                 if (Param == null) return;
-                var damageValue = (int) Param;
-                _speed = 0;
+                var superBombParam = (SuperBombParam) Param;
+                //Debug.Log(Vector2.Distance(transform.position, superBombParam.position));
+
+                if (Vector2.Distance(transform.position, superBombParam.position) > 6) //superbomb range
+                {
+                    EventManager.Instance.PostNotification(EVENT_TYPE.ArrowMissedTarget, this);
+                        return;
+                }
+                EventManager.Instance.PostNotification(EVENT_TYPE.BallHitTarget, this);
+
+                    _speed = 0;
                 currentBullet = BulletType.Ball;
                 if (hpSlider != null)
                 {
-                    isDeath = ChangeHp(damageValue);
+                    isDeath = ChangeHp(superBombParam.Damage);
                 }
+
                 if (!isDeath)
                 {
                     var trackEntryHurt = SetAnimation(hurt, false, speedHurt);
                     trackEntryHurt.Complete += AnimHurt_Complete;
                 }
 
-                EventManager.Instance.PostNotification(EVENT_TYPE.SpiderHurt, this, damageValue);
+                EventManager.Instance.PostNotification(EVENT_TYPE.SpiderHurt, this, superBombParam.Damage);
                 break;
+
+            }
 
             case EVENT_TYPE.MainHouseDestroy:
                     SetAnimation(idle, true);

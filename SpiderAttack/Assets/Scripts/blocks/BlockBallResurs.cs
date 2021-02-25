@@ -12,6 +12,7 @@ public class BlockBallResurs : BaseGroundBlock
 
     protected override List<ResourceInfo> GetResourceInfos()
     {
-        throw new System.NotImplementedException();
+        return new List<ResourceInfo>()
+            {new ResourceInfo {ItemGroup = (int) itemGroup, Category = (int) arrowCategory, Qty = 1}};
     }
 }

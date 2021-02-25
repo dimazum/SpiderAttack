@@ -47,23 +47,16 @@ public class CameraController : MonoBehaviour, IListener
 
             case EVENT_TYPE.GameOver:
                 if (GameStates.Instance.IsGameOver) return;
+
+                bool isDeathInCave = Param != null && (bool)Param ;
+
+                if(isDeathInCave) break;
+
                 offset = new Vector3(0, -.2f, -10);
                 _camera.orthographicSize = 2.5f;
                 player = mainHouse;
                 GameStates.Instance.IsGameOver = true;
                 break;
-
-            //case EVENT_TYPE.CharInVillage:
-            //    {
-            //        offset = new Vector3(0, 1.5f, -10);
-            //        break;
-            //    }
-
-            //case EVENT_TYPE.CharInCave:
-            //    {
-            //        offset = new Vector3(0, .6f, -10);
-            //        break;
-            //    }
         }
     }
 

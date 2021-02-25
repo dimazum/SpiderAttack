@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Assets.Scripts.enums;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,14 +17,12 @@ public enum CharState
 public class MoveController : MonoBehaviour, IListener
 {
     private const string Block = "block";
-    private const string Stone = "Stone";  
-    public Text text;
+    //private const string Stone = "Stone";  
     public int count;
-    public int count1;
     private Rigidbody2D rb;
-    private float move;                   //перемещение из инпута
-    public bool richtDirect;         //направление
-    public float speed = 2f;                  //скорость
+    private float move;
+    public bool richtDirect;
+    public float speed = 2f;
     RaycastHit2D hit;
     private float horizontalRayRange = 0.4f;
     private float verticalRayRange = 0.6f;
@@ -35,7 +34,10 @@ public class MoveController : MonoBehaviour, IListener
     public bool blockMove;
     public bool canMove;
     public bool canMoveUp;
-
+    private IHitableBlock _blockGroundDefault;
+    [SerializeField]
+    private Transform _charCanvas;
+    private Vector3 _charCanvasScale = new Vector3(0.01f, 0.01f, 1);
 
 
     //for Android and Editor
@@ -47,7 +49,8 @@ public class MoveController : MonoBehaviour, IListener
     private Collider2D checkLadder;
     private Collider2D checkLadder2;
     public GameObject flashlight;
-    public float testLadderCheck2 = 0.05f;
+    private bool _inMoveToTarget;
+
 
     public CharState State
     {
@@ -81,8 +84,6 @@ public class MoveController : MonoBehaviour, IListener
     {
         fixedJoystick.SnapX = true;
         fixedJoystick.SnapY = true;
-        //EventManager.Instance.AddListener(EVENT_TYPE.OpenShop, this);
-        //EventManager.Instance.AddListener(EVENT_TYPE.CloseShop, this);
         EventManager.Instance.AddListener(EVENT_TYPE.TrebFireButtonDown, this);
         EventManager.Instance.AddListener(EVENT_TYPE.TrebFireButtonUp, this);
         EventManager.Instance.AddListener(EVENT_TYPE.BallistaFireButtonDown, this);
@@ -103,10 +104,11 @@ public class MoveController : MonoBehaviour, IListener
         EventManager.Instance.AddListener(EVENT_TYPE.StartTeleport, this);
         EventManager.Instance.AddListener(EVENT_TYPE.FinishTeleport, this);
         EventManager.Instance.AddListener(EVENT_TYPE.SetLadder, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.DynamiteHurtChar, this);
+        EventManager.Instance.AddListener(EVENT_TYPE.CharMoveToTarget, this);
 
         CheckIfInVillage();
         SetRigidbodyType2D(CheckLadder());
-        //flashlight.SetActive(!);
     }
 
     public void HorizontalFlip(Vector3 vector3)
@@ -124,8 +126,11 @@ public class MoveController : MonoBehaviour, IListener
                 return;
             }
             isLadder = CheckLadder();
-            SetRigidbodyType2D(isLadder); 
+            SetRigidbodyType2D(isLadder);
             move = HorizontalControls();
+
+            //GetRaycastHitAllLayers(Vector2.down, horizontalRayRange);
+            //if (hit.collider == null) return;
 
             isLadderAbove = true;//for staying at ladder
             var directionHit = move > 0 ? Vector2.right : Vector2.left;
@@ -136,7 +141,7 @@ public class MoveController : MonoBehaviour, IListener
                 canMove = false;
                 if (hit.collider.name.Contains(Block))
                 {
-                    State = CharState.Rubilovo;
+                    TryHitBlock();
                 }
             }
             else
@@ -180,16 +185,17 @@ public class MoveController : MonoBehaviour, IListener
             {
                 GetRaycastHit(directionHit, verticalRayRange);
             }
-            
+
             if (hit.collider?.name.Contains(Block) == true)
             {
-                State = CharState.Rubilovo;
+                TryHitBlock();
                 canMoveUp = false;
             }
-            //else if (hit.collider?.name.Contains(Stone) == true)
-            //{
-            //    canMoveUp = false;
-            //}
+
+            else if (move > 0 && hit.collider?.CompareTag("staticBlock") == true)
+            {
+                canMoveUp = false;
+            }
 
             else if (hit.collider == null && isLadder)
             {
@@ -217,11 +223,9 @@ public class MoveController : MonoBehaviour, IListener
 
         else
         {
-
-                SetIdleAnimation();
-
-            }
+            SetIdleAnimation();
         }
+    }
 
     public bool CheckIfInVillage()
     {
@@ -241,7 +245,7 @@ public class MoveController : MonoBehaviour, IListener
     public bool CheckIfNearByCave()
     {
         var pos = transform.position;
-        if (-14.5f < pos.x && pos.x < 30)
+        if (-15.5f < pos.x && pos.x < 30)
         {
             if (-0.5f < transform.position.y && transform.position.y < 10)
             {
@@ -254,21 +258,43 @@ public class MoveController : MonoBehaviour, IListener
     public void GetRaycastHit(Vector2 vector2, float rayRange)
     {
 
-        hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + 0.45f), vector2 , rayRange, 1<<Layer.Blocks | 1<<Layer.Stones | 1 << Layer.Static);
+        hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + 0.45f), vector2 , rayRange, 1<<Layer.Blocks | 1<<Layer.Stones | 1 << Layer.Static | 1 << Layer.GateRight );
         //Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + 0.5f), vector2 , Color.red, rayRange);
 
     }
+
+    //public void GetRaycastHitAllLayers(Vector2 vector2, float rayRange)
+    //{
+    //    hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + 0.45f), vector2, rayRange, ~( 1 << 20));
+    //}
 
     public void Move(float axisRaw, Vector3 vector3)
     {
         Vector2 vector2 = vector3 * axisRaw;
         transform.position = Vector2.MoveTowards(transform.position, (Vector2)transform.position + vector2, speed * Time.deltaTime);
 
-
-           SetWalkAnimation();
-
-        
+        SetWalkAnimation();
     }
+
+
+    private IEnumerator MoveToTarget(Transform objTransform, Vector3 from, Vector3 to)
+    {
+        _inMoveToTarget = true;
+        blockAllMoves = true;
+        var t = 0f;
+        HorizontalFlip(to - objTransform.position);
+        
+        while (t < 1f)
+        {
+            SetWalkAnimation();
+            t += Time.deltaTime;
+            objTransform.position = Vector3.Lerp(from, to, t);
+            yield return null;
+        }
+        _inMoveToTarget = false;
+        blockAllMoves = false;
+    }
+
     private void SetWalkAnimation()
     {
         if (GameStates.Instance.InCity )
@@ -312,12 +338,11 @@ public class MoveController : MonoBehaviour, IListener
 
     public bool CheckLadder()
     {
-        checkLadder = Physics2D.OverlapPoint(new Vector2(transform.position.x, transform.position.y + 0.00f), 1<<Layer.Ladders| 1 << Layer.Static );
+        checkLadder = Physics2D.OverlapPoint(new Vector2(transform.position.x, transform.position.y + 0.00f), 1<<Layer.Ladders| 1 << Layer.Static | 1 << Layer.Teleports);
 
         if (checkLadder != null && checkLadder.CompareTag("stairs"))
         {
-            //{
-            checkLadder2 = Physics2D.OverlapPoint(new Vector2(transform.position.x, transform.position.y + 0.03f), 1 << Layer.Ladders);
+            checkLadder2 = Physics2D.OverlapPoint(new Vector2(transform.position.x, transform.position.y + 0.03f), 1 << Layer.Ladders | 1 << Layer.Teleports);
             if (checkLadder2 == null)//for staying at ladder
             {
                 SetIdleAnimation();
@@ -329,22 +354,32 @@ public class MoveController : MonoBehaviour, IListener
         return false;
     }
 
+    private void TryHitBlock()
+    {
+        _blockGroundDefault = hit.collider?.gameObject.GetComponent<IHitableBlock>();
+        if (_blockGroundDefault == null) return;
+
+        if (_blockGroundDefault.MinPickLvl > GameStates.PickLvl)
+        {
+            EventManager.Instance.PostNotification(EVENT_TYPE.NeedNextPick, this, _blockGroundDefault.MinPickLvl);
+            State = CharState.IdleKirche;
+            return;
+        }
+
+        if (!_blockGroundDefault.IsGround && GameStates.BackpackCurrentQty >= GameStates.BackpackCapacity)
+        {
+            EventManager.Instance.PostNotification(EVENT_TYPE.NeedNextBackpack, this,
+                _blockGroundDefault.MinPickLvl);
+            State = CharState.IdleKirche;
+            return;
+        }
+
+        State = CharState.Rubilovo;
+    }
+
     public void HitBlock()
     {
-        GameObject currentblock = hit.collider?.gameObject;
-        if (currentblock != null)
-        {
-            var blockGroundDefault = currentblock.GetComponent<IHitableBlock>();
-            if (blockGroundDefault.MinPickLvl <= GameStates.PickLvl)
-            {
-                blockGroundDefault?.Hit();
-            }
-            else
-            {
-                EventManager.Instance.PostNotification(EVENT_TYPE.NeedNextPick, this, blockGroundDefault.MinPickLvl);
-            }
-
-        }
+        _blockGroundDefault?.Hit();
     }
 
     void Flip()
@@ -353,6 +388,21 @@ public class MoveController : MonoBehaviour, IListener
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
+        FlipCharCanvas(scale);
+    }
+
+    private void FlipCharCanvas(Vector3 scale)
+    {
+        if (scale.x < 0)
+        {
+            var charCanvasScale = _charCanvasScale;
+            charCanvasScale.x = - 0.01f;
+            _charCanvas.localScale = charCanvasScale;
+        }
+        else
+        {
+            _charCanvas.localScale = _charCanvasScale;
+        }
     }
 
     void OnDrawGizmosSelected()
@@ -369,21 +419,31 @@ public class MoveController : MonoBehaviour, IListener
             case EVENT_TYPE.BallistaCharge:
                 animator.SetBool("WeaponCharge", true);
                 HorizontalFlip(transform.right);
-
+                blockAllMoves = true;
                 break;
 
             case EVENT_TYPE.BallistaFireButtonUp:
                 animator.SetBool("WeaponCharge", false);
+                if (!_inMoveToTarget)
+                {
+                    blockAllMoves = false;
+                }
 
                 break;
+
             case EVENT_TYPE.TrebCharge:
                 animator.SetBool("WeaponCharge", true);
                 HorizontalFlip(transform.right);
+                blockAllMoves = true;
                 break;
 
             case EVENT_TYPE.TrebFireButtonUp:
                 animator.SetBool("WeaponCharge", false);
                 State = CharState.Idle;
+                if (!_inMoveToTarget)
+                {
+                    blockAllMoves = false;
+                }
                 break;
 
             case EVENT_TYPE.BallistaShot:
@@ -496,10 +556,26 @@ public class MoveController : MonoBehaviour, IListener
                     }
                 }
 
+            case EVENT_TYPE.DynamiteHurtChar:
+            {
+                animator.SetBool("Die", true);
+                EventManager.Instance.PostNotification(EVENT_TYPE.GameOver, this, true);
+                    break;
+            }
+
+            case EVENT_TYPE.CharMoveToTarget:
+            {
+                if (Param == null) return;
+                var target = (Vector3)Param;
+                if (_inMoveToTarget == false)
+                {
+                    StartCoroutine(MoveToTarget(gameObject.transform, gameObject.transform.position, target));
+                }
+               
+
+                break;
+            }
+
         }
     }
 }
-
-//когда стреляет может ходить
-//when release the button camera jumps
-

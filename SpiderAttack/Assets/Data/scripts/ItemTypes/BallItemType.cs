@@ -1,7 +1,7 @@
 ﻿
 using UnityEngine;
 
-public class BallItemType : BaseItemType, ICanBeInStock, ISavableOnMap
+public class BallItemType : BaseItemType, ICanBeInStock//, ISavableOnMap
 {
     [SerializeField]
     private int _qtyInStock;
@@ -28,12 +28,12 @@ public class BallItemType : BaseItemType, ICanBeInStock, ISavableOnMap
         }
     }
 
-    [SerializeField] private short _mapIndex;
-    public short MapIndex
-    {
-        get => _mapIndex;
-        set => _mapIndex = value;
-    }
+    //[SerializeField] private short _mapIndex;
+    //public short MapIndex
+    //{
+    //    get => _mapIndex;
+    //    set => _mapIndex = value;
+    //}
 
     new void Awake()
     {

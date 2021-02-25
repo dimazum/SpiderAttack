@@ -15,7 +15,10 @@ namespace Assets.Scripts.Weapons
         public Transform mockGear;
         public GameObject topBelt;
         public GameObject bottomBelt;
+        [SerializeField]
+        private GameObject _stand;
         private Animation _animation;
+        private Animator _standAnimator;
         private float _mockGearSpeed = 70f;
         private float _rodSpeed = .03f;
         private float _spoonSpeed = 10;
@@ -49,6 +52,7 @@ namespace Assets.Scripts.Weapons
 
         void Start()
         {
+            _standAnimator = _stand.GetComponent<Animator>();
             _animation = GetComponent<Animation>();
             BallCategory = BallCategory.BallX1;
             _easyObjectPool = GetComponent<EasyObjectPool>();
@@ -69,7 +73,7 @@ namespace Assets.Scripts.Weapons
             }
             if (!_isCharging && I > 0)
             {
-                I -= 1.5f;
+                I -= 1.25f;
             }
 
             _uiController.trebSliderCharge.fillAmount = I / chargeDuration;
@@ -97,6 +101,7 @@ namespace Assets.Scripts.Weapons
                 _inTrebuchetPlace = true;
             }
         }
+
         private void OnTriggerExit2D(Collider2D collision)
         {
             if (collision.tag == ("player"))
@@ -105,7 +110,6 @@ namespace Assets.Scripts.Weapons
                 _inTrebuchetPlace = false;
             }
         }
-
 
         public void OnEvent(EVENT_TYPE Event_Type, Component Sender, object Param = null)
         {
@@ -120,7 +124,8 @@ namespace Assets.Scripts.Weapons
 
                     if (!GameStates.Instance.inTrebuchetPlace)
                     {
-                        //SetAnimation("TrebPlaceHighlight");
+                        _standAnimator.Play("StandHighlight");
+                        EventManager.Instance.PostNotification(EVENT_TYPE.CharMoveToTarget, this, _stand.transform.position);
                         break;
                     }
 

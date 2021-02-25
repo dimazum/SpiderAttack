@@ -8,6 +8,7 @@
         Ladders,
         Teleports,
         Bombs,
-        Grounds
+        Grounds,
+        Torchs
     }
 }

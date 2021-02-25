@@ -23,7 +23,7 @@ SpriteAtlas:
     platformSettings:
     - serializedVersion: 3
       m_BuildTarget: Android
-      m_MaxTextureSize: 2048
+      m_MaxTextureSize: 1024
       m_ResizeAlgorithm: 0
       m_TextureFormat: 47
       m_TextureCompression: 1
@@ -50,28 +50,38 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 7c106ba20d0a194448eb7972c00910c9, type: 3}
   - {fileID: 21300000, guid: 015a09543b8513242ad7ab65aab17593, type: 3}
   - {fileID: 21300000, guid: 6f413525615ee534880c684d28222ef1, type: 3}
+  - {fileID: 21300000, guid: 6d999e855d0fd8a45870590eed96702f, type: 3}
   - {fileID: 21300000, guid: 4f01e9569f4d45441979d7235f045b2e, type: 3}
+  - {fileID: 21300000, guid: 016a5576143000e4ebda7b4d653a226c, type: 3}
+  - {fileID: 21300000, guid: 4e2217c61a55fe84bbd9c16b188369db, type: 3}
   - {fileID: 21300000, guid: 60bd1e0812cfe9e4d94f739f329cb3ff, type: 3}
   - {fileID: 21300000, guid: 3acdd248da720d34fae50e306a8f2d6e, type: 3}
   - {fileID: 21300000, guid: b15c9cc859400bf4fbca1295f2cd27e4, type: 3}
   - {fileID: 21300000, guid: 790c53f8b1b26324b9e1c460e1e92199, type: 3}
   - {fileID: 21300000, guid: a0c2670989e9b104882cc8a89f52ad6f, type: 3}
+  - {fileID: 21300000, guid: d129fdda58ae1d042bfc739d0b6fc197, type: 3}
+  - {fileID: 21300000, guid: 2374cd3d0e5d2e74797bc921f668f135, type: 3}
   - {fileID: 21300000, guid: a01767fdc7442ae459390b4b3e65e6e1, type: 3}
   - {fileID: 21300000, guid: 11eac73e1c325d24eb255f4b2745e703, type: 3}
-  - {fileID: 21300000, guid: 6b88f1de8be2b0b4dbc178938186c128, type: 3}
+  - {fileID: 21300000, guid: d602431f3e770e443b722ba2c172a24e, type: 3}
   m_PackedSpriteNamesToIndex:
   - head4
   - hand 1
   - head5
   - thigh
+  - backpack1_Char
   - sleeve
+  - backpack2_Char
+  - backpack0_Char
   - head2
   - head1
   - hand 2
   - gerl_web2
   - body
+  - foot1
+  - backpack3_Char
   - head3
   - arm
-  - foot
+  - backpack4_Char
   m_Tag: Character
   m_IsVariant: 0

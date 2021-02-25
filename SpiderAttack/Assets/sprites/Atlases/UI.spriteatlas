@@ -30,8 +30,6 @@ SpriteAtlas:
       enableTightPacking: 0
     variantMultiplier: 1
     packables:
-    - {fileID: 2800000, guid: b40eef7ce1470ed44b50a5459e6f5800, type: 3}
-    - {fileID: 2800000, guid: b40eef7ce1470ed44b50a5459e6f5800, type: 3}
     - {fileID: 2800000, guid: d254aba5a35e84a4f87cca5182e1a3d8, type: 3}
     - {fileID: 2800000, guid: 5e85ca2cdc092934eb12a0a41dec7ee9, type: 3}
     - {fileID: 2800000, guid: 6dd16c0eefe63ea4eb086dae83d95a31, type: 3}
@@ -43,9 +41,7 @@ SpriteAtlas:
     - {fileID: 2800000, guid: 1a4a7022ed87e414b98239d0af89a645, type: 3}
     - {fileID: 2800000, guid: 68bee9ffa8b16d94ba29969f6adfdf20, type: 3}
     - {fileID: 2800000, guid: a2d09249b04d117408b883da64338cb8, type: 3}
-    - {fileID: 2800000, guid: fb1ecded663405648b9398d69f212ad9, type: 3}
     - {fileID: 2800000, guid: 045da2289846c1840bbf949757965fad, type: 3}
-    - {fileID: 2800000, guid: 8c2a3a9940c30e542b46316fa44755d2, type: 3}
     - {fileID: 2800000, guid: 56c0f7c55a9eb0b47990d9ae0cd5b5aa, type: 3}
     - {fileID: 2800000, guid: 777934976ecf42e4d84b47c55a1bd7b2, type: 3}
     - {fileID: 2800000, guid: b0e013f5588a231479c21f4c19e0e8fb, type: 3}
@@ -68,11 +64,8 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 045da2289846c1840bbf949757965fad, type: 3}
   - {fileID: 21300000, guid: 73be9dd861bc7c247b178e69847d4e16, type: 3}
   - {fileID: 21300000, guid: a2d09249b04d117408b883da64338cb8, type: 3}
-  - {fileID: 21300000, guid: 8c2a3a9940c30e542b46316fa44755d2, type: 3}
   - {fileID: 21300000, guid: 48e391c9f3b169442b11a093885bf5b8, type: 3}
   - {fileID: 21300000, guid: 5e85ca2cdc092934eb12a0a41dec7ee9, type: 3}
-  - {fileID: 21300000, guid: b40eef7ce1470ed44b50a5459e6f5800, type: 3}
-  - {fileID: 21300000, guid: fb1ecded663405648b9398d69f212ad9, type: 3}
   - {fileID: 21300000, guid: 6dd16c0eefe63ea4eb086dae83d95a31, type: 3}
   - {fileID: 21300000, guid: b601fe5e059af1d47a98c4f0d7083542, type: 3}
   - {fileID: 21300000, guid: 68bee9ffa8b16d94ba29969f6adfdf20, type: 3}
@@ -90,11 +83,8 @@ SpriteAtlas:
   - Icon1
   - pgYellBg
   - bomb
-  - IconGate
   - BtnNext 1
   - BtnChangeAmmoPB
-  - BtnBackpack 1
-  - gateIcon
   - BtnClose
   - BtnMenu
   - el_05_01

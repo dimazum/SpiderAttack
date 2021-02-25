@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class TrebChildBall : Bullet
 {
-    public TrebMultiBall trebMiltyBall;
+    public TrebMultiBall trebMultyBall;
     public Animation animation;
     public GameObject explosionObj;
     public float explosionDelay = 1f;
@@ -15,7 +15,7 @@ public class TrebChildBall : Bullet
 
     public void StartArrow()
     {
-        Damage = trebMiltyBall.Damage;
+        Damage = trebMultyBall.Damage;
         gameObject.SetActive(true);
         //gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
     }
@@ -26,6 +26,12 @@ public class TrebChildBall : Bullet
         animation.Play();
         timerIsRunning = true;
         gameObject.layer = Layer.Dead;
+
+        if (collision.collider.CompareTag("spider"))
+        {
+            trebMultyBall._hitSpiderCounter++;
+            EventManager.Instance.PostNotification(EVENT_TYPE.BallHitTarget, this);
+        }
     }
 
     void Update()
@@ -55,6 +61,6 @@ public class TrebChildBall : Bullet
         explosionObj.transform.SetParent(gameObject.transform);
         explosionObj.transform.localPosition = vectorZero;
         explosionObj.transform.localRotation = quatZero;
-        trebMiltyBall.ChildCounter++;
+        trebMultyBall.ChildCounter++;
     }
 }

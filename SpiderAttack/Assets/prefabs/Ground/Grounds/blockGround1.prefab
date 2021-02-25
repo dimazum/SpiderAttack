@@ -123,6 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _minPickLvl: 0
+  _isGround: 1
   groundCategory: 0
 --- !u!1 &8224170519186545649
 GameObject:

@@ -21,11 +21,23 @@ public class TrebuchetBullet : BaseBall
     }
     public void OnCollisionEnter2D(Collision2D collision)
     {
+        if(gameObject.layer == Layer.Dead) return; //if double coll
         explosionObj.transform.SetParent(null);
         animation.Play();
         timerIsRunning = true;
-        gameObject.layer = Layer.Dead;
         SpreadDamage();
+        CheckRatingHit(collision);
+        gameObject.layer = Layer.Dead;
+    }
+
+    protected virtual void CheckRatingHit(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("spider"))
+        {
+            EventManager.Instance.PostNotification(EVENT_TYPE.BallHitTarget, this);
+            return;
+        }
+        EventManager.Instance.PostNotification(EVENT_TYPE.ArrowMissedTarget, this);
     }
 
     void Update()

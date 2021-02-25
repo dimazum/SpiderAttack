@@ -1,16 +1,16 @@
 ﻿using UnityEngine;
 
-public class MineralItemType : BaseItemType, ISavableOnMap, ICanBeInStock
+public class MineralItemType : BaseItemType, ICanBeInStock//, ISavableOnMap
 {
     public MineralCategory mineralCategory;
     [SerializeField] private int _qtyInStock;
 
-    [SerializeField] private short _mapIndex;
-    public short MapIndex
-    {
-        get => _mapIndex;
-        set => _mapIndex = value;
-    }
+    //[SerializeField] private short _mapIndex;
+    //public short MapIndex
+    //{
+    //    get => _mapIndex;
+    //    set => _mapIndex = value;
+    //}
     public int QtyInStock
     {
         get => _qtyInStock;

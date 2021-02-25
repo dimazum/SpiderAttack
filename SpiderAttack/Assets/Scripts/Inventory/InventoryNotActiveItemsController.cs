@@ -14,13 +14,12 @@ public class InventoryNotActiveItemsController : MonoBehaviour
     private Transform notActiveCells;
     [SerializeField]
     private List<ItemGroup> notActiveGroup;
-    private List<BaseItemType> notActiveItems;
+    public List<BaseItemType> notActiveItems;
 
     // Start is called before the first frame update
     void Start()
     {
         notActiveItems = new List<BaseItemType>();
-        RenderNotActiveCells();
     }
 
     public void RenderNotActiveCells()
@@ -32,22 +31,11 @@ public class InventoryNotActiveItemsController : MonoBehaviour
 
             foreach (var itemType in col.itemTypes)
             {
-                //if (itemType is ICanBeInStock type)
-                //{
-                //    if (!itemType.endlesQty && (itemType.Qty - type.QtyInStock) > 0)
-                //    {
-                //        notActiveItems.Add(itemType);
-                //    }
-                //}
-                //else
 
-                //{
-                    if(!itemType.endlesQty && itemType.Qty > 0)
-                    {
-                        notActiveItems.Add(itemType);
-                    }
-                    
-                //}
+                if (!itemType.endlesQty && itemType.Qty > 0)
+                {
+                    notActiveItems.Add(itemType);
+                }
             }
         }
 
@@ -59,21 +47,13 @@ public class InventoryNotActiveItemsController : MonoBehaviour
 
         for (int i = 0; i < notActiveCells.childCount && i < notActiveItems.Count; i++)
         {
-            //var qtyInStock = (notActiveItems.ElementAtOrDefault(i) as ICanBeInStock)?.QtyInStock;
-            //var qty = notActiveItems.ElementAtOrDefault(i)?.Qty;
-            //var inventoryQty = qty;
-            //if (qtyInStock.HasValue)
-            //{
-            //    inventoryQty = qty.Value - qtyInStock.Value;
-            //}
 
-            //if (inventoryQty > 0)
-           // {
-                notActiveCells.GetChild(i).GetChild(0).gameObject.SetActive(true);
-                notActiveCells.GetChild(i).GetChild(0).GetComponent<Image>().sprite =
-                    notActiveItems.ElementAtOrDefault(i)?.image;
-                notActiveCells.GetChild(i).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = notActiveItems[i].Qty.ToString();
-            //}
+            notActiveCells.GetChild(i).GetChild(0).gameObject.SetActive(true);
+            notActiveCells.GetChild(i).GetChild(0).GetComponent<Image>().sprite =
+                notActiveItems.ElementAtOrDefault(i)?.image;
+            notActiveCells.GetChild(i).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = notActiveItems[i].Qty.ToString();
+
+            GameStates.BackpackCurrentQty += notActiveItems[i].Qty;
         }
     }
 }

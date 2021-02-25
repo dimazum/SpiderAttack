@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4767803188180578066
+--- !u!1 &2826519204515716068
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,36 +8,36 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8028691418130119793}
-  - component: {fileID: 5852284613921523001}
+  - component: {fileID: 2259143457116947981}
+  - component: {fileID: 6306093218610828999}
   m_Layer: 14
-  m_Name: CenterOfMass
+  m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8028691418130119793
+--- !u!4 &2259143457116947981
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4767803188180578066}
+  m_GameObject: {fileID: 2826519204515716068}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.764, y: 0, z: 0}
+  m_LocalPosition: {x: 0.768, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8184988962315935493}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &5852284613921523001
+--- !u!58 &6306093218610828999
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4767803188180578066}
+  m_GameObject: {fileID: 2826519204515716068}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -46,7 +46,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.14
+  m_Radius: 0.15
 --- !u!1 &8184988962315935498
 GameObject:
   m_ObjectHideFlags: 0
@@ -77,7 +77,7 @@ Transform:
   m_LocalPosition: {x: 0.879, y: -0.017, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 8028691418130119793}
+  - {fileID: 2259143457116947981}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -146,7 +146,7 @@ Rigidbody2D:
   m_Mass: 0.1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0.9
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -167,5 +167,5 @@ MonoBehaviour:
   Damage: 100
   bulletType: 1
   arrowCategory: 0
-  centerOfMass: {fileID: 0}
+  centerOfMass: {fileID: 2259143457116947981}
   ballistaTripleArrow: {fileID: 0}

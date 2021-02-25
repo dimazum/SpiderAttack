@@ -14,7 +14,12 @@ namespace Assets.Scripts.enums
         public const int Ladders = 12;
         public const int BulletStone = 14;
         public const int Spider = 15;
+        public const int SpiderTarget = 16;
         public const int Static = 18;
         public const int SpiderDead = 19;
+        public const int Player = 20;
+        public const int Torch = 21;
+        public const int Teleports = 22;
+        public const int GateRight = 23;
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Timer : MonoBehaviour, IListener
 {
-    private int defaultDayDuration = 600;
+    private readonly int defaultDayDuration = 600;
     private int _sec;
     [SerializeField]
     private TextMeshProUGUI textMinuteTime;
@@ -30,11 +30,12 @@ public class Timer : MonoBehaviour, IListener
     
     void Start()
     {
+        _rounds = FindObjectOfType<Rounds>();
         GameStates.isDay = true;
         EventManager.Instance.AddListener(EVENT_TYPE.StartDay, this);
         EventManager.Instance.AddListener(EVENT_TYPE.StartNight, this);
         EventManager.Instance.AddListener(EVENT_TYPE.ResetTime, this);
-        _rounds = FindObjectOfType<Rounds>();
+        
         if (co != null)
         {
             StopCoroutine(co);
@@ -48,7 +49,7 @@ public class Timer : MonoBehaviour, IListener
         PopulateSeconds();
     }
 
-    void PopulateSeconds()
+    private void PopulateSeconds()
     {
         for (int i = 0; i < 10; i++)
         {
@@ -77,7 +78,7 @@ public class Timer : MonoBehaviour, IListener
     }
 
 
-    public void BuildTime()
+    private void BuildTime()
     {
         var sec = CurrentTime % 60;
         
@@ -126,12 +127,5 @@ public class Timer : MonoBehaviour, IListener
         }
     }
 
-    //public void WaitForNight()
-    //{
-    //    if (CurrentTime > 10)
-    //    {
-    //        CurrentTime = 10;
-    //    }
-    //}
 }
 

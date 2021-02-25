@@ -4,8 +4,7 @@ public abstract class BaseItemType : MonoBehaviour
 {
     [SerializeField] 
     private int _qty;
-    [SerializeField]
-    protected int _id;
+    public int _id;
     public int Qty
     {
         get => _qty;

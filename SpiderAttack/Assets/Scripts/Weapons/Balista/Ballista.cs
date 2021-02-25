@@ -9,9 +9,12 @@ using UnityEngine.UI;
 public class Ballista : MonoBehaviour, IListener, IArrowUsingWeapon
 {
     private Animation _animation;
-    public GameObject arrow;
+    private Animator _standAnimator;
+    //public GameObject arrow;
     public GameObject leftBelt;
     public GameObject rightBelt;
+    [SerializeField]
+    private GameObject _stand;
     public Transform arrowStart;
     private bool _isCharging;
     private bool _inBallistaPlace;
@@ -45,6 +48,7 @@ public class Ballista : MonoBehaviour, IListener, IArrowUsingWeapon
 
     void Start()
     {
+        _standAnimator = _stand.GetComponent<Animator>();
         _animation = GetComponent<Animation>();
         ArrowCategory = ArrowCategory.ArrowX1;
         _easyPool = GetComponent<EasyObjectPool>();
@@ -129,6 +133,8 @@ public class Ballista : MonoBehaviour, IListener, IArrowUsingWeapon
             case EVENT_TYPE.BallistaFireButtonDown:
                 if (!GameStates.Instance.inBallistaPlace)
                 {
+                    _standAnimator.Play("BalistaStandHighlight");
+                    EventManager.Instance.PostNotification(EVENT_TYPE.CharMoveToTarget, this, _stand.transform.position);
                     //SetAnimation("BallistaPlaceHighlight");
                     break;
                 }

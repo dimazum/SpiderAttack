@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Text;
+using Assets.Scripts.Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +16,12 @@ namespace Assets.Scripts.UI
         public TextMeshProUGUI roundText;
         public TextMeshProUGUI winText;
         public TextMeshProUGUI raitingText;
+        [SerializeField]
+        private Color _ratingAdditionTextColor;
+        [SerializeField]
+        private Color _ratingMaxAdditionTextColor;
+        [SerializeField]
+        private TextMeshProUGUI _ratingAdditionText;
         [SerializeField]
         private TextMeshProUGUI moneyText;
         public GameObject spiderSmallImage;
@@ -32,6 +39,7 @@ namespace Assets.Scripts.UI
         {
             roundText.text = $"{GameStates.Round + 1}";
             raitingText.text = GameStates.rating.ToString();
+            _ratingAdditionText.text = "+ 0";
             moneyText.text = GameStates.Money.ToString();
             EventManager.Instance.AddListener(EVENT_TYPE.GameOver, this);
             EventManager.Instance.AddListener(EVENT_TYPE.StartDay, this);
@@ -45,6 +53,8 @@ namespace Assets.Scripts.UI
             EventManager.Instance.AddListener(EVENT_TYPE.ChangeRating, this);
             EventManager.Instance.AddListener(EVENT_TYPE.ChangeMoney, this);
             EventManager.Instance.AddListener(EVENT_TYPE.NotEnoughMoney, this);
+            EventManager.Instance.AddListener(EVENT_TYPE.RatingAdditionUp, this);
+            EventManager.Instance.AddListener(EVENT_TYPE.MaxRatingAddition, this);
             _animator = GetComponent<Animator>();
             _oldMoneyValue = GameStates.Money;
         }
@@ -54,6 +64,7 @@ namespace Assets.Scripts.UI
             switch (Event_Type)
             {
                 case EVENT_TYPE.GameOver:
+                    PanelsController.Instance.PanelsDeactivation(panelGameOver);
                     panelGameOver.SetActive(true);
                     break;
 
@@ -72,18 +83,22 @@ namespace Assets.Scripts.UI
 
                 case EVENT_TYPE.CharacterEnterFirstFloor:
                     _animator.Play("HideButtonsOnBattle");
+                    //_ratingAdditionText.rectTransform.localPosition = new Vector3(_ratingAdditionText.rectTransform.localPosition.x, _ratingAdditionText.rectTransform.localPosition.y, 0);
                     break;
 
                 case EVENT_TYPE.CharacterExitFirstFloor:
                     _animator.Play("ShowButtonsOnBattle");
+                    //_ratingAdditionText.rectTransform.localPosition = new Vector3(_ratingAdditionText.rectTransform.localPosition.x, _ratingAdditionText.rectTransform.localPosition.y, -100000);
                     break;
 
                 case EVENT_TYPE.CharacterEnterSecondFloor:
                     _animator.Play("HideButtonsOnBattle");
+                    //_ratingAdditionText.rectTransform.localPosition = new Vector3(_ratingAdditionText.rectTransform.localPosition.x, _ratingAdditionText.rectTransform.localPosition.y, 0);
                     break;
 
                 case EVENT_TYPE.CharacterExitSecondFloor:
                     _animator.Play("ShowButtonsOnBattle");
+                    //_ratingAdditionText.rectTransform.localPosition = new Vector3(_ratingAdditionText.rectTransform.localPosition.x, _ratingAdditionText.rectTransform.localPosition.y, -100000);
                     break;
 
                 case EVENT_TYPE.StartTeleport:
@@ -106,6 +121,20 @@ namespace Assets.Scripts.UI
                         raitingText.text = GameStates.rating.ToString();
                         break;
                     }
+
+                case EVENT_TYPE.RatingAdditionUp:
+                {
+                    if (Param == null) return;
+                    _ratingAdditionText.text = $"+ {Param}";
+                    _ratingAdditionText.color = _ratingAdditionTextColor;
+                    break;
+                }
+
+                case EVENT_TYPE.MaxRatingAddition:
+                {
+                    _ratingAdditionText.color = _ratingMaxAdditionTextColor;
+                    break;
+                }
 
                 case EVENT_TYPE.ChangeMoney:
                     {

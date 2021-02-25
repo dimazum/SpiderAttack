@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BallistaChildArrow : BalistaArrow
 {
-    public BallistaMultiArrow ballistaTripleArrow;
+    public BallistaMultiArrow ballistaMultiArrow;
     private Vector3 vectorZero = new Vector3(0, 0, 0);
     private Quaternion quatZero = new Quaternion(0, 0, 0, 0);
 
@@ -13,9 +13,10 @@ public class BallistaChildArrow : BalistaArrow
         gameObject.SetActive(false);
         if (collision.collider.CompareTag("spider"))
         {
-            ballistaTripleArrow._hitSpiderCounter++;
+            ballistaMultiArrow._hitSpiderCounter++;
+            EventManager.Instance.PostNotification(EVENT_TYPE.ArrowHitTarget, this);
         }
-        ballistaTripleArrow.ChildCounter++;
+        ballistaMultiArrow.ChildCounter++;
         
     }
 

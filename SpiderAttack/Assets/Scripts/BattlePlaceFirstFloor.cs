@@ -35,7 +35,6 @@ namespace Assets.Scripts
         void Start()
         {
             EventManager.Instance.AddListener(EVENT_TYPE.TrebShot, this);
-            //EventManager.Instance.AddListener(EVENT_TYPE.GameOver, this);
         }
 
         public void OnTriggerEnter2D(Collider2D coll)
@@ -43,7 +42,6 @@ namespace Assets.Scripts
             if (coll.tag == "player")
             {
                 EventManager.Instance.PostNotification(EVENT_TYPE.CharacterEnterFirstFloor, this);
-                //cameraController.index = screen;
                 animator.Play("SecondBatlePlaceDisappear");
                 cameraController.offset = new Vector3(5f , 1.5f, -10); //offset first floor
                 Transition = 3;
@@ -147,12 +145,6 @@ namespace Assets.Scripts
                         Transition = 1;
                         break;
                     }
-
-                //case EVENT_TYPE.GameOver:
-                //    {
-                //        Transition = 4;
-                //        break;
-                //    }
             }
         }
     }

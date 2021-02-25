@@ -11,13 +11,16 @@ public class ActionController : MonoBehaviour
     [SerializeField]
     private GameObject ladder;
     [SerializeField]
+    private GameObject _torch;
+    [SerializeField]
     private GameObject bomb;
     private Transform sceneContainer;
     [SerializeField]
     private Transform _camera;
     private float teleportTime = 2.5f;
     private Coroutine teleportCo;
-    private int _layerMaskBomb = 1 << Layer.Blocks | 1 << Layer.Ladders | 1 << Layer.Stones;
+    private const int LayerMaskDefault = 1 << Layer.Blocks | 1 << Layer.Ladders | 1 << Layer.Stones | 1 << Layer.Torch;
+
     private bool isTeleporting;
 
     private void Start()
@@ -40,15 +43,49 @@ public class ActionController : MonoBehaviour
         float posY = Mathf.Round(transform.position.y) + 0.5f;
         Vector2 pos = new Vector2(posX, posY);
 
-        Collider2D check = Physics2D.OverlapPoint(new Vector2(transform.position.x, transform.position.y + 0.5f), 1 << Layer.Ladders);
+        Collider2D check = Physics2D.OverlapPoint(new Vector2(transform.position.x, transform.position.y + 0.5f), 1 << Layer.Ladders | 1<< Layer.Torch);
 
         if (check == null) //если место свободно, проверяем не на воздухе ли ставим лестницу
         {
-            if (Physics2D.Raycast(pos, Vector2.down, 1f, _layerMaskBomb).collider != null)//стреляем вниз
+            if (Physics2D.Raycast(pos, Vector2.down, 1f, LayerMaskDefault).collider != null)//стреляем вниз
             {
                 Instantiate(ladder, pos, Quaternion.identity, sceneContainer); //если ничего не нашли внизу не пусто, то ставим лестницу
                 EventManager.Instance.PostNotification(EVENT_TYPE.SetLadder, this);
                 SaveHelper.Instance.PutObjecPosition(pos, ItemGroup.Ladders);
+                _inventoryController.UseItem();
+            }
+        }
+        else
+        {
+            Debug.Log("Место занято, не могу поставить лестницу! Стоит: ");
+        }
+    }
+
+    public void SetTorch()
+    {
+        float posX;
+        if (transform.position.x > 0)
+        {
+            posX = (int)transform.position.x + 0.5f;
+        }
+        else
+        {
+            posX = (int)transform.position.x - 0.5f;
+        }
+
+        float posY = Mathf.Round(transform.position.y) + 0.5f;
+        Vector2 pos = new Vector2(posX, posY);
+
+        Collider2D check = Physics2D.OverlapPoint(new Vector2(transform.position.x, transform.position.y + 0.5f), 1 << Layer.Ladders | 1 << Layer.Torch);
+
+        if (check == null) //если место свободно, проверяем не на воздухе ли ставим лестницу
+        {
+            
+            if (Physics2D.Raycast(pos, Vector2.down, 1f, LayerMaskDefault).collider != null)//стреляем вниз
+            {
+                Instantiate(_torch, pos, Quaternion.identity, sceneContainer); //если ничего не нашли внизу не пусто, то ставим лестницу
+                //EventManager.Instance.PostNotification(EVENT_TYPE.SetLadder, this);
+                SaveHelper.Instance.PutObjecPosition(pos, ItemGroup.Torchs);
                 _inventoryController.UseItem();
             }
         }
@@ -87,8 +124,6 @@ public class ActionController : MonoBehaviour
         {
             posX =  (int)transform.position.x + (index* 0.5f) - 0.3f;
         }
-       
-
 
         float posY = Mathf.Round(transform.position.y) + 0.3f;
         Vector2 pos = new Vector2(posX, posY);
@@ -98,7 +133,7 @@ public class ActionController : MonoBehaviour
 
         if (check == null) //если место свободно, проверяем не на воздухе ли ставим лестницу
         {
-            if (Physics2D.Raycast(pos, Vector2.down, 1f, _layerMaskBomb).collider != null)//стреляем вниз
+            if (Physics2D.Raycast(pos, Vector2.down, 1f, LayerMaskDefault).collider != null)//стреляем вниз
             {
                 var bombObj = Instantiate(bomb, pos, Quaternion.identity, sceneContainer);
 
@@ -127,24 +162,56 @@ public class ActionController : MonoBehaviour
     private IEnumerator BombDestroy( Vector2 mousePos, GameObject bomb, Vector2 explosionDir)
     {
         yield return new WaitForSeconds(2.7f);
-        var block = Physics2D.Raycast(mousePos, -explosionDir, 1f, _layerMaskBomb).collider?.gameObject;
-        
-        if (block != null) {
-           block.GetComponent<ICheckFallingObj>().CheckMoveDownObject();
-           SaveHelper.Instance.DeleteObjecFromPosition(block.transform.position);
-           Destroy(block);
-           
-        }
+        RightBombWave(mousePos,  explosionDir);
+        LeftBombWave(mousePos,  explosionDir);
+        CenterBombWave(mousePos);
 
-        var block2 = Physics2D.OverlapPoint(mousePos, _layerMaskBomb)?.gameObject;
-
-
-        if (block2 != null)
-        {
-            block2.GetComponent<ICheckFallingObj>().CheckMoveDownObject();
-            SaveHelper.Instance.DeleteObjecFromPosition(block2.transform.position);
-            Destroy(block2);
-        }
         Destroy(bomb);
+    }
+
+    private void RightBombWave(Vector2 mousePos, Vector2 explosionDir)
+    {
+        var block = Physics2D.Raycast(mousePos, -explosionDir, 1f, 1 << Layer.Blocks | 1 << Layer.Ladders | 1 << Layer.Stones | 1 << Layer.Player | 1 << Layer.Torch).collider?.gameObject;
+
+        if (block == null) return;
+        if (block.CompareTag("player"))
+        {
+            EventManager.Instance.PostNotification(EVENT_TYPE.DynamiteHurtChar, this);
+            return;
+        }
+
+        if (TryGetComponent<ICheckFallingObj>(out var component))
+        {
+            component.CheckMoveDownObject();
+        }
+
+        SaveHelper.Instance.DeleteObjecFromPosition(block.transform.position);
+        Destroy(block);
+    }
+
+    private void CenterBombWave(Vector2 mousePos)
+    {
+        var block = Physics2D.OverlapPoint(mousePos, 1 << Layer.Blocks | 1 << Layer.Ladders | 1 << Layer.Stones | 1 << Layer.Player | 1 << Layer.Torch)?.gameObject;
+        if (block == null) return;
+
+        if (block.CompareTag("player"))
+        {
+            EventManager.Instance.PostNotification(EVENT_TYPE.DynamiteHurtChar, this);
+            return;
+        }
+
+        block.GetComponent<ICheckFallingObj>().CheckMoveDownObject();
+        SaveHelper.Instance.DeleteObjecFromPosition(block.transform.position);
+        Destroy(block);
+ 
+    }
+
+    private void LeftBombWave(Vector2 mousePos, Vector2 explosionDir)
+    {
+        var block = Physics2D.Raycast(mousePos, explosionDir, .8f, 1 << Layer.Blocks | 1 << Layer.Ladders | 1 << Layer.Stones | 1 << Layer.Player | 1 << Layer.Torch).collider?.gameObject;
+        if (block == null) return;
+        if (!block.CompareTag("player")) return;
+
+        EventManager.Instance.PostNotification(EVENT_TYPE.DynamiteHurtChar, this);
     }
 }

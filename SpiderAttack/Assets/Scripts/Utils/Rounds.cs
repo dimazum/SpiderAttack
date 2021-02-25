@@ -31,11 +31,10 @@ public class Rounds : MonoBehaviour, IListener
 
                 var deathSpider = (GameObject)Param;
                 _enemyList.Remove(deathSpider);
-                if (!_enemyList.Any())
+                if (!_enemyList.Any() && !GameStates.Instance.IsGameOver)
                 {
                     EventManager.Instance.PostNotification(EVENT_TYPE.StartDay,this, GameStates.Round++);
                 }
-
 
                 break;
         }
@@ -49,7 +48,6 @@ public class Rounds : MonoBehaviour, IListener
             _enemyList.Add(enemy);
             yield return new WaitForSeconds(.5f);
         }
-       
     }
 }
 
